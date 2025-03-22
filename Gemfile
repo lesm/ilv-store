@@ -34,8 +34,8 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
   gem 'letter_opener'
+  gem 'web-console'
 end
 
 group :test do

@@ -8,3 +8,8 @@ require: rubocop-packaging
 
 Style/Documentation:
   Enabled: false
+
+# Rails rubocop configuration
+Rails/DynamicFindBy:
+  Exclude:
+    - app/controllers/passwords_controller.rb
