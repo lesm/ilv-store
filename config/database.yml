@@ -82,8 +82,8 @@ production:
   primary: &primary_production
     <<: *default
     database: ilv_store_production
-    username: ilv_store
-    password: <%= ENV["ILV_STORE_DATABASE_PASSWORD"] %>
+    password: <%= ENV["POSTGRES_PASSWORD"] %>
+    host: <%= ENV["DB_HOST"] %>
   cache:
     <<: *primary_production
     database: ilv_store_production_cache

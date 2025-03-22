@@ -1,0 +1,4 @@
+CREATE DATABASE ilv_store_production;
+CREATE DATABASE ilv_store_production_cache;
+CREATE DATABASE ilv_store_production_queue;
+CREATE DATABASE ilv_store_production_cable;
