@@ -4,6 +4,7 @@ plugins:
   - rubocop-rails
   - rubocop-thread_safety
   - rubocop-packaging
+  - rubocop-factory_bot
 
 Style/Documentation:
   Enabled: false
