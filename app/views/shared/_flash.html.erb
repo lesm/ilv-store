@@ -1,5 +1,5 @@
 <% flash.each do |type, message| %>
-  <div id="toast-default" class="flash flash-<%= type %> slide-down flex items-center w-full max-w-xs p-4 text-primary-700 bg-primary-100 border border-primary-400 rounded-lg shadow-sm dark:text-primary-400 dark:bg-primary-800 fixed bottom-5 right-5" role="alert" data-controller="flash">
+  <div class="flash flash-<%= type %> slide-down flex items-center w-full max-w-xs p-4 text-primary-700 bg-primary-100 border border-primary-400 rounded-lg shadow-sm dark:text-primary-400 dark:bg-primary-800 fixed bottom-5 right-5" role="alert" data-controller="flash">
       <div class="ms-3 text-sm font-normal"><%= message %></div>
       <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-primary-100 text-primary-700 hover:text-primary-900 rounded-lg focus:ring-2 focus:ring-primary-300 p-1.5 hover:bg-primary-300 inline-flex items-center justify-center h-8 w-8 dark:text-primary-500 dark:hover:text-white dark:bg-primary-800 dark:hover:bg-primary-700" data-dismiss-target="#toast-default" aria-label="Close" data-action="click->flash#close">
           <span class="sr-only">Close</span>
