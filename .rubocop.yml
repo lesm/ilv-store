@@ -12,7 +12,6 @@ Metrics/BlockLength:
   Exclude:
     - config/environments/production.rb
 
-
 # Rails rubocop configuration
 Rails/DynamicFindBy:
   Exclude:
