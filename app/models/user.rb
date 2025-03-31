@@ -3,7 +3,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  hoas_one :cart, dependent: :destroy
+  has_one :cart, dependent: :destroy
   has_many :sessions, dependent: :destroy
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
