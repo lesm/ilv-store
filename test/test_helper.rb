@@ -5,6 +5,14 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/spec'
 
+Dir[Rails.root.join('test/support/**/*.rb')].each { |file| require file }
+
+module ActionDispatch
+  class IntegrationTest
+    include ::Integration::SessionHelper
+  end
+end
+
 module ActiveSupport
   class TestCase
     extend Minitest::Spec::DSL
