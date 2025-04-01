@@ -13,7 +13,7 @@ module Carts
 
     describe '#create' do
       test 'returns success response' do
-        post cart_items_url, params: { product_id: product.id }
+        post cart_items_url(format: :turbo_stream), params: { product_id: product.id }
 
         assert_response :success
       end
@@ -30,7 +30,7 @@ module Carts
       let(:item) { cart.items.create(product:) }
 
       test 'returns success response' do
-        delete cart_item_url(id: item.id)
+        delete cart_item_url(id: item.id, format: :turbo_stream)
 
         assert_response :success
       end
