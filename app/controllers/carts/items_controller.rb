@@ -6,13 +6,23 @@ module Carts
       cart = current_cart
       product = Product.find(params[:product_id])
 
-      cart.items.create(product: product, quantity: 1)
+      @item = cart.items.create(product: product, quantity: 1)
+
+      respond_to do |format|
+        format.html { redirect_to cart_path, notice: 'Item added to cart' }
+        format.turbo_stream
+      end
     end
 
     def destroy
       cart = current_cart
-      item = cart.items.find(params[:id])
-      item.destroy
+      @item = cart.items.find(params[:id])
+      @item.destroy
+
+      respond_to do |format|
+        format.html { redirect_to cart_path, notice: 'Item removed from cart' }
+        format.turbo_stream
+      end
     end
 
     private

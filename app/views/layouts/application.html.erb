@@ -25,6 +25,7 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render "shared/flash" %>
+    <%= turbo_stream_from(current_cart) if current_user %>
 
     <%= yield %>
   </body>
