@@ -12,5 +12,6 @@ class Cart < ApplicationRecord
 
   def broadcast_total_items
     broadcast_update_to(self, target: "total_items_cart_#{id}", partial: 'carts/total_items')
+    broadcast_update_to(self, target: "total_items_drawer_cart_#{id}", partial: 'carts/total_items_drawer')
   end
 end
