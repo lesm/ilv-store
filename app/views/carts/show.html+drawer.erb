@@ -1,6 +1,17 @@
-<%= render 'drawer', title: "#{current_cart.items.size} Item(s) in the cart" do %>
-  <div id='cart-items'>
-    <%= render partial: 'carts/item', collection: current_cart.items %>
+<%= render 'drawer' do %>
+  <div class="px-4 sm:px-6 inline-flex items-center rounded-lg justify-center p-2 text-sm font-medium leading-none text-primary-800 dark:text-white">
+    <svg class="w-5 h-5 lg:me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+    </svg>
+    <h2 id="<%= dom_id(current_cart, :total_items_drawer) %>" class="text-base font-semibold text-primary-900" id="slide-over-title">
+      <%= render 'carts/total_items_drawer' %>
+    </h2>
   </div>
-  <a href="#" title="" class="mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-800 dark:focus:ring-primary-800" role="button"> Proceed to Checkout </a>
+
+  <div class="relative mt-6 flex-1 px-4 sm:px-6">
+    <div id='cart-items'>
+      <%= render partial: 'carts/item', collection: current_cart.items %>
+    </div>
+    <a href="#" title="" class="mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-800 dark:focus:ring-primary-800" role="button"> Proceed to Checkout </a>
+  </div>
 <% end %>
