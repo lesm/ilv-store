@@ -1,1 +1,1 @@
-<%= "#{pluralize(current_cart.items.count, 'Item')} in the cart" %>
+Subtotal (<%= pluralize(current_cart.items.size, 'product') %>) <%= number_to_currency(current_cart.items.sum(&:price)) %>
