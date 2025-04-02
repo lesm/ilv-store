@@ -13,13 +13,13 @@
     Qty: <%= item.quantity %>
   </p>
 
-  <%= button_to cart_item_path(item), class: 'text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-800', method: :delete, data: { tooltip_target: "tooltipRemoveItem#{item.id}" } do %>
+  <%= button_to cart_item_path(item), class: 'text-primary-500 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-600', method: :delete, data: { tooltip_target: "tooltipRemoveItem#{item.id}" } do %>
     <span class="sr-only"> Remove </span>
     <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
       <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd" />
     </svg>
   <% end %>
-  <div id="<%= "tooltipRemoveItem#{item.id}" %>" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-primary-800">
+  <div id="<%= "tooltipRemoveItem#{item.id}" %>" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-primary-700">
     Remove item
     <div class="tooltip-arrow" data-popper-arrow></div>
   </div>
