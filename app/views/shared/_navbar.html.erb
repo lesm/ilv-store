@@ -3,15 +3,15 @@
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-8">
         <div class="shrink-0">
-          <a href="#" title="" class="">
+          <%= link_to root_path do %>
             <%= image_tag 'ilv-logo.png', class: 'block w-auto h-8 dark:hidden'  %>
             <%= image_tag 'ilv-logo.png', class: 'hidden w-auto h-8 dark:block'  %>
-          </a>
+          <% end %>
         </div>
 
         <ul class="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
           <li>
-            <%= link_to 'Home', root_path, class: "flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800" %>
+            <%= link_to 'Products', root_path, class: "flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800" %>
           </li>
           <li class="shrink-0">
             <a href="#" title="" class="flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800">
@@ -64,7 +64,7 @@
           </button>
         <% else %>
           <div class="flex items-center gap-3">
-            <ul class="hidden lg:flex items-center justify-start space-x-1 gap-3 md:gap-3 py-3 sm:justify-center">
+            <ul class="flex flex-row items-center justify-start space-x-1 gap-3 md:gap-3 py-3 sm:justify-center">
               <li>
                 <%= link_to 'Sign In', new_session_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800' %>
               </li>
@@ -111,7 +111,7 @@
     <div id="ecommerce-navbar-menu-1" class="bg-primary-50 dark:bg-primary-700 dark:border-primary-600 border border-primary-200 rounded-lg py-3 hidden px-4 mt-4">
       <ul class="text-primary-900 text-sm font-medium dark:text-white space-y-3">
         <li>
-          <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Home</a>
+          <%= link_to 'Products', root_path, class: "hover:text-primary-700 dark:hover:text-primary-500" %>
         </li>
         <li>
           <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Best Sellers</a>
