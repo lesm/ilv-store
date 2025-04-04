@@ -233,6 +233,8 @@ GEM
     memory_profiler (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.5)
+    mocha (2.7.1)
+      ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
     net-imap (0.5.6)
       date
@@ -385,6 +387,7 @@ GEM
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     ruby_parser (3.21.1)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
@@ -513,6 +516,7 @@ DEPENDENCIES
   kamal
   letter_opener
   memory_profiler
+  mocha
   ordinare
   pg (~> 1.1)
   propshaft

@@ -22,7 +22,7 @@ Rails.application.configure do
 
   # Show full error reports.
   config.consider_all_requests_local = true
-  config.cache_store = :null_store
+  config.cache_store = :memory_store
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
@@ -40,6 +40,11 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: 'example.com' }
+
+  config.action_mailer.default_options = {
+    from: 'mail@mail.com',
+    reply_to: 'mail@mail.com'
+  }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
