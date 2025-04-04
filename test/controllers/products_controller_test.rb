@@ -3,7 +3,11 @@
 require 'test_helper'
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  describe '#index' do
+    test 'returns success response' do
+      get products_url
+
+      assert_response :success
+    end
+  end
 end

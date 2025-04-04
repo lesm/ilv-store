@@ -2,8 +2,12 @@
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
+require 'simplecov'
 require 'rails/test_help'
 require 'minitest/spec'
+require 'mocha/minitest'
+
+SimpleCov.start 'rails'
 
 Dir[Rails.root.join('test/support/**/*.rb')].each { |file| require file }
 
