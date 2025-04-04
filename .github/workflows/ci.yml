@@ -54,6 +54,7 @@ jobs:
         run: bin/rubocop -f github
 
   test:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     services:
@@ -99,3 +100,10 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+      - name: Simplecov coverage
+        uses: joshmfrankel/simplecov-check-action@main
+        with:
+          minimum_suite_coverage: 100
+          coverage_path: coverage/.last_run.json
+          github_token: ${{ secrets.GITHUB_TOKEN }}
