@@ -54,6 +54,7 @@ jobs:
         run: bin/rubocop -f github
 
   test:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     services:
