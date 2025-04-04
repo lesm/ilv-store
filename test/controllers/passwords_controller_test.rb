@@ -40,10 +40,10 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
     end
 
     describe 'with invalid params' do
-      test 'does not delivery an email with password reset instructions' do
-        post passwords_url(token:), params: invalid_params
+      test 'does not deliver an email with password reset instructions' do
+        PasswordsMailer.expects(:reset).with(user).never
 
-        assert_equal(0, user.sessions.count)
+        post passwords_url(token:), params: invalid_params
       end
 
       test 'returns redirect response' do
