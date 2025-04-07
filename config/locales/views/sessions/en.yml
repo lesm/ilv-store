@@ -1,0 +1,12 @@
+en:
+  sessions:
+    new:
+      title: Sign in
+      email: Email
+      placeholder_email: mail@mail.com
+      password: Password
+      placeholder_password: Enter your password
+      submit: Sign in
+      forgot_password: Forgot your password?
+      dont_have_account: Don't have an account yet?
+      link_to_signup: Sign up
