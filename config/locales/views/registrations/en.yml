@@ -7,4 +7,4 @@ en:
       password: Password
       password_confirmation: Password confirmation
       submit: Sign up
-      forgot_password: Forgot your password?
+      link_to_sign_in: Already have an account?
