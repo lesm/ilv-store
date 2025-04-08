@@ -3,9 +3,9 @@ es:
     new:
       title: Iniciar sesión
       email: Correo electrónico
-      placeholder_email: correo@mail.com
+      email_placeholder: correo@mail.com
       password: Contraseña
-      placeholder_password: Introduce tu contraseña
+      password_placeholder: Introduce tu contraseña
       submit: Iniciar sesión
       forgot_password: ¿Olvidaste tu contraseña?
       dont_have_account: ¿No tienes una cuenta?

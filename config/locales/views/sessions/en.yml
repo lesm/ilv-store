@@ -3,9 +3,9 @@ en:
     new:
       title: Sign in
       email: Email
-      placeholder_email: mail@mail.com
+      email_placeholder: mail@mail.com
       password: Password
-      placeholder_password: Enter your password
+      password_placeholder: Enter your password
       submit: Sign in
       forgot_password: Forgot your password?
       dont_have_account: Don't have an account yet?

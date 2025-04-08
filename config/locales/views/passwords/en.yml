@@ -1,0 +1,7 @@
+en:
+  passwords:
+    new:
+      title: Forgot your password?
+      email: Email
+      email_placeholder: mail@mail.com
+      submit: Password reset instructions
