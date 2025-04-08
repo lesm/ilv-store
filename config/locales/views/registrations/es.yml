@@ -1,0 +1,10 @@
+es:
+  registrations:
+    new:
+      title: Registrarse
+      email: Correo electrónico
+      email_placeholder: correo@mail.com
+      password: Contraseña
+      password_confirmation: Confirmar contraseña
+      submit: Registrarse
+      forgot_password: ¿Olvidaste tu contraseña?
