@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Carts
   class ItemsControllerTest < ActionDispatch::IntegrationTest
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :with_cart) }
     let(:product) { create(:product) }
 
     before do
@@ -23,11 +23,24 @@ module Carts
 
         assert_equal(1, user.cart.items.count)
       end
+
+      test 'increases quantity of an existing item' do
+        item = user.cart.items.create(product:, quantity: 1)
+
+        post cart_items_url, params: { product_id: product.id }
+
+        assert_equal(2, item.reload.quantity)
+      end
+
+      test 'appends the new cart item' do
+        post cart_items_url(format: :turbo_stream), params: { product_id: product.id }
+
+        assert_select 'turbo-stream[action="append"]', count: 1
+      end
     end
 
     describe '#destroy' do
-      let(:cart) { create(:cart, user:) }
-      let(:item) { cart.items.create(product:) }
+      let(:item) { user.cart.items.create(product:) }
 
       test 'returns success response' do
         delete cart_item_url(id: item.id, format: :turbo_stream)

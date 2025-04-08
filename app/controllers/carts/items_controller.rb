@@ -6,7 +6,9 @@ module Carts
       cart = current_cart
       product = Product.find(params[:product_id])
 
-      @item = cart.items.create(product: product, quantity: 1)
+      @item = cart.items.find_by(product:) || cart.items.new(product:)
+      @item.increment(:quantity) if @item.persisted?
+      @item.save
 
       respond_to do |format|
         format.html { redirect_to cart_path, notice: 'Item added to cart' }
