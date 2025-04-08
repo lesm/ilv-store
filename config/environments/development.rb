@@ -36,6 +36,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
+  config.action_mailer.default_options = {
+    from: 'silmar.vim@gmail.com',
+    reply_to: 'silmar.vim@gmail.com'
+  }
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
@@ -61,7 +66,7 @@ Rails.application.configure do
   config.active_job.verbose_enqueue_logs = true
 
   # Raises error for missing translations.
-  # config.i18n.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true

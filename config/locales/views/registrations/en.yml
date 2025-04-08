@@ -1,0 +1,10 @@
+en:
+  registrations:
+    new:
+      title: Sign up
+      email: Email
+      email_placeholder: mail@mail.com
+      password: Password
+      password_confirmation: Password confirmation
+      submit: Sign up
+      link_to_sign_in: Already have an account?

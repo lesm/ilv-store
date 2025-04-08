@@ -1,0 +1,9 @@
+es:
+  shared:
+    navbar:
+      link_to_products: Productos
+      link_to_physical: Físicos
+      link_to_digital: Digitales
+      link_to_free: Gratuitos
+      link_to_signin: Iniciar sesión
+      link_to_signup: Registrarse

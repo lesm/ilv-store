@@ -1,0 +1,7 @@
+es:
+  passwords:
+    new:
+      title: ¿Olvidaste tu contraseña?
+      email: Correo electrónico
+      email_placeholder: correo@mail.com
+      submit: Recibir instrcciones

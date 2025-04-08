@@ -1,0 +1,12 @@
+es:
+  sessions:
+    new:
+      title: Iniciar sesión
+      email: Correo electrónico
+      email_placeholder: correo@mail.com
+      password: Contraseña
+      password_placeholder: Introduce tu contraseña
+      submit: Iniciar sesión
+      forgot_password: ¿Olvidaste tu contraseña?
+      dont_have_account: ¿No tienes una cuenta?
+      link_to_signup: Regístrate
