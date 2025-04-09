@@ -6,4 +6,8 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
   end
+
+  trait :with_cart do
+    cart { association(:cart) }
+  end
 end

@@ -91,6 +91,7 @@
             </div>
 
             <a href="#" class="text-lg font-semibold leading-tight text-primary-900 hover:underline dark:text-white"><%= product.name  %></a>
+            <p class="text-2xl font-extrabold leading-tight text-primary-900 dark:text-white"><%= number_to_currency(product.price) %></p>
 
             <div class="mt-2 flex items-center gap-2">
               <div class="flex items-center">
@@ -135,14 +136,33 @@
               </li>
             </ul>
 
-            <div class="mt-4 flex items-center justify-between gap-4">
-              <p class="text-2xl font-extrabold leading-tight text-primary-900 dark:text-white"><%= product.price %></p>
+            <div class="mt-4 flex gap-4" data-controller="products--form-quantity">
+              <%= form_with scope: :cart_item, url: cart_items_path(product_id: product.id) do |f| %>
+                <label class="block mb-2 text-sm font-medium text-primary-900 dark:text-white">
+                  <%= t('.choose_quantity') %>
+                </label>
+                <div class="flex gap-2">
+                  <div class="relative flex items-center">
+                    <button type="button" class="bg-primary-100 dark:bg-primary-700 dark:hover:bg-primary-600 dark:border-primary-600 hover:bg-primary-200 border border-primary-300 rounded-s-lg p-3 h-11 focus:ring-primary-100 dark:focus:ring-primary-700 focus:ring-2 focus:outline-none" data-action="click->products--form-quantity#decrement">
+                      <svg class="w-3 h-3 text-primary-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                      </svg>
+                    </button>
 
-              <%= button_to cart_items_path(product_id: product.id), method: :post, class: 'inline-flex items-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-800 dark:focus:ring-primary-800 cursor-pointer' do %>
-                <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
-                </svg>
-                  <%= t('.add_to_cart') %>
+                    <%= f.text_field :quantity, class: 'bg-primary-50 border border-primary-300 h-11 text-center text-primary-900 text-sm focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 block w-full py-2.5 dark:bg-primary-700 dark:border-primary-600 dark:placeholder-primary-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500', placeholder: '999', required: true, value: 1, data: { action: 'input->products--form-quantity#restrictToNumbers', products__form_quantity_target: 'input' } %>
+                    <button type="button" class="bg-primary-100 dark:bg-primary-700 dark:hover:bg-primary-600 dark:border-primary-600 hover:bg-primary-200 border border-primary-300 rounded-e-lg p-3 h-11 focus:ring-primary-100 dark:focus:ring-primary-700 focus:ring-2 focus:outline-none" data-action="click->products--form-quantity#increment">
+                      <svg class="w-3 h-3 text-primary-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <%= f.button nil, class: 'inline-flex shrink-0 items-center rounded-lg bg-primary-600 px-3.5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-800 dark:focus:ring-primary-800 cursor-pointer' do %>
+                    <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+                    </svg>
+                    <%= t('.add_to_cart') %>
+                  <% end %>
+                </div>
               <% end %>
             </div>
           </div>
