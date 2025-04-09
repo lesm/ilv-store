@@ -4,8 +4,12 @@ export default class extends Controller {
   static targets = ['input'];
 
   restrictToNumbers(event) {
-    const onlyDigits = event.target.value.replace(/\D|0/g, "")
-    event.target.value = onlyDigits
+    const onlyDigits = event.target.value.replace(/\D/g, "")
+    if (onlyDigits == '0') {
+      event.target.value = ''
+    } else {
+      event.target.value = onlyDigits
+    }
   }
 
   increment(event) {
