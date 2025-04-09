@@ -12,14 +12,18 @@ module Carts
     end
 
     describe '#create' do
-      test 'returns success response' do
-        post cart_items_url(format: :turbo_stream), params: { product_id: product.id }
+      let(:params) do
+        { product_id: product.id, cart_item: { quantity: 1 } }
+      end
 
-        assert_response :success
+      test 'returns success response' do
+        post(cart_items_url(format: :turbo_stream), params:)
+
+        assert_response(:success)
       end
 
       test 'adds an item to the cart' do
-        post cart_items_url, params: { product_id: product.id }
+        post(cart_items_url, params:)
 
         assert_equal(1, user.cart.items.count)
       end
@@ -27,13 +31,13 @@ module Carts
       test 'increases quantity of an existing item' do
         item = user.cart.items.create(product:, quantity: 1)
 
-        post cart_items_url, params: { product_id: product.id }
+        post cart_items_url, params: { product_id: product.id, cart_item: { quantity: 2 } }
 
-        assert_equal(2, item.reload.quantity)
+        assert_equal(3, item.reload.quantity)
       end
 
       test 'appends the new cart item' do
-        post cart_items_url(format: :turbo_stream), params: { product_id: product.id }
+        post(cart_items_url(format: :turbo_stream), params:)
 
         assert_select 'turbo-stream[action="append"]', count: 1
       end
