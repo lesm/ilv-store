@@ -1,0 +1,9 @@
+es:
+  carts:
+    total_items_drawer:
+      product:
+        zero: 0 productos
+        one: 1 producto
+        other: '%{count} productos'
+    show:
+      link_to_checkout: Proceder al pago
