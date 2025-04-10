@@ -1,9 +1,7 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
-    connect() {
-    // Check for saved theme in localStorage
-    console.log('connected');
+  connect() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -12,11 +10,9 @@ export default class extends Controller {
     }
   }
 
-  toggle() {
-    console.log('click toggle');
+  switch() {
     document.documentElement.classList.toggle('dark');
 
-    // Save the theme preference in localStorage
     if (document.documentElement.classList.contains('dark')) {
       localStorage.setItem('theme', 'dark');
     } else {

@@ -1,5 +1,5 @@
-<nav class="bg-white dark:bg-primary-600 antialiased" >
-  <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4">
+<nav class="bg-white dark:bg-primary-600 antialiased">
+  <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4" data-controller="navbar--menu-collapse">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-8">
         <div class="shrink-0">
@@ -47,15 +47,28 @@
             </svg>
           <% end %>
 
-          <button id="userDropdownButton1" data-dropdown-toggle="userDropdown1" type="button" class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-900 dark:text-white">
-            <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-            </svg>
-            <%= t('.link_to_account') %>
-            <svg class="w-4 h-4 text-primary-900 dark:text-white ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
-            </svg>
-          </button>
+          <div class="relative" data-controller="navbar--account-dropdown">
+            <button data-action="click->navbar--account-dropdown#toggle click@window->navbar--account-dropdown#outsideClick" type="button" class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-900 dark:text-white">
+              <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+              <%= t('.link_to_account') %>
+              <svg class="w-4 h-4 text-primary-900 dark:text-white ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <div class="absolute hidden right-0 z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-primary-600 dark:bg-primary-700" data-navbar--account-dropdown-target="dropdown">
+              <ul class="p-2 text-start text-sm font-medium text-primary-900 dark:text-white">
+                <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"><%= t('.link_to_orders') %></a></li>
+                <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"><%= t('.link_to_delivery_address') %></a></li>
+              </ul>
+
+              <div class="p-2 text-sm font-medium text-primary-900 dark:text-white">
+                <%= link_to t('.link_to_signout'), session_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600', data: { turbo_method: :delete }  %>
+              </div>
+            </div>
+          </div>
         <% else %>
           <div class="flex items-center">
             <ul class="flex flex-row items-center justify-start space-x-1 gap-1 md:gap-3 py-3 sm:justify-center">
@@ -70,24 +83,13 @@
           </div>
         <% end %>
 
-        <div class="pl-2" data-controller="theme">
-          <button id="theme-toggle" data-action="click->theme#toggle" class="p-2 text-white bg-primary-300 hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-800 rounded cursor-pointer">
+        <div class="pl-2" data-controller="navbar--theme">
+          <button id="theme-toggle" data-action="click->navbar--theme#switch" class="p-2 text-white bg-primary-300 hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-800 rounded cursor-pointer">
             <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-11a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v2a1 1 0 0 0 1 1Zm0 12a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1ZM4.343 5.757a1 1 0 0 0 1.414-1.414L4.343 2.929a1 1 0 0 0-1.414 1.414l1.414 1.414Zm11.314 8.486a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM4 10a1 1 0 0 0-1-1H1a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1Zm15-1h-2a1 1 0 1 0 0 2h2a1 1 0 0 0 0-2ZM4.343 14.243l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a1 1 0 0 0-1.414-1.414ZM14.95 6.05a1 1 0 0 0 .707-.293l1.414-1.414a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 .707 1.707Z"></path></svg>
           </button>
         </div>
 
-        <div id="userDropdown1" class="hidden z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-primary-600 dark:bg-primary-700">
-          <ul class="p-2 text-start text-sm font-medium text-primary-900 dark:text-white">
-            <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"><%= t('.link_to_orders') %></a></li>
-            <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"><%= t('.link_to_delivery_address') %></a></li>
-          </ul>
-
-          <div class="p-2 text-sm font-medium text-primary-900 dark:text-white">
-            <%= link_to t('.link_to_signout'), session_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600', data: { turbo_method: :delete }  %>
-          </div>
-        </div>
-
-        <button type="button" data-collapse-toggle="ecommerce-navbar-menu-1" aria-controls="ecommerce-navbar-menu-1" aria-expanded="false" class="inline-flex lg:hidden items-center justify-center hover:bg-primary-100 rounded-md dark:hover:bg-primary-700 p-1 text-primary-900 dark:text-white">
+        <button type="button" class="inline-flex lg:hidden items-center justify-center hover:bg-primary-100 rounded-md dark:hover:bg-primary-700 p-1 text-primary-900 dark:text-white" data-action="click->navbar--menu-collapse#toggle" aria-controls="ecommerce-navbar-menu-1" aria-expanded="false">
           <span class="sr-only">
             Open Menu
           </span>
@@ -98,7 +100,7 @@
       </div>
     </div>
 
-    <div id="ecommerce-navbar-menu-1" class="bg-primary-50 dark:bg-primary-700 dark:border-primary-600 border border-primary-200 rounded-lg py-3 hidden px-4 mt-4">
+    <div id="ecommerce-navbar-menu-1" class="bg-primary-50 dark:bg-primary-700 dark:border-primary-600 border border-primary-200 rounded-lg py-3 hidden px-4 mt-4" data-navbar--menu-collapse-target="menu">
       <ul class="text-primary-900 text-sm font-medium dark:text-white space-y-3">
         <li>
           <%= link_to t('.link_to_products'), root_path, class: "hover:text-primary-700 dark:hover:text-primary-500" %>

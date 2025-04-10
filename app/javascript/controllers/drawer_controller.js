@@ -1,9 +1,8 @@
-import { Controller } from "@hotwired/stimulus";
-import { enter, leave } from "el-transition";
+import { Controller } from '@hotwired/stimulus';
+import { enter, leave } from 'el-transition';
 
-// Connects to data-controller="drawer"
 export default class extends Controller {
-  static targets = ["backdrop", "panel"];
+  static targets = ['backdrop', 'panel'];
 
   #isEntering;
   #isLeaving;
