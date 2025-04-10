@@ -1,0 +1,9 @@
+en:
+  carts:
+    total_items_drawer:
+      product:
+        zero: 0 products
+        one: 1 product
+        other: '%{count} products'
+    show:
+      link_to_checkout: Proceed to Checkout
