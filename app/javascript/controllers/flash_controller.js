@@ -1,8 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-  static targets = ['flash'];
-
   connect() {
     this.mobileWindow = window.innerWidth <= 767;
 
@@ -13,7 +11,7 @@ export default class extends Controller {
 
     this.timeoutId = setTimeout(() => {
       this.element.remove();
-    }, 8300);
+    }, 3300);
   }
 
   close() {

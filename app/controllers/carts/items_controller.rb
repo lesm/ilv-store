@@ -13,6 +13,8 @@ module Carts
           render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
         end
       end
+
+      broadcast_animate_cart
     end
 
     def update
@@ -35,6 +37,14 @@ module Carts
     end
 
     private
+
+    def broadcast_animate_cart
+      Turbo::StreamsChannel.broadcast_append_to(
+        cart,
+        target: 'animate_cart_target',
+        partial: 'carts/ping_effect_stream', locals: { cart: }
+      )
+    end
 
     def find_or_initialize_cart_item
       product_id = params[:product_id]

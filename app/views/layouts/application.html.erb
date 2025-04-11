@@ -29,7 +29,6 @@
     <%= turbo_stream_from(current_cart) if current_user %>
     <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
 
-
     <%= yield %>
   </body>
 </html>
