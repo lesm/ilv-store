@@ -1,27 +1,45 @@
-<div id="cart-item-<%= item.id %>" class="grid grid-cols-2">
-  <div>
+<div id="cart-item-<%= item.id %>" class="flex flex-col gap-4">
+  <div class="flex">
     <a href="#" class="truncate text-sm font-semibold leading-none text-primary-900 dark:text-white hover:underline">
       <%= item.name %>
     </a>
-    <p class="mt-0.5 truncate text-sm font-normal text-primary-500 dark:text-primary-400">
-    <%= number_to_currency(item.price) %>
-    </p>
   </div>
 
-  <div class="flex items-center justify-end gap-6">
-    <p class="text-sm font-normal leading-none text-primary-500 dark:text-primary-400">
-    Qty: <%= item.quantity %>
-  </p>
+  <div class="flex flex-row justify-around">
+    <div class="flex items-center justify-end gap-6">
+      <%= form_with model: item, data: { controller: 'carts--form-quantity' } do |f| %>
+        <div class="flex items-center">
+          <button type="button" class="shrink-0 bg-primary-100 dark:bg-primary-700 dark:hover:bg-primary-600 dark:border-primary-600 hover:bg-primary-200 inline-flex items-center justify-center border border-primary-300 rounded-md h-5 w-5 focus:ring-primary-100 dark:focus:ring-primary-700 focus:ring-2 focus:outline-none" data-action="click->carts--form-quantity#decrement">
+            <svg class="w-2.5 h-2.5 text-primary-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+            </svg>
+          </button>
+          <%= f.text_field :quantity, class: 'shrink-0 text-primary-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center', value: item.quantity, readonly: true, required: true, data: { carts__form_quantity_target: 'input' } %>
+          <button type="button" class="shrink-0 bg-primary-100 dark:bg-primary-700 dark:hover:bg-primary-600 dark:border-primary-600 hover:bg-primary-200 inline-flex items-center justify-center border border-primary-300 rounded-md h-5 w-5 focus:ring-primary-100 dark:focus:ring-primary-700 focus:ring-2 focus:outline-none" data-action="click->carts--form-quantity#increment">
+            <svg class="w-2.5 h-2.5 text-primary-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+            </svg>
+          </button>
+        </div>
+      <% end %>
+    </div>
 
-  <%= button_to cart_item_path(item), class: 'text-primary-500 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-600', method: :delete, data: { tooltip_target: "tooltipRemoveItem#{item.id}" } do %>
-    <span class="sr-only"> Remove </span>
-    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd" />
-    </svg>
-  <% end %>
-  <div id="<%= "tooltipRemoveItem#{item.id}" %>" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-primary-700">
-    Remove item
-    <div class="tooltip-arrow" data-popper-arrow></div>
+    <div class="flex">
+      <p class="mt-0.5 truncate text-sm font-normal text-primary-500 dark:text-primary-400">
+      <%= number_to_currency(item.price) %>
+      </p>
+    </div>
+
+    <%= button_to cart_item_path(item), class: 'text-primary-500 hover:text-primary-700 dark:text-primary-300 dark:hover:text-primary-600', method: :delete, data: { tooltip_target: "tooltipRemoveItem#{item.id}" } do %>
+      <span class="sr-only"> Remove </span>
+      <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" d="M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z" clip-rule="evenodd" />
+      </svg>
+    <% end %>
+    <div id="<%= "tooltipRemoveItem#{item.id}" %>" role="tooltip" class="tooltip invisible absolute z-10 inline-block rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white opacity-0 shadow-sm transition-opacity duration-300 dark:bg-primary-700">
+      Remove item
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </div>
-  </div>
+  <div class="border-b-2 border-primary-300"></div>
 </div>

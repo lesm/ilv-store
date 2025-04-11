@@ -12,6 +12,15 @@ module Carts
       end
     end
 
+    def update
+      @item = cart.items.find(params[:id])
+      @item.update(quantity: quantity_param)
+
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
+
     def destroy
       @item = cart.items.find(params[:id])
       @item.destroy
