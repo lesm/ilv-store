@@ -1,0 +1,5 @@
+es:
+  carts:
+    items:
+      create:
+        item_added: Agregado al carrito

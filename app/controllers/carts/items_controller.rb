@@ -8,7 +8,10 @@ module Carts
 
       respond_to do |format|
         format.html { redirect_to cart_path, notice: 'Item added to cart' }
-        format.turbo_stream
+        format.turbo_stream do
+          flash.now[:notice] = t('.item_added')
+          render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
+        end
       end
     end
 

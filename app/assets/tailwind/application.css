@@ -101,9 +101,9 @@
 
 .flash {
   @apply opacity-0;
-  animation: fade-in 2s ease-in-out 0.2s,
-             hold-visible 2s ease-in-out 2.2s,
-             slide-down 5s ease-in-out 4.2s forwards;
+  animation: fade-in 0.1s ease-in-out 0.2s,
+             hold-visible 2s ease-in-out 0.3s,
+             slide-down 6s ease-in-out 2.3s forwards;
 }
 
 ::view-transition-old(backdrop) {
