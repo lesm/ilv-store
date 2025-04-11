@@ -43,6 +43,22 @@ module Carts
       end
     end
 
+    describe '#update' do
+      let(:item) { user.cart.items.create(product:, quantity: 1) }
+
+      test 'returns success response' do
+        patch cart_item_url(id: item.id, format: :turbo_stream), params: { cart_item: { quantity: 2 } }
+
+        assert_response(:success)
+      end
+
+      test 'updates the item quantity' do
+        patch cart_item_url(id: item.id), params: { cart_item: { quantity: 2 } }
+
+        assert_equal(2, item.reload.quantity)
+      end
+    end
+
     describe '#destroy' do
       let(:item) { user.cart.items.create(product:) }
 
