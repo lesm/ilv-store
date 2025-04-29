@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resource :cart, only: %i[show] do
       resources :items, only: %i[create update destroy], controller: 'carts/items'
     end
+
+    resource :theme_preference, only: %i[update], controller: 'users/theme_preference'
   end
 
   root 'products#index'
