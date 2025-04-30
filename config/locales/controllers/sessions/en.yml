@@ -1,0 +1,6 @@
+en:
+  sessions:
+    create:
+      success: Welcome back.
+      failure: Try another email address or password.
+

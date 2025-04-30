@@ -1,0 +1,6 @@
+es:
+  sessions:
+    create:
+      success: Bienvenido de nuevo.
+      failure: No se pudo iniciar sesión. Por favor, verifica tus credenciales.
+
