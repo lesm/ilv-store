@@ -22,3 +22,8 @@ en:
       link_to_orders: My orders
       link_to_delivery_address: Delivery addresses
       link_to_signout: Sign out
+    footer:
+      link_to_about: About
+      link_to_terms: Privacy Policy
+      link_to_contact: Contact
+      copyright: © 2025 All rights reserved
