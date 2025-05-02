@@ -6,7 +6,7 @@ class CountryTest < ActiveSupport::TestCase
   let(:country) { create(:country, name: 'México') }
 
   test 'builds a valid country' do
-    assert build(:cart).valid?
+    assert build(:country).valid?
   end
 
   test 'validates unique name' do
