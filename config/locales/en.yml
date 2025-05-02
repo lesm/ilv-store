@@ -27,3 +27,20 @@ en:
       link_to_terms: Privacy Policy
       link_to_contact: Contact
       copyright: © 2025 All rights reserved
+  errors:
+    messages:
+      blank: can not be blank
+      not_exists: does not exist
+      empty: can not be empty
+      equal_to: must be equal to %{count}
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is not valid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      other_than: must be different from %{count}
+      present: must be present
+      required: must exist
+      taken: has already been taken
