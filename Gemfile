@@ -41,6 +41,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'minitest-spec-rails'
   gem 'mocha'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false

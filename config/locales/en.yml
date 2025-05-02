@@ -29,9 +29,9 @@ en:
       copyright: © 2025 All rights reserved
   errors:
     messages:
-      blank: cannot be blank
+      blank: can not be blank
       not_exists: does not exist
-      empty: cannot be empty
+      empty: can not be empty
       equal_to: must be equal to %{count}
       greater_than: must be greater than %{count}
       greater_than_or_equal_to: must be greater than or equal to %{count}
