@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_05_195558) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_05_202400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_195558) do
     t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
+  create_table "country_state_cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.uuid "state_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "state_id"], name: "index_country_state_cities_on_name_and_state_id", unique: true
+    t.index ["state_id"], name: "index_country_state_cities_on_state_id"
+  end
+
   create_table "country_states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
@@ -99,6 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_05_195558) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "country_state_cities", "country_states", column: "state_id"
   add_foreign_key "country_states", "countries"
   add_foreign_key "sessions", "users"
 end
