@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_05_195558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
     t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
+  create_table "country_states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.uuid "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code", "country_id"], name: "index_country_states_on_code_and_country_id", unique: true
+    t.index ["country_id"], name: "index_country_states_on_country_id"
+    t.index ["name", "country_id"], name: "index_country_states_on_name_and_country_id", unique: true
+  end
+
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
@@ -88,5 +99,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "country_states", "countries"
   add_foreign_key "sessions", "users"
 end
