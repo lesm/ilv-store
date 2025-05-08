@@ -6,7 +6,7 @@ export default class extends Controller {
   connect() {
     console.log('Details controller connected');
   }
-  
+
   toggle() {
     this.compactTarget.classList.toggle('hidden')
     this.expandedTarget.classList.toggle('hidden')

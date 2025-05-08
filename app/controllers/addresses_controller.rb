@@ -7,18 +7,19 @@ class AddressesController < ApplicationController
 
   def new
     request.variant = :drawer
-    @address = Address.new
+    @address = MexicanAddress.new
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @address = MexicanAddress.new(address_params)
     @address.user = current_user
 
     if @address.save
-      redirect_to addresses_path, notice: t('.success')
+      flash[:notice] = t('.success')
+      render turbo_stream: turbo_stream.action(:redirect, addresses_path)
     else
       flash.now[:alert] = @address.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
     end
   end
 
@@ -26,7 +27,7 @@ class AddressesController < ApplicationController
 
   def address_params
     params.expect(
-      address: %i[
+      mexican_address: %i[
         country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number
       ]
     )

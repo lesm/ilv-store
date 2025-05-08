@@ -43,7 +43,8 @@ class MexicanAddressTest < ActiveSupport::TestCase
 
   describe '#short_summary' do
     test 'returns a summary of the address' do
-      expected_summary = "#{mx_address.neighborhood}, #{mx_address.postal_code}, #{mx_address.city.name}, #{mx_address.state.name}"
+      expected_summary = "#{mx_address.neighborhood}, #{mx_address.postal_code}," \
+                         " #{mx_address.city.name}, #{mx_address.state.name}"
       assert_equal expected_summary, mx_address.short_summary
     end
   end
