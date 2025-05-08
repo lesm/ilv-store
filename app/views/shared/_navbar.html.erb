@@ -62,7 +62,7 @@
             <div class="absolute hidden right-0 z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-primary-600 dark:bg-primary-700" data-navbar--account-dropdown-target="dropdown">
               <ul class="p-2 text-start text-sm font-medium text-primary-900 dark:text-white">
                 <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"><%= t('.link_to_orders') %></a></li>
-                <li><a href="#" title="" class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600"><%= t('.link_to_delivery_address') %></a></li>
+                <li><%= link_to t('.link_to_addresses'), addresses_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600' %></li>
               </ul>
 
               <div class="p-2 text-sm font-medium text-primary-900 dark:text-white">

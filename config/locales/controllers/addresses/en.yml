@@ -1,0 +1,5 @@
+en:
+  addresses:
+    create:
+      success: Address created successfully.
+

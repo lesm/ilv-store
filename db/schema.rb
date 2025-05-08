@@ -27,6 +27,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_06_043334) do
     t.uuid "state_id", null: false
     t.uuid "city_id", null: false
     t.string "neighborhood"
+    t.string "full_name", null: false
+    t.string "phone_number"
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
     t.index ["state_id"], name: "index_addresses_on_state_id"

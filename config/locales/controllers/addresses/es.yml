@@ -1,0 +1,4 @@
+es:
+  addresses:
+    create:
+      success: Dirección creada con éxito.

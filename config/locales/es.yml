@@ -9,7 +9,7 @@ es:
       link_to_signup: Registrarse
       link_to_account: Cuenta
       link_to_orders: Mis pedidos
-      link_to_delivery_address: Direcciónes de entrega
+      link_to_addresses: Direcciónes
       link_to_signout: Cerrar sesión
     footer:
       link_to_about: Acerca de
