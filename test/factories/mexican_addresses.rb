@@ -10,6 +10,7 @@ FactoryBot.define do
     neighborhood { 'Centro' }
     street_level1 { 'Callejón Donají s/n' }
     street_level2 { nil }
+    full_name { 'Luis Silva' }
     postal_code { '70760' }
     reference { 'Portón blanco' }
   end

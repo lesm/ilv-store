@@ -8,12 +8,12 @@ class Address < ApplicationRecord
 
   normalizes :street_level1, with: ->(value) { value.capitalize }
 
-  validates :postal_code, :full_name, presence: true
+  validates :postal_code, :full_name, :street_level1, presence: true
 
   delegate :name, to: :state, prefix: true
   delegate :name, to: :city, prefix: true
 
-  def abreviation_address
+  def short_summary
     "#{neighborhood}, #{postal_code}, #{city.name}, #{state.name}"
   end
 end

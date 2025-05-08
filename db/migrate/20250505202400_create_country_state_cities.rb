@@ -6,7 +6,7 @@ class CreateCountryStateCities < ActiveRecord::Migration[8.0]
       t.string :name, null: false
       t.references :state, null: false, type: :uuid, foreign_key: { to_table: :country_states }
 
-      t.index [:name, :state_id], unique: true
+      t.index %i[name state_id], unique: true
 
       t.timestamps
     end

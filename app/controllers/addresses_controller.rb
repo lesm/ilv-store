@@ -2,6 +2,7 @@
 
 class AddressesController < ApplicationController
   def index
+    @addresses = current_user.addresses
   end
 
   def new
@@ -24,6 +25,10 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.expect(address: %i[country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number])
+    params.expect(
+      address: %i[
+        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number
+      ]
+    )
   end
 end

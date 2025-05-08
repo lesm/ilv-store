@@ -40,5 +40,4 @@ class Country < ApplicationRecord
     { name: 'Yucatán', code: 'YUC' },
     { name: 'Zacatecas', code: 'ZAC' }
   ].freeze
-
 end

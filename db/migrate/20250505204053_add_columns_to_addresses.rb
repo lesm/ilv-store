@@ -1,25 +1,15 @@
 # frozen_string_literal: true
 
 class AddColumnsToAddresses < ActiveRecord::Migration[8.0]
-  def up
-    remove_column :addresses, :area_level1
-    remove_column :addresses, :area_level2
-
-    add_reference :addresses, :state, null: false, type: :uuid, foreign_key: { to_table: :country_states }
-    add_reference :addresses, :city, null: false, type: :uuid, foreign_key: { to_table: :country_state_cities }
-    add_column :addresses, :neighborhood, :string
-    add_column :addresses, :full_name, :string, null: false
-    add_column :addresses, :phone_number, :string
-  end
-
-  def down
-    remove_reference :addresses, :state, type: :uuid
-    remove_reference :addresses, :city, type: :uuid
-    remove_column :addresses, :neighborhood
-    remove_column :addresses, :full_name
-    remove_column :addresses, :phone_number
-
-    add_column :addresses, :area_level1, :string
-    add_column :addresses, :area_level2, :string
+  def change
+    change_table :addresses, bulk: true do |t|
+      t.remove :area_level1, type: :string
+      t.remove :area_level2, type: :string
+      t.references :state, null: false, type: :uuid, foreign_key: { to_table: :country_states }
+      t.references :city, null: false, type: :uuid, foreign_key: { to_table: :country_state_cities }
+      t.string :neighborhood
+      t.string :full_name, null: false
+      t.string :phone_number
+    end
   end
 end

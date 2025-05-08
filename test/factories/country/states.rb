@@ -8,7 +8,7 @@ FactoryBot.define do
   end
 
   trait :oaxaca do
-    name { 'Oaxaca de Juárez' }
+    name { 'Oaxaca' }
     code { 'OAX' }
     country { association(:country, name: 'México', code: 'MX') }
   end

@@ -8,7 +8,7 @@ class CreateMxPostalCodes < ActiveRecord::Migration[8.0]
       t.string :postal_code
       t.string :neighborhood
 
-      t.index [:postal_code, :neighborhood], unique: true
+      t.index %i[postal_code neighborhood], unique: true
 
       t.timestamps
     end

@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
-class Country::StateTest < ActiveSupport::TestCase
+class Country
+  class StateTest < ActiveSupport::TestCase
+  end
 end

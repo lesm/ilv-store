@@ -5,4 +5,9 @@ FactoryBot.define do
     sequence(:name) { |n| "Oaxaca #{n}" }
     state { association(:country_state, :oaxaca) }
   end
+
+  trait :oaxaca_de_juarez do
+    name { 'Oaxaca de Juárez' }
+    state { association(:country_state, :oaxaca) }
+  end
 end

@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
-class Country::State::CityTest < ActiveSupport::TestCase
+class Country
+  class State
+    class CityTest < ActiveSupport::TestCase
+    end
+  end
 end

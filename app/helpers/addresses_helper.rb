@@ -14,7 +14,7 @@ module AddressesHelper
   end
 
   def default_state
-    Country::State.find_by(name: 'Aguascalientes')
+    Country::State.find_by(name: 'Oaxaca')
   end
 
   def select_cities_options
@@ -22,7 +22,6 @@ module AddressesHelper
   end
 
   def default_city
-    Country::State::City.find_by(name: 'San José de Gracia')
+    Country::State::City.find_by(name: 'Oaxaca de Juárez')
   end
 end
-
