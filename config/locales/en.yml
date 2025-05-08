@@ -20,7 +20,7 @@ en:
       link_to_signup: Sign up
       link_to_account: Account
       link_to_orders: My orders
-      link_to_delivery_address: Delivery addresses
+      link_to_addresses: Addresses
       link_to_signout: Sign out
     footer:
       link_to_about: About

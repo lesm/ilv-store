@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :passwords, only: %i[new create edit update], param: :token
 
     resources :products
+    resources :addresses
 
     resource :cart, only: %i[show] do
       resources :items, only: %i[create update destroy], controller: 'carts/items'

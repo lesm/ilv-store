@@ -3,6 +3,17 @@
 class Address < ApplicationRecord
   belongs_to :user
   belongs_to :country
+  belongs_to :state, class_name: 'Country::State'
+  belongs_to :city, class_name: 'Country::State::City'
 
-  validates :area_level1, :area_level2, :street_level1, :postal_code, presence: true
+  normalizes :street_level1, with: ->(value) { value.capitalize }
+
+  validates :postal_code, :full_name, :street_level1, presence: true
+
+  delegate :name, to: :state, prefix: true
+  delegate :name, to: :city, prefix: true
+
+  def short_summary
+    "#{neighborhood}, #{postal_code}, #{city.name}, #{state.name}"
+  end
 end

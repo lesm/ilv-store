@@ -1,0 +1,90 @@
+<% content_for :turbo_frame_content do %>
+    <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
+<% end %>
+
+<section>
+  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+      <div class="max-w-md p-4 border-3 border-dashed rounded-lg shadow-sm bg-white dark:bg-primary-800 border-primary-400 dark:border-primary-700 items-center flex flex-col justify-center"
+        data-controller="addresses--details">
+
+        <%= link_to new_address_path, class: 'mt-3 text-xl text-primary-600 hover:underline items-center flex flex-col justify-center cursor-pointer', data: { turbo_frame: :drawer } do %>
+          <svg class="w-6 h-6 text-primary-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+          </svg>
+          Agregar dirección
+        <% end %>
+      </div>
+
+      <% @addresses.each do |address| %>
+        <div class="max-w-md p-4 border rounded-lg shadow-sm bg-white dark:bg-primary-800 border-primary-200 dark:border-primary-700"
+          data-controller="addresses--details">
+
+          <!-- Compact View (Default) -->
+          <div data-addresses--details-target="compact">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100 dark:bg-primary-700">
+                🇲🇽 MX
+              </span>
+              <h3 class="font-medium"><%= address.full_name %></h3>
+            </div>
+
+            <div class="text-sm text-primary-600 dark:text-primary-300 space-y-1">
+              <p class="line-clamp-1"><%= address.street_and_number %></p>
+              <p><%= address.short_summary  %></p>
+            </div>
+
+            <button class="mt-3 text-xs text-primary-600 hover:underline"
+              data-action="click->addresses--details#toggle">
+              <%= t('.show_more') %>
+            </button>
+          </div>
+
+          <!-- Expanded View (Hidden by default) -->
+          <div data-addresses--details-target="expanded" class="hidden">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100 dark:bg-primary-700">
+                🇲🇽 MX
+              </span>
+              <h3 class="font-medium"><%= address.full_name %></h3>
+            </div>
+
+            <div class="text-sm space-y-2">
+              <div>
+                <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.street_and_number') %></p>
+                <p><%= address.street_and_number %></p>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.state') %></p>
+                  <p><%= address.state_name %></p>
+                </div>
+                <div>
+                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.city') %></p>
+                  <p><%= address.city_name %></p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.neighborhood') %></p>
+                  <p><%= address.neighborhood %></p>
+                </div>
+                <div>
+                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.postal_code') %></p>
+                  <p><%= address.postal_code %></p>
+                </div>
+              </div>
+            </div>
+
+            <button class="mt-3 text-xs text-primary-600 hover:underline"
+              data-action="click->addresses--details#toggle">
+              <%= t('.show_less') %>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

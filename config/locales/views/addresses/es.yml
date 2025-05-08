@@ -1,0 +1,24 @@
+es:
+  addresses:
+    new:
+      new: Nueva dirección
+      create: Crear dirección
+      contact_info: Información de contacto
+      country: 'País'
+      postal_code: 'Código postal'
+      state: 'Estado'
+      city: 'Ciudad'
+      neighborhood: 'Colonia'
+      street_and_number: 'Calle y número'
+      reference: 'Referencia'
+      full_name: 'Nombre completo'
+      phone_number: 'Número de teléfono'
+    index:
+      show_more: Mostrar más
+      show_less: Mostrar menos
+      street_and_number: 'Calle y número'
+      postal_code: 'Código postal'
+      state: 'Estado'
+      city: 'Ciudad'
+      neighborhood: 'Colonia'
+      reference: 'Referencia'

@@ -2,3 +2,4 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "controllers/actions/animate_cart_action"
+import "controllers/actions/redirect_action"

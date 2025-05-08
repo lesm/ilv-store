@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_06_043334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -18,15 +18,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
     t.uuid "user_id", null: false
     t.uuid "country_id", null: false
     t.string "type", null: false
-    t.string "area_level1"
-    t.string "area_level2"
     t.string "street_level1"
     t.string "street_level2"
     t.string "postal_code", null: false
     t.string "reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "state_id", null: false
+    t.uuid "city_id", null: false
+    t.string "neighborhood"
+    t.string "full_name", null: false
+    t.string "phone_number"
+    t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
+    t.index ["state_id"], name: "index_addresses_on_state_id"
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
@@ -57,6 +62,38 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
     t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
+  create_table "country_state_cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.uuid "state_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "state_id"], name: "index_country_state_cities_on_name_and_state_id", unique: true
+    t.index ["state_id"], name: "index_country_state_cities_on_state_id"
+  end
+
+  create_table "country_states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.uuid "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code", "country_id"], name: "index_country_states_on_code_and_country_id", unique: true
+    t.index ["country_id"], name: "index_country_states_on_country_id"
+    t.index ["name", "country_id"], name: "index_country_states_on_name_and_country_id", unique: true
+  end
+
+  create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "state_id", null: false
+    t.uuid "city_id", null: false
+    t.string "postal_code"
+    t.string "neighborhood"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_mx_postal_codes_on_city_id"
+    t.index ["postal_code", "neighborhood"], name: "index_mx_postal_codes_on_postal_code_and_neighborhood", unique: true
+    t.index ["state_id"], name: "index_mx_postal_codes_on_state_id"
+  end
+
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
@@ -84,9 +121,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_01_214556) do
   end
 
   add_foreign_key "addresses", "countries"
+  add_foreign_key "addresses", "country_state_cities", column: "city_id"
+  add_foreign_key "addresses", "country_states", column: "state_id"
   add_foreign_key "addresses", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "country_state_cities", "country_states", column: "state_id"
+  add_foreign_key "country_states", "countries"
+  add_foreign_key "mx_postal_codes", "country_state_cities", column: "city_id"
+  add_foreign_key "mx_postal_codes", "country_states", column: "state_id"
   add_foreign_key "sessions", "users"
 end

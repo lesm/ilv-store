@@ -5,10 +5,12 @@ FactoryBot.define do
     user
     country
     type { 'MexicanAddress' }
-    area_level1 { 'Oaxaca de Juárez' }
-    area_level2 { 'Santo Domingo Tehuantepec' }
+    state { association(:country_state, :oaxaca) }
+    city { association(:country_state_city, state: state) }
+    neighborhood { 'Centro' }
     street_level1 { 'Callejón Donají s/n' }
     street_level2 { nil }
+    full_name { 'Luis Silva' }
     postal_code { '70760' }
     reference { 'Portón blanco' }
   end

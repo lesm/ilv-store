@@ -1,0 +1,51 @@
+<%= render 'drawer' do %>
+  <div class="relative mt-6 flex-1 px-4 flex flex-col gap-6 m-2 sm:m-10">
+    <%= form_with(model: @address, url: addresses_path) do |form| %>
+      <h2 class="text-2xl font-bold text-primary-900 dark:text-white mb-4">
+        <%= t('new', scope: 'addresses.new') %>
+      </h2>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.select :country_id, select_country_options, { selected: default_country.id }, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true %>
+        <%= form.label :country_id, t('country', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :postal_code, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true, placeholder: " " %>
+        <%= form.label :postal_code, t('postal_code', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.select :state_id, select_state_options, { selected: default_state.id }, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true %>
+        <%= form.label :state_id, t('state', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.select :city_id, select_cities_options, { selected: default_city.id }, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true %>
+        <%= form.label :city_id, t('city', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :neighborhood, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true, placeholder: " " %>
+        <%= form.label :neighborhood, t('neighborhood', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :street_and_number, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true, placeholder: " " %>
+        <%= form.label :street_and_number, t('street_and_number', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :reference, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', placeholder: " " %>
+        <%= form.label :reference, t('reference', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+
+      <h2 class="text-2xl font-bold text-primary-900 dark:text-white mb-4">
+        <%= t('contact_info', scope: 'addresses.new') %>
+      </h2>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :full_name, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true, placeholder: " " %>
+        <%= form.label :full_name, t('full_name', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :phone_number, class: 'block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none dark:text-white dark:border-primary-600 dark:focus:border-primary-500 focus:outline-none focus:ring-0 focus:border-primary-600 peer', required: true, placeholder: " " %>
+        <%= form.label :phone_number, t('phone_number', scope: 'addresses.new'), class: 'peer-focus:font-medium absolute text-sm text-primary-500 dark:text-primary-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-focus:dark:text-primary-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6' %>
+      </div>
+      <%= form.submit t('create', scope: 'addresses.new'), class: 'mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-700 dark:hover:bg-primary-900 dark:focus:ring-primary-800' %>
+    <% end %>
+  </div>
+<% end %>

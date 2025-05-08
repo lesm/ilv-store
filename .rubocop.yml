@@ -11,6 +11,7 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - config/environments/*.rb
+    - lib/tasks/load_mx_postal_codes.rake
 Metrics/MethodLength:
   Exclude:
     - db/migrate/*.rb
@@ -19,3 +20,9 @@ Metrics/MethodLength:
 Rails/DynamicFindBy:
   Exclude:
     - app/controllers/passwords_controller.rb
+Rails/SkipsModelValidations:
+  Exclude:
+    - lib/tasks/load_mx_postal_codes.rake
+Rails/NotNullColumn:
+  Exclude:
+    - db/migrate/20250505204053_add_columns_to_addresses.rb
