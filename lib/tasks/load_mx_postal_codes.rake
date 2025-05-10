@@ -3,13 +3,15 @@
 namespace :mx_postal_codes do
   desc 'Load MX postal codes from xlsx file'
 
-  task load: :environment do
+  task :load, [:sheet_name] => :environment do |task, args|
     file_path = 'db/files/CPdescargaxls.zip'
     unzip_file_path = "#{Dir.tmpdir}/mx_postal_codes.xls"
 
-    Zip::File.open(file_path) do |zip_file|
-      zip_file.each do |entry|
-        entry.extract(unzip_file_path)
+    unless File.exist?(unzip_file_path)
+      Zip::File.open(file_path) do |zip_file|
+        zip_file.each do |entry|
+          entry.extract(unzip_file_path)
+        end
       end
     end
 
@@ -23,26 +25,22 @@ namespace :mx_postal_codes do
       object[state.name.downcase] = { id: state.id, code: state.code }
     end
 
-    xlsx.sheets.drop(1).each do |sheet_name|
-      puts "Loading postal codes from sheet: #{sheet_name}"
+    puts "Loading postal codes from sheet: #{args[:sheet_name]}"
 
-      parsed_sheet = xlsx.sheet(sheet_name).parse(columns).map do |row|
-        state_id = states[row[:state_name].downcase][:id]
-        city = Country::State::City.find_or_create_by(name: row[:city], state_id:)
+    parsed_sheet = xlsx.sheet(args[:sheet_name]).parse(columns).map do |row|
+      state_id = states[row[:state_name].downcase][:id]
+      city = Country::State::City.find_or_create_by(name: row[:city], state_id:)
 
-        {
-          postal_code: row[:postal_code],
-          state_id:,
-          city_id: city.id,
-          neighborhood: row[:neighborhood]
-        }
-      end
-
-      MxPostalCode.upsert_all(parsed_sheet.uniq, unique_by: %i[postal_code neighborhood])
+      {
+        postal_code: row[:postal_code],
+        state_id:,
+        city_id: city.id,
+        neighborhood: row[:neighborhood]
+      }
     end
 
-    puts 'MX postal codes loaded successfully!'
+    MxPostalCode.upsert_all(parsed_sheet.uniq, unique_by: %i[postal_code neighborhood])
 
-    FileUtils.rm_rf(unzip_file_path)
+    puts 'MX postal codes loaded successfully!'
   end
 end
