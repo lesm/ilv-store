@@ -7,9 +7,11 @@ namespace :mx_postal_codes do
     file_path = 'db/files/CPdescargaxls.zip'
     unzip_file_path = "#{Dir.tmpdir}/mx_postal_codes.xls"
 
-    Zip::File.open(file_path) do |zip_file|
-      zip_file.each do |entry|
-        entry.extract(unzip_file_path)
+    unless File.exist?(unzip_file_path)
+      Zip::File.open(file_path) do |zip_file|
+        zip_file.each do |entry|
+          entry.extract(unzip_file_path)
+        end
       end
     end
 
@@ -38,7 +40,9 @@ namespace :mx_postal_codes do
         }
       end
 
-      MxPostalCode.upsert_all(parsed_sheet.uniq, unique_by: %i[postal_code neighborhood])
+      parsed_sheet.uniq.in_groups_of(100, false) do |group|
+        MxPostalCode.upsert_all(group, unique_by: %i[postal_code neighborhood])
+      end
     end
 
     puts 'MX postal codes loaded successfully!'
