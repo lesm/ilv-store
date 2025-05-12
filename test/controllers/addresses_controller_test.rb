@@ -29,14 +29,18 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     [country, state, city]
   end
 
-  test 'returns a 200 response' do
-    get addresses_url
-    assert_response :success
+  describe '#GET index' do
+    test 'returns a 200 response' do
+      get addresses_url
+      assert_response :success
+    end
   end
 
-  test 'returns a 200 response' do
-    get new_address_url(turbo_frame: 'drawer')
-    assert_response :success
+  describe '#GET new' do
+    test 'returns a 200 response' do
+      get new_address_url(turbo_frame: 'drawer')
+      assert_response :success
+    end
   end
 
   describe '#POST create' do
