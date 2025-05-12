@@ -28,6 +28,6 @@ class SignUpTest < ApplicationSystemTestCase
 
     click_on 'Crear cuenta'
 
-    assert_text 'confirmar contraseña no coincide'
+    assert_text 'Confirmar contraseña no coincide'
   end
 end
