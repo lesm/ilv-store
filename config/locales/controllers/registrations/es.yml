@@ -1,0 +1,4 @@
+es:
+  registrations:
+    create:
+      success: Cuenta creada

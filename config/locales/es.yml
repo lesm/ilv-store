@@ -33,3 +33,4 @@ es:
       present: debe estar presente
       required: debe existir
       taken: ya está en uso
+      confirmation: no coincide

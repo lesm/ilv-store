@@ -1,10 +1,10 @@
 es:
   registrations:
     new:
-      title: Registrarse
+      title: Crear cuenta
       email: Correo electrónico
       email_placeholder: correo@mail.com
       password: Contraseña
       password_confirmation: Confirmar contraseña
-      submit: Registrarse
+      submit: Crear cuenta
       link_to_sign_in: ¿Ya tienes una cuenta?
