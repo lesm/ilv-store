@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import { get } from '@rails/request.js';
 
 export default class extends Controller {
-  static targets = ['postalCode', 'stateId', 'stateName', 'cityId', 'cityName', 'neighborhood']; 
+  static targets = ['postalCode', 'stateId', 'stateName', 'cityId', 'cityName', 'neighborhood'];
 
   restrictToNumbers(event) {
     const onlyDigits = event.target.value.replace(/\D/g, "")
@@ -27,7 +27,7 @@ export default class extends Controller {
       } else if (response.statusCode === 404) {
         const message = `No se encontrarón datos para el código postal ${this.postalCodeTarget.value}`;
         this.createFlashMessage(message);
-      } else if (response.statusCode === 500) { 
+      } else if (response.statusCode === 500) {
         const message = `Error al buscar el código postal ${this.postalCodeTarget.value} intente nuevamente`;
         this.createFlashMessage(message);
       }
