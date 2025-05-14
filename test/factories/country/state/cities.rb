@@ -8,6 +8,6 @@ FactoryBot.define do
 
   trait :oaxaca_de_juarez do
     name { 'Oaxaca de Juárez' }
-    state { association(:country_state, :oaxaca) }
+    state { Country::State.find_or_create_by(name: 'Oaxaca', code: 'OAX') }
   end
 end

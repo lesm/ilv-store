@@ -10,6 +10,6 @@ FactoryBot.define do
   trait :oaxaca do
     name { 'Oaxaca' }
     code { 'OAX' }
-    country { association(:country, name: 'México', code: 'MX') }
+    country { Country.find_or_create_by(name: 'México', code: 'MX') }
   end
 end
