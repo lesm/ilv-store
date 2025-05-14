@@ -7,4 +7,11 @@ FactoryBot.define do
     postal_code { '68_000' }
     neighborhood { 'Centro' }
   end
+
+  trait :oaxaca_centro do
+    state { association(:country_state, :oaxaca) }
+    city { association(:country_state_city, :oaxaca_de_juarez) }
+    postal_code { '68000' }
+    neighborhood { 'Centro' }
+  end
 end

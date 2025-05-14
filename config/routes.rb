@@ -24,5 +24,7 @@ Rails.application.routes.draw do
     resource :theme_preference, only: %i[update], controller: 'users/theme_preference'
   end
 
+  resources :postal_codes, only: %i[index]
+
   root 'products#index'
 end
