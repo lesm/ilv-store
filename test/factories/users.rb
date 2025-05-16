@@ -11,4 +11,10 @@ FactoryBot.define do
   trait :with_cart do
     cart { association(:cart) }
   end
+
+  trait :with_default_address do
+    after(:create) do |user|
+      create(:mexican_address, user: user)
+    end
+  end
 end
