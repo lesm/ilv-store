@@ -1,0 +1,11 @@
+en:
+  checkouts:
+    new:
+      address_to: Ship to
+      product: Product
+      quantity: Quantity
+      price: Price
+      subtotal: Subtotal
+      total: Total
+      make_order_and_pay: Make order and pay
+      change_address: Change

@@ -1,5 +1,13 @@
 ---
 EnableDefaultLinters: true
+exclude:
+  - 'vendor/**/*'
+  - 'tmp/**/*'
+  - 'log/**/*'
+  - 'coverage/**/*'
+  - 'test/**/*'
+  - '.git/**/*'
+  - '.github/**/*'
 linters:
   Rubocop:
     enabled: true

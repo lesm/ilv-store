@@ -11,13 +11,13 @@
               <h1 class="text-xl font-bold leading-tight tracking-tight text-primary-900 md:text-2xl dark:text-white">
                 <%= t('.title') %>
               </h1>
-              <%= form_with url: passwords_path, class: "space-y-4 md:space-y-6" do |form| %>
+              <%= form_with url: passwords_path, class: 'space-y-4 md:space-y-6' do |form| %>
                 <div>
                   <label for="email" class="block mb-2 text-sm font-medium text-primary-900 dark:text-white"><%= t('.email') %></label>
-                  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t('.email_placeholder'), value: params[:email_address], class: "bg-primary-50 border border-primary-300 text-primary-900 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-primary-700 dark:border-primary-600 dark:placeholder-primary-400 dark:text-white dark:focus:ring-white dark:focus:border-white" %>
+                  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: 'username', placeholder: t('.email_placeholder'), value: params[:email_address], class: 'bg-primary-50 border border-primary-300 text-primary-900 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-primary-700 dark:border-primary-600 dark:placeholder-primary-400 dark:text-white dark:focus:ring-white dark:focus:border-white' %>
                 </div>
 
-                <%= form.submit t('.submit'), class: "w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-800" %>
+                <%= form.submit t('.submit'), class: 'w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-800' %>
               <% end %>
           </div>
       </div>

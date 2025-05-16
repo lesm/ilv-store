@@ -1,0 +1,11 @@
+es:
+  checkouts:
+    new:
+      address_to: Enviar a
+      product: Producto
+      quantity: Cantidad
+      price: Precio
+      subtotal: Subtotal
+      total: Total
+      make_order_and_pay: Realizar pedido y pagar
+      change_address: Cambiar
