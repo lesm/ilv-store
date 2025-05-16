@@ -10,7 +10,7 @@
 
         <%= link_to new_address_path, class: 'mt-3 text-xl text-primary-600 hover:underline items-center flex flex-col justify-center cursor-pointer', data: { turbo_frame: :drawer } do %>
           <svg class="w-6 h-6 text-primary-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
           </svg>
           Agregar dirección
         <% end %>
@@ -31,7 +31,7 @@
 
             <div class="text-sm text-primary-600 dark:text-primary-300 space-y-1">
               <p class="line-clamp-1"><%= address.street_and_number %></p>
-              <p><%= address.short_summary  %></p>
+              <p><%= address.short_summary %></p>
             </div>
 
             <button class="mt-3 text-xs text-primary-600 hover:underline"

@@ -4,14 +4,14 @@
       <div class="flex items-center space-x-8">
         <div class="shrink-0">
           <%= link_to root_path do %>
-            <%= image_tag 'ilv-logo.png', class: 'block w-auto h-8 dark:hidden'  %>
-            <%= image_tag 'ilv-logo.png', class: 'hidden w-auto h-8 dark:block'  %>
+            <%= image_tag 'ilv-logo.png', class: 'block w-auto h-8 dark:hidden' %>
+            <%= image_tag 'ilv-logo.png', class: 'hidden w-auto h-8 dark:block' %>
           <% end %>
         </div>
 
         <ul class="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
           <li>
-            <%= link_to t('.link_to_products'), root_path, class: "flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800" %>
+            <%= link_to t('.link_to_products'), root_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800' %>
           </li>
           <li class="shrink-0">
             <a href="#" title="" class="flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800">
@@ -37,25 +37,25 @@
               Cart
             </span>
             <svg class="w-5 h-5 lg:me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
             </svg>
             <div id="animate_cart_target"></div>
             <span id="<%= dom_id(current_cart, :total_items) %>">
               <%= render 'carts/total_items' %>
             </span>
             <svg class="w-4 h-4 text-primary-900 dark:text-white ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
             </svg>
           <% end %>
 
           <div class="relative" data-controller="navbar--account-dropdown">
             <button data-action="click->navbar--account-dropdown#toggle click@window->navbar--account-dropdown#outsideClick" type="button" class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-900 dark:text-white">
               <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
               </svg>
               <%= t('.link_to_account') %>
               <svg class="w-4 h-4 text-primary-900 dark:text-white ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
               </svg>
             </button>
 
@@ -66,7 +66,7 @@
               </ul>
 
               <div class="p-2 text-sm font-medium text-primary-900 dark:text-white">
-                <%= link_to t('.link_to_signout'), session_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600', data: { turbo_method: :delete }  %>
+                <%= link_to t('.link_to_signout'), session_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600', data: { turbo_method: :delete } %>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@
             Open Menu
           </span>
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14"/>
+            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
           </svg>
         </button>
       </div>
@@ -106,7 +106,7 @@
     <div id="ecommerce-navbar-menu-1" class="bg-primary-50 dark:bg-primary-700 dark:border-primary-600 border border-primary-200 rounded-lg py-3 hidden px-4 mt-4" data-navbar--menu-collapse-target="menu">
       <ul class="text-primary-900 text-sm font-medium dark:text-white space-y-3">
         <li>
-          <%= link_to t('.link_to_products'), root_path, class: "hover:text-primary-700 dark:hover:text-primary-500" %>
+          <%= link_to t('.link_to_products'), root_path, class: 'hover:text-primary-700 dark:hover:text-primary-500' %>
         </li>
         <li>
             <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500"><%= t('.link_to_physical') %></a>
