@@ -44,6 +44,7 @@ export default class extends Controller {
     const frag = document.createDocumentFragment();
 
     this.createOptions(frag, neighborhoods);
+    this.neighborhoodTarget.innerHTML = '';
     this.neighborhoodTarget.appendChild(frag);
   }
 
