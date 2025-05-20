@@ -17,7 +17,7 @@
   <%= form.label :city_id, t('city', scope: 'addresses.shared'), class: 'address--new-form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.select :neighborhood, select_neighborhood_options(address.postal_code), { include_blank: 'Elige una opción', selected: address.neighborhood }, class: 'address--new-form-select peer', required: true, data: { addresses__form_target: 'neighborhood' } %>
+  <%= form.select :neighborhood, select_neighborhood_options(address.postal_code), { include_blank: t('choose_option', scope: 'addresses.shared'), selected: address.neighborhood }, class: 'address--new-form-select peer', required: true, data: { addresses__form_target: 'neighborhood' } %>
   <%= form.label :neighborhood, t('neighborhood', scope: 'addresses.shared'), class: 'address--new-form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">

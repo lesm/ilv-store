@@ -11,6 +11,7 @@ en:
       reference: Reference
       full_name: Full name
       phone_number: Phone number
+      choose_option: Choose an option
     new:
       title: New address
       text_submit_button: Create address

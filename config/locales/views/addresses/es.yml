@@ -11,6 +11,7 @@ es:
       reference: Referencia
       full_name: Nombre completo
       phone_number: Número de teléfono
+      choose_option: Elija una opción
     new:
       title: Nueva dirección
       text_submit_button: Crear dirección

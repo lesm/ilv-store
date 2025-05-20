@@ -14,6 +14,6 @@ class Address < ApplicationRecord
   delegate :name, to: :city, prefix: true, allow_nil: true
 
   def short_summary
-    "#{neighborhood}, #{postal_code}, #{city.name}, #{state.name}"
+    "#{neighborhood}, #{postal_code}, #{city_name}, #{state_name}"
   end
 end
