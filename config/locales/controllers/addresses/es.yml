@@ -2,3 +2,5 @@ es:
   addresses:
     create:
       success: Dirección creada con éxito.
+    update:
+      success: Dirección actualizada con éxito.

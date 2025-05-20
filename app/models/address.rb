@@ -10,8 +10,8 @@ class Address < ApplicationRecord
 
   validates :postal_code, :full_name, :street_level1, presence: true
 
-  delegate :name, to: :state, prefix: true
-  delegate :name, to: :city, prefix: true
+  delegate :name, to: :state, prefix: true, allow_nil: true
+  delegate :name, to: :city, prefix: true, allow_nil: true
 
   def short_summary
     "#{neighborhood}, #{postal_code}, #{city.name}, #{state.name}"

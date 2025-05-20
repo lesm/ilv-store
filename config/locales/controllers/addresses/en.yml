@@ -2,3 +2,5 @@ en:
   addresses:
     create:
       success: Address created successfully.
+    update:
+      success: Address updated successfully.

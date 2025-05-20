@@ -1,0 +1,30 @@
+en:
+  addresses:
+    shared:
+      contact_info: Contact information
+      country: Country
+      postal_code: Postal code
+      state: State
+      city: City
+      neighborhood: Neighborhood
+      street_and_number: Street and number
+      reference: Reference
+      full_name: Full name
+      phone_number: Phone number
+    new:
+      title: New address
+      text_submit_button: Create address
+    edit:
+      title: Edit address
+      text_submit_button: Update address
+    index:
+      add_address: Add address
+      edit_address: Edit address
+      show_more: Show more
+      show_less: Show less
+      street_and_number: Street and number
+      postal_code: 'Postal code'
+      state: State
+      city: City
+      neighborhood: Neighborhood
+      reference: 'Reference'
