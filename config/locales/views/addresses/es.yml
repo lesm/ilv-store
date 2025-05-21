@@ -12,6 +12,7 @@ es:
       full_name: Nombre completo
       phone_number: Número de teléfono
       choose_option: Elija una opción
+      default: Usar como mi dirección predeterminada
     new:
       title: Nueva dirección
       text_submit_button: Crear dirección

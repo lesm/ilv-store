@@ -19,7 +19,8 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
         postal_code: '68000',
         neighborhood: 'Centro',
         reference: 'Portón blanco',
-        phone_number: '9511121212'
+        phone_number: '9511121212',
+        default: true
       }
     }
   end
