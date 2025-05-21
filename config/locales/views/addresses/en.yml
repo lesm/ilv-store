@@ -12,6 +12,7 @@ en:
       full_name: Full name
       phone_number: Phone number
       choose_option: Choose an option
+      default: Use as my default address
     new:
       title: New address
       text_submit_button: Create address

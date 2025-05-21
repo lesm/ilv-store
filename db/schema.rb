@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_06_043334) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_20_195634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -29,9 +29,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_06_043334) do
     t.string "neighborhood"
     t.string "full_name", null: false
     t.string "phone_number"
+    t.boolean "default", default: false, null: false
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
     t.index ["state_id"], name: "index_addresses_on_state_id"
+    t.index ["user_id", "default"], name: "index_addresses_on_user_id_and_default", unique: true, where: "(\"default\" = true)"
     t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
