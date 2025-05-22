@@ -11,7 +11,7 @@ module Checkouts
     end
 
     describe '#GET index' do
-      test 'returnts a successful response' do
+      test 'returns a successful response' do
         get checkout_addresses_url
         assert_response :success
       end
@@ -29,7 +29,7 @@ module Checkouts
       test 'renders the correct partial' do
         put(checkout_address_url(id: address.id, format: :turbo_stream), params: {})
 
-        assert_turbo_stream action: :replace, target: 'checkout_address'
+        assert_turbo_stream action: :replace, target: 'checkout-address'
       end
     end
   end
