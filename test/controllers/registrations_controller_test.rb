@@ -14,7 +14,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   describe '#create' do
     describe 'with valid params' do
       let(:params) do
-        { user: { email_address: 'mail@mail.com', password: 'password', password_confirmation: 'password' } }
+        { user: { email: 'mail@mail.com', password: 'password', password_confirmation: 'password' } }
       end
 
       test 'creates a user' do
@@ -31,7 +31,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     describe 'with invalid params' do
-      let(:params) { { user: { email_address: nil, password: 'password', password_confirmation: 'password' } } }
+      let(:params) { { user: { email: nil, password: 'password', password_confirmation: 'password' } } }
 
       test 'does not create a user' do
         post registration_url, params: params

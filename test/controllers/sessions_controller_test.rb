@@ -3,12 +3,12 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  let(:user) { create(:user, email_address: 'mail@mail.com', password: 'password') }
+  let(:user) { create(:user, email: 'mail@mail.com', password: 'password') }
   let(:valid_params) do
-    { email_address: user.email_address, password: user.password }
+    { email: user.email, password: user.password }
   end
   let(:invalid_params) do
-    { email_address: 'mail@mail.com', password: 'invalid' }
+    { email: 'mail@mail.com', password: 'invalid' }
   end
 
   setup do

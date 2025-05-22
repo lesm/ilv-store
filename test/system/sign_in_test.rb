@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class SignInTest < ApplicationSystemTestCase
   before do
-    create(:user, email_address: 'mail@mail.com', password: 'password')
+    create(:user, email: 'mail@mail.com', password: 'password')
   end
 
   test 'signs in successfully' do
