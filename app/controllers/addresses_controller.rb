@@ -18,10 +18,13 @@ class AddressesController < ApplicationController
   end
 
   def create # rubocop:disable Metrics/AbcSize
-    @address = MexicanAddress.new(address_params)
-    @address.user = current_user
+    new_default_address = address_default?
+
+    @address = MexicanAddress.new(address_params).tap { it.user = current_user }
 
     if @address.save
+      change_default_address(@address) if new_default_address
+
       flash[:notice] = t('.success')
       render turbo_stream: turbo_stream.action(:redirect, addresses_path)
     else
@@ -54,7 +57,7 @@ class AddressesController < ApplicationController
   def address_params
     params.expect(
       mexican_address: %i[
-        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number default
+        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number
       ]
     )
   end
