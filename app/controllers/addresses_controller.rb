@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AddressesController < ApplicationController
+  include AddressDefaultable
+
   def index
     @addresses = current_user.addresses
   end
@@ -47,13 +49,6 @@ class AddressesController < ApplicationController
   def address_default?
     value = params[:mexican_address].delete(:default)
     ActiveRecord::Type::Boolean.new.cast(value)
-  end
-
-  def change_default_address(address)
-    ActiveRecord::Base.transaction do
-      current_user.addresses.where(default: true).update_all(default: false) # rubocop:disable Rails/SkipsModelValidations
-      address.update!(default: true)
-    end
   end
 
   def address_params

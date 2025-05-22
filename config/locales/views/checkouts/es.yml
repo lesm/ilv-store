@@ -1,7 +1,8 @@
 es:
   checkouts:
-    new:
+    address:
       address_to: Enviar a
+    new:
       product: Producto
       quantity: Cantidad
       price: Precio

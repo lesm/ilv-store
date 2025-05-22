@@ -1,0 +1,5 @@
+en:
+  checkouts:
+    addresses:
+      index:
+        ship_to: 'Ship to:'

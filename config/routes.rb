@@ -20,7 +20,10 @@ Rails.application.routes.draw do
     resource :cart, only: %i[show] do
       resources :items, only: %i[create update destroy], controller: 'carts/items'
     end
-    resource :checkout, only: %i[new create]
+
+    resource :checkout, only: %i[new create] do
+      resources :addresses, only: %i[index update], controller: 'checkouts/addresses'
+    end
 
     resource :theme_preference, only: %i[update], controller: 'users/theme_preference'
   end

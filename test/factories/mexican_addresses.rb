@@ -3,10 +3,10 @@
 FactoryBot.define do
   factory :mexican_address, class: 'MexicanAddress' do
     user
-    country
     type { 'MexicanAddress' }
-    state { association(:country_state, :oaxaca) }
-    city { association(:country_state_city, state: state) }
+    country { Country.find_or_create_by(name: 'México', code: 'MX') }
+    state { Country::State.find_or_create_by(name: 'Oaxaca', code: 'OAX', country:) }
+    city { Country::State::City.find_or_create_by(name: 'Oaxaca de Juárez', state:) }
     neighborhood { 'Centro' }
     street_level1 { 'Callejón Donají s/n' }
     street_level2 { nil }

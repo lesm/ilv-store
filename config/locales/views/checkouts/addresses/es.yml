@@ -1,0 +1,5 @@
+es:
+  checkouts:
+    addresses:
+      index:
+        ship_to: 'Enviar a:'
