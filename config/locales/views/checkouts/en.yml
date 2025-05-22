@@ -1,7 +1,8 @@
 en:
   checkouts:
-    new:
+    address:
       address_to: Ship to
+    new:
       product: Product
       quantity: Quantity
       price: Price
