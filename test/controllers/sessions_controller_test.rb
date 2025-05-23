@@ -56,8 +56,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
           assert_equal(0, user.sessions.count)
         end
 
-        test 'returns redirect response' do
-          assert_response :redirect
+        test 'renders to new action with unprocessable_entity status' do
+          assert_response :unprocessable_entity
+          assert_match(/Iniciar sesión/, response.body)
         end
       end
     end

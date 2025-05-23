@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
   def create
     if (user = User.authenticate_by(params.permit(:email, :password)))
-      return redirect_to root_path, alert: t('.email_verification_required') unless user.verified?
+      return email_verification_required unless user.verified?
 
       start_new_session_for user
       redirect_to after_authentication_url, notice: t('.success')
@@ -24,5 +24,12 @@ class SessionsController < ApplicationController
   def destroy
     terminate_session
     redirect_to new_session_path
+  end
+
+  private
+
+  def email_verification_required
+    flash.now[:notice] = t('.email_verification_required')
+    render :new, status: :unprocessable_entity
   end
 end

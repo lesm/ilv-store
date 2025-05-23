@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       UserMailer.send_email_verification(@user).deliver_later
-      redirect_to root_path, notice: t('.success')
+      redirect_to new_session_path, notice: t('.success')
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
