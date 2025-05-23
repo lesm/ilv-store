@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include EmailVerification
+
   has_secure_password
 
   has_one :cart, dependent: :destroy

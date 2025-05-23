@@ -1,0 +1,10 @@
+en:
+  passwords:
+    create:
+      success: Password reset instructions sent. (if an account with that email exists)
+    edit:
+      invalid_token: Password reset link is invalid or has expired.
+    update:
+      success: Password has been reset.
+      error: Password reset failed. Passwords did not match.
+      invalid_token: Password reset link is invalid or has expired.

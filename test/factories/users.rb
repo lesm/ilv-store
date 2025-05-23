@@ -6,6 +6,7 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
     theme_preference { 'light' }
+    verified { true }
   end
 
   trait :with_cart do

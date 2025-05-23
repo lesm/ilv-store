@@ -1,0 +1,6 @@
+es:
+  users:
+    email_verifications:
+      show:
+        success: Tu correo electrónico ha sido verificado.
+        invalid_token: El token de verificación no es válido o ha expirado.
