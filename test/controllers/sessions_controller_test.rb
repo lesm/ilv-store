@@ -3,12 +3,12 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
-  let(:user) { create(:user, email_address: 'mail@mail.com', password: 'password') }
+  let(:user) { create(:user, email: 'mail@mail.com', password: 'password') }
   let(:valid_params) do
-    { email_address: user.email_address, password: user.password }
+    { email: user.email, password: user.password }
   end
   let(:invalid_params) do
-    { email_address: 'mail@mail.com', password: 'invalid' }
+    { email: 'mail@mail.com', password: 'invalid' }
   end
 
   setup do
@@ -23,7 +23,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe '#create' do
+  describe '#POST create' do # rubocop:disable Metrics/BlockLength
     describe 'reaches rate limit' do
       test 'redirects to new session url' do
         10.times { post session_url, params: invalid_params }
@@ -34,14 +34,32 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     describe 'with valid params' do
-      before { post session_url, params: valid_params }
+      describe 'with a verified user' do
+        before { post session_url, params: valid_params }
 
-      test 'creates a user session' do
-        assert_equal(1, user.sessions.count)
+        test 'creates a user session' do
+          assert_equal(1, user.sessions.count)
+        end
+
+        test 'returns redirect response' do
+          assert_response :redirect
+        end
       end
 
-      test 'returns redirect response' do
-        assert_response :redirect
+      describe 'with an unverified user' do
+        before do
+          user.update(verified: false)
+          post session_url, params: valid_params
+        end
+
+        test 'does not create a user session' do
+          assert_equal(0, user.sessions.count)
+        end
+
+        test 'renders to new action with unprocessable_entity status' do
+          assert_response :unprocessable_entity
+          assert_match(/Iniciar sesión/, response.body)
+        end
       end
     end
 

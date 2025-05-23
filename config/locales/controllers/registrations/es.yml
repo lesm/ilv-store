@@ -1,4 +1,4 @@
 es:
   registrations:
     create:
-      success: Cuenta creada
+      success: Cuenta creada, por favor revisa tu correo electrónico para verificar tu cuenta.

@@ -3,8 +3,10 @@
 require 'application_system_test_case'
 
 class SignInTest < ApplicationSystemTestCase
+  let(:password) { SecureRandom.hex }
+
   before do
-    create(:user, email_address: 'mail@mail.com', password: 'password')
+    create(:user, email: 'mail@mail.com', password:, password_confirmation: password)
   end
 
   test 'signs in successfully' do
@@ -13,7 +15,7 @@ class SignInTest < ApplicationSystemTestCase
     click_on 'Iniciar sesión'
 
     fill_in 'Correo electrónico', with: 'mail@mail.com'
-    fill_in 'Contraseña', with: 'password'
+    fill_in 'Contraseña', with: password
 
     click_on 'Iniciar sesión'
 

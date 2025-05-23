@@ -6,13 +6,13 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
   let(:user) do
     create(
       :user,
-      email_address: 'mail@mail.com',
+      email: 'mail@mail.com',
       password: 'password',
       password_confirmation: 'password'
     )
   end
-  let(:valid_params) { { email_address: 'mail@mail.com' } }
-  let(:invalid_params) { { email_address: 'mail@mail' } }
+  let(:valid_params) { { email: 'mail@mail.com' } }
+  let(:invalid_params) { { email: 'mail@mail' } }
   let(:token) { user.password_reset_token }
 
   describe '#new' do

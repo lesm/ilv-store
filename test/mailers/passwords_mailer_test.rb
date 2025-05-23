@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class PasswordsMailerTest < ActionMailer::TestCase
-  let(:user) { create(:user, email_address: 'test@mail.com') }
+  let(:user) { create(:user, email: 'test@mail.com') }
 
   test '.reset' do
     email = PasswordsMailer.reset(user)

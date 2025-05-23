@@ -3,4 +3,5 @@ en:
     create:
       success: Welcome back.
       failure: Try another email address or password.
+      email_verification_required: Please verify your email address before logging in.
 

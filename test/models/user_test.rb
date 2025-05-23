@@ -9,25 +9,25 @@ class UserTest < ActiveSupport::TestCase
     assert user.valid?
   end
 
-  describe '#email_address' do
+  describe '#email' do
     test 'normalizes the email address' do
-      user.email_address = ' maIL@mail.com'
+      user.email = ' maIL@mail.com'
 
-      assert_equal 'mail@mail.com', user.email_address
+      assert_equal 'mail@mail.com', user.email
     end
 
     test 'requires presence' do
-      user.email_address = nil
+      user.email = nil
 
       assert user.invalid?
     end
 
     test 'requires uniqueness' do
-      create(:user, email_address: 'mail@mail.com')
-      user.email_address = 'mail@mail.com'
+      create(:user, email: 'mail@mail.com')
+      user.email = 'mail@mail.com'
 
       assert user.invalid?
-      assert_includes user.errors.details[:email_address], error: :taken, value: 'mail@mail.com'
+      assert_includes user.errors.details[:email], error: :taken, value: 'mail@mail.com'
     end
   end
 

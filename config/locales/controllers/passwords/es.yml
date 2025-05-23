@@ -1,0 +1,10 @@
+es:
+  passwords:
+    create:
+      success: Instrucciones de restablecimiento de contraseña enviadas a su correo electrónico. (si una cuenta con ese correo electrónico existe)
+    edit:
+      invalid_token: El enlace de restablecimiento de contraseña no es válido o ha caducado.
+    update:
+      success: La contraseña ha sido restablecida.
+      error: El restablecimiento de la contraseña ha fallado. Las contraseñas no coincidían.
+      invalid_token: El enlace de restablecimiento de contraseña no es válido o ha caducado.

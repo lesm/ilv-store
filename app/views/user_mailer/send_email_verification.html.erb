@@ -1,0 +1,4 @@
+<p>
+  Please verify your email by clicking the link below:
+  <%= link_to 'Verify Email', user_email_verification_url(token: @user.email_verification_token) %>
+</p>

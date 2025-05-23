@@ -13,8 +13,8 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      start_new_session_for @user
-      redirect_to after_authentication_url, notice: t('.success')
+      UserMailer.send_email_verification(@user).deliver_later
+      redirect_to new_session_path, notice: t('.success')
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
@@ -24,6 +24,6 @@ class RegistrationsController < ApplicationController
   private
 
   def user_params
-    params.expect(user: %i[email_address password password_confirmation])
+    params.expect(user: %i[email password password_confirmation])
   end
 end

@@ -9,12 +9,13 @@ class SignUpTest < ApplicationSystemTestCase
     click_on 'Registrarse'
 
     fill_in 'Correo electrónico', with: 'mail@mail.com'
-    fill_in 'Contraseña', with: 'password'
-    fill_in 'Confirmar contraseña', with: 'password'
+    password = SecureRandom.hex
+    fill_in 'Contraseña', with: password
+    fill_in 'Confirmar contraseña', with: password
 
     click_on 'Crear cuenta'
 
-    assert_text 'Cuenta creada'
+    assert_text 'Cuenta creada, por favor revisa tu correo electrónico para verificar tu cuenta.'
   end
 
   test 'signs up unsuccessfully' do

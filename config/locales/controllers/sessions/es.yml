@@ -3,4 +3,4 @@ es:
     create:
       success: Bienvenido de nuevo.
       failure: No se pudo iniciar sesión. Por favor, verifica tus credenciales.
-
+      email_verification_required: Por favor, verifica tu dirección de correo electrónico antes de iniciar sesión.
