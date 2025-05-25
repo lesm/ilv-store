@@ -34,3 +34,5 @@ es:
       required: debe existir
       taken: ya está en uso
       confirmation: no coincide
+      record_invalid: 'La validación falló: %{errors}'
+

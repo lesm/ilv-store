@@ -3,6 +3,8 @@
 class AddressesController < ApplicationController
   include AddressDefaultable
 
+  before_action :set_address, only: %i[edit update]
+
   def index
     @addresses = current_user.addresses
   end
@@ -14,50 +16,46 @@ class AddressesController < ApplicationController
 
   def edit
     request.variant = :drawer
-    @address = current_user.addresses.find(params[:id])
   end
 
   def create # rubocop:disable Metrics/AbcSize
-    new_default_address = address_default?
-
     @address = MexicanAddress.new(address_params).tap { it.user = current_user }
 
-    if @address.save
-      change_default_address(@address) if new_default_address
-
-      flash[:notice] = t('.success')
-      render turbo_stream: turbo_stream.action(:redirect, addresses_path)
-    else
+    begin
+      if create_address(@address, address_params)
+        flash[:notice] = t('.success')
+        render turbo_stream: turbo_stream.action(:redirect, url_redirect)
+      end
+    rescue ActiveRecord::RecordInvalid
       flash.now[:alert] = @address.errors.full_messages.to_sentence
       render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
     end
   end
 
   def update # rubocop:disable Metrics/AbcSize
-    @address = current_user.addresses.find(params[:id])
-
-    change_default_address(@address) if address_default?
-
-    if @address.update(address_params)
+    if update_address(@address, address_params)
       flash[:notice] = t('.success')
       render turbo_stream: turbo_stream.action(:redirect, addresses_path)
-    else
-      flash.now[:alert] = @address.errors.full_messages.to_sentence
-      render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
     end
+  rescue ActiveRecord::RecordInvalid
+    flash.now[:alert] = @address.errors.full_messages.to_sentence
+    render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
   end
 
   private
 
-  def address_default?
-    value = params[:mexican_address].delete(:default)
-    ActiveRecord::Type::Boolean.new.cast(value)
+  def set_address
+    @address = current_user.addresses.find(params[:id])
+  end
+
+  def url_redirect
+    request.referer || addresses_path
   end
 
   def address_params
     params.expect(
       mexican_address: %i[
-        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number
+        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number default
       ]
     )
   end
