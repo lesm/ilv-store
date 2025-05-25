@@ -2,6 +2,7 @@ en:
   checkouts:
     address:
       address_to: Ship to
+      no_addresses: No shipping addresses
     new:
       product: Product
       quantity: Quantity
@@ -10,3 +11,4 @@ en:
       total: Total
       make_order_and_pay: Make order and pay
       change_address: Change
+      add_address: Add address

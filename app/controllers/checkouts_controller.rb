@@ -2,6 +2,6 @@
 
 class CheckoutsController < ApplicationController
   def new
-    @default_address = current_user.default_address
+    @address = current_user.default_address || current_user.addresses.first
   end
 end

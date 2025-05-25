@@ -24,7 +24,7 @@ class AddressesController < ApplicationController
     begin
       if create_address(@address, address_params)
         flash[:notice] = t('.success')
-        render turbo_stream: turbo_stream.action(:redirect, addresses_path)
+        render turbo_stream: turbo_stream.action(:redirect, url_redirect)
       end
     rescue ActiveRecord::RecordInvalid
       flash.now[:alert] = @address.errors.full_messages.to_sentence
@@ -46,6 +46,10 @@ class AddressesController < ApplicationController
 
   def set_address
     @address = current_user.addresses.find(params[:id])
+  end
+
+  def url_redirect
+    request.referer || addresses_path
   end
 
   def address_params
