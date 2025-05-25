@@ -44,3 +44,4 @@ en:
       present: must be present
       required: must exist
       taken: has already been taken
+      record_invalid: 'Validation failed: %{errors}'
