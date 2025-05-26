@@ -1,0 +1,4 @@
+es:
+  user_mailer:
+    send_email_verification:
+      subject: Verifica tu cuenta
