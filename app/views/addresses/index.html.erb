@@ -32,7 +32,7 @@
 
               <div class="flex ml-auto">
                 <div data-controller="tooltip" class="group relative">
-                  <%= link_to edit_address_path(address), class: 'text-xs text-primary-600', data: { action: 'mouseenter->tooltip#toggle mouseleave->tooltip#toggle', turbo_frame: :drawer } do %>
+                  <%= link_to edit_address_path(address), class: 'text-xs text-primary-600', aria: { label: t('.edit_address') }, data: { action: 'mouseenter->tooltip#toggle mouseleave->tooltip#toggle', turbo_frame: :drawer } do %>
                     <svg class="w-6 h-6 text-primary-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                     </svg>
@@ -61,11 +61,29 @@
           </div>
 
           <div data-addresses--details-target="expanded" class="hidden">
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100 dark:bg-primary-700">
-                🇲🇽 MX
-              </span>
-              <h3 class="font-medium"><%= address.full_name %></h3>
+            <div class="flex">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100 dark:bg-primary-700">
+                  🇲🇽 MX
+                </span>
+                <h3 class="font-medium"><%= address.full_name %></h3>
+              </div>
+
+              <div class="flex ml-auto">
+                <div data-controller="tooltip" class="group relative">
+                  <%= link_to edit_address_path(address), class: 'text-xs text-primary-600', aria: { label: t('.edit_address') }, data: { action: 'mouseenter->tooltip#toggle mouseleave->tooltip#toggle', turbo_frame: :drawer } do %>
+                    <svg class="w-6 h-6 text-primary-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                    </svg>
+                  <% end %>
+                  <div
+                    data-tooltip-target="content"
+                    class="absolute z-10 bottom-full right-0 mb-2 hidden group-hover:block bg-gray-800 text-white text-sm px-3 py-2 rounded whitespace-nowrap">
+                    <%= t('.edit_address') %>
+                    <div class="absolute w-0 h-0 border-l-4 border-r-4 border-t-8 border-l-transparent border-r-transparent border-t-gray-800 top-full right-2"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="text-sm space-y-2">
