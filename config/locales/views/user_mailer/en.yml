@@ -1,0 +1,5 @@
+en:
+  user_mailer:
+    send_email_verification:
+      link_to_verify: verify my account
+      verify_email_content: 'You can verify your account email through the following link:'
