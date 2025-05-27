@@ -1,4 +1,6 @@
-<p>
-  You can reset your password within the next 15 minutes on
-  <%= link_to 'this password reset page', edit_password_url(token: @user.password_reset_token) %>.
+<p> 
+  <%= t('.reset_password_content') %>
+</p>
+<p> 
+  <%= link_to t('.link_to_reset'), edit_password_url(token: @user.password_reset_token) %>
 </p>

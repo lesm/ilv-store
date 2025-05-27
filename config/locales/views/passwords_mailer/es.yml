@@ -1,0 +1,5 @@
+es:
+  passwords_mailer:
+    reset:
+      reset_password_content: 'Puede restablecer su contraseña dentro de los siguientes 15 minutos a través del siguiente enlace:'
+      link_to_reset: restablecer mi contraseña
