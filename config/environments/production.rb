@@ -62,8 +62,8 @@ Rails.application.configure do
   config.action_mailer.asset_host = ENV.fetch('HOST', 'https://silmardll.com')
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_options = {
-    from: 'silmar.vim@gmail.com',
-    reply_to: 'silmar.vim@gmail.com'
+    from: 'noreply@ilvmx.org',
+    reply_to: 'noreply@ilvmx.org'
   }
   config.action_mailer.default_url_options = {
     host: ENV.fetch('HOST', 'silmardll.com')
