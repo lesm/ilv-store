@@ -1,0 +1,6 @@
+en:
+  account_mailer:
+    reset_password:
+      subject: Reset Password
+    verify_email:
+      subject: Verify your account
