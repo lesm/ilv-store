@@ -6,7 +6,7 @@ class PasswordsMailerTest < ActionMailer::TestCase
   let(:user) { create(:user, email: 'test@mail.com') }
 
   test '.reset' do
-    email = PasswordsMailer.reset(user)
+    email = PasswordsMailer.with(user:).reset
 
     assert_emails 1 do
       email.deliver_now
