@@ -1,6 +1,0 @@
-es:
-  user_mailer:
-    send_email_verification:
-      link_to_verify: confirmar mi cuenta
-      verify_email_content: 'Puede confirmar el correo electrónico de su cuenta a través del siguiente enlace:'
-

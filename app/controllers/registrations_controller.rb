@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      UserMailer.with(user: @user).send_email_verification.deliver_later
+      AccountMailer.with(user: @user).verify_email.deliver_later
       redirect_to new_session_path, notice: t('.success')
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence

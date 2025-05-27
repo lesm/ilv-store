@@ -1,0 +1,8 @@
+en:
+  account_mailer:
+    reset_password:
+      instructions: 'You can reset your password within the next 15 minutes through the following link:'
+      link_to_reset: reset my password
+    verify_email:
+      instructions: 'You can verify your account email through the following link:'
+      link_to_verify: verify my account

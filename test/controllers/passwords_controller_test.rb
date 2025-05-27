@@ -26,8 +26,8 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
   describe '#create' do
     describe 'with valid params' do
       test 'deliveries an email with password reset instructions' do
-        mail = PasswordsMailer.reset(user)
-        PasswordsMailer.expects(:reset).with(user).returns(mail)
+        mail = AccountMailer.with(user:)
+        AccountMailer.expects(:with).with(user:).returns(mail)
 
         post passwords_url(token:), params: valid_params
       end
@@ -41,7 +41,7 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
 
     describe 'with invalid params' do
       test 'does not deliver an email with password reset instructions' do
-        PasswordsMailer.expects(:reset).with(user).never
+        AccountMailer.expects(:with).with(user:).never
 
         post passwords_url(token:), params: invalid_params
       end
