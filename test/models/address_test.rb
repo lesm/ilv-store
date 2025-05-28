@@ -2,11 +2,11 @@
 
 require 'test_helper'
 
-class MexicanAddressTest < ActiveSupport::TestCase
-  let(:mx_address) { build(:mexican_address) }
+class AddressTest < ActiveSupport::TestCase
+  let(:mx_address) { build(:address, :mx) }
 
   test 'builds a valid mexican address' do
-    assert build(:mexican_address).valid?
+    assert build(:address, :mx).valid?
   end
 
   describe '#validations' do
@@ -22,8 +22,8 @@ class MexicanAddressTest < ActiveSupport::TestCase
       assert mx_address.invalid?
     end
 
-    test 'validates presence of street_level1' do
-      mx_address.street_level1 = nil
+    test 'validates presence of street_and_number' do
+      mx_address.street_and_number = nil
 
       assert mx_address.invalid?
     end
