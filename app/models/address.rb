@@ -6,9 +6,9 @@ class Address < ApplicationRecord
   belongs_to :state, class_name: 'Country::State'
   belongs_to :city, class_name: 'Country::State::City'
 
-  normalizes :street_level1, with: ->(value) { value.capitalize }
+  normalizes :street_and_number, with: ->(value) { value.capitalize }
 
-  validates :postal_code, :full_name, :street_level1, presence: true
+  validates :postal_code, :full_name, :street_and_number, presence: true
 
   delegate :name, to: :state, prefix: true, allow_nil: true
   delegate :name, to: :city, prefix: true, allow_nil: true

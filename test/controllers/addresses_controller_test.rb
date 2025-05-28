@@ -10,7 +10,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
 
   let(:params) do
     {
-      mexican_address: {
+      address: {
         full_name: 'Luis Silva',
         street_and_number: 'Calle de los libres 107',
         country_id: country.id,
@@ -45,7 +45,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe '#GET edit' do
-    let(:address) { create(:mexican_address, :juan_perez_home, user:) }
+    let(:address) { create(:address, :mx, user:) }
 
     test 'returns a 200 response' do
       create(:mx_postal_code, :oaxaca_centro, state:, city:)
@@ -65,7 +65,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
 
     describe 'with invalid params' do
       test 'redirects to the new address page' do
-        params[:mexican_address][:postal_code] = nil
+        params[:address][:postal_code] = nil
         post(addresses_url(format: :turbo_stream), params:)
 
         assert_turbo_stream action: :append, target: 'flash'
@@ -74,7 +74,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe '#PATCH update' do
-    let(:address) { create(:mexican_address, :juan_perez_home, user:) }
+    let(:address) { create(:address, :mx, user:) }
 
     describe 'with valid params' do
       test 'redirects to the addresses page' do
@@ -86,7 +86,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
 
     describe 'with invalid params' do
       test 'redirects to the edit address page' do
-        params[:mexican_address][:postal_code] = nil
+        params[:address][:postal_code] = nil
         put(address_url(id: address.id, format: :turbo_stream), params:)
 
         assert_turbo_stream action: :append, target: 'flash'

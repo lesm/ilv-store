@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
 
   def new
     request.variant = :drawer
-    @address = MexicanAddress.new
+    @address = Address.new
   end
 
   def edit
@@ -19,7 +19,7 @@ class AddressesController < ApplicationController
   end
 
   def create # rubocop:disable Metrics/AbcSize
-    @address = MexicanAddress.new(address_params).tap { it.user = current_user }
+    @address = Address.new(address_params).tap { it.user = current_user }
 
     begin
       if create_address(@address, address_params)
@@ -54,7 +54,7 @@ class AddressesController < ApplicationController
 
   def address_params
     params.expect(
-      mexican_address: %i[
+      address: %i[
         country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number default
       ]
     )
