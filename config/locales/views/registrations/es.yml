@@ -2,6 +2,8 @@ es:
   registrations:
     new:
       title: Crear cuenta
+      name: Nombre
+      name_placeholder: Tu nombre
       email: Correo electrónico
       email_placeholder: correo@mail.com
       password: Contraseña

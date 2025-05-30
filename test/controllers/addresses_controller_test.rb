@@ -4,8 +4,7 @@ require 'test_helper'
 
 class AddressesControllerTest < ActionDispatch::IntegrationTest
   let(:user) { create(:user, :with_cart) }
-  let(:country) { create(:country) }
-  let(:state) { create(:country_state, :oaxaca, country:) }
+  let(:state) { create(:country_state, :oaxaca, country: user.country) }
   let(:city) { create(:country_state_city, :oaxaca_de_juarez, state:) }
 
   let(:params) do
@@ -13,7 +12,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
       address: {
         full_name: 'Luis Silva',
         street_and_number: 'Calle de los libres 107',
-        country_id: country.id,
+        country_id: user.country.id,
         state_id: state.id,
         city_id: city.id,
         postal_code: '68000',
@@ -27,7 +26,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
 
   before do
     authenticate_as(user)
-    [country, state, city]
+    [state, city]
   end
 
   describe '#GET index' do

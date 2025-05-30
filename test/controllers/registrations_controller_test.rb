@@ -3,7 +3,23 @@
 require 'test_helper'
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
-  describe '#new' do
+  let(:country) { create(:country) }
+
+  let(:params) do
+    {
+      user: {
+        country_id: country.id,
+        name: 'Luis Silva',
+        email: 'mail@mail.com',
+        password: 'password',
+        password_confirmation: 'password'
+      }
+    }
+  end
+
+  before { country }
+
+  describe '#GET new' do
     test 'returns success response' do
       get new_registration_url
 
@@ -11,12 +27,8 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe '#create' do
+  describe '#POST create' do
     describe 'with valid params' do
-      let(:params) do
-        { user: { email: 'mail@mail.com', password: 'password', password_confirmation: 'password' } }
-      end
-
       test 'creates a user' do
         post registration_url, params: params
 

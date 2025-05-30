@@ -2,6 +2,11 @@
 
 FactoryBot.define do
   factory :user do
+    after(:build) do |user|
+      user.country ||= Country.find_or_create_by(name: 'México', code: 'MX')
+    end
+
+    sequence(:name) { |n| "User #{n}" }
     sequence(:email) { |n| "user#{n}@example.com" }
     password { 'password' }
     password_confirmation { 'password' }
