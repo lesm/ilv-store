@@ -13,22 +13,22 @@
 
                 <div>
                   <%= form.label :name, t('.name'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.text_field :name, required: true, autofocus: true, autocomplete: 'off', placeholder: t('.name_placeholder'), value: params[:name], class: 'registration--new-form-field' %>
+                  <%= form.text_field :name, required: true, autofocus: true, autocomplete: 'on', placeholder: t('.name_placeholder'), value: @user.name, class: 'registration--new-form-field' %>
                 </div>
 
                 <div>
                   <%= form.label :email, t('.email'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.email_field :email, required: true, autofocus: true, autocomplete: 'off', placeholder: t('.email_placeholder'), value: params[:email], class: 'registration--new-form-field' %>
+                  <%= form.email_field :email, required: true, autofocus: true, autocomplete: 'on', placeholder: t('.email_placeholder'), value: @user.email, class: 'registration--new-form-field' %>
                 </div>
 
                 <div>
                   <%= form.label :password, t('.password'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.password_field :password, required: true, autocomplete: 'off-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
+                  <%= form.password_field :password, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
                 </div>
 
                 <div>
                   <%= form.label :password_confirmation, t('.password_confirmation'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.password_field :password_confirmation, required: true, autocomplete: 'off-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
+                  <%= form.password_field :password_confirmation, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
                 </div>
 
                 <%= form.submit t('.submit'), class: 'registration--new-form-submit' %>
