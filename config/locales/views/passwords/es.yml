@@ -5,3 +5,8 @@ es:
       email: Correo electrónico
       email_placeholder: correo@mail.com
       submit: Recibir instrcciones
+    edit:
+      title: Cambiar contraseña
+      new_password: Nueva contraseña
+      repeat_new_password: Repite la nueva contraseña
+      submit: Guardar contraseña
