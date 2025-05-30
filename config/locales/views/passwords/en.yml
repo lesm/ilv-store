@@ -5,3 +5,8 @@ en:
       email: Email
       email_placeholder: mail@mail.com
       submit: Password reset instructions
+    edit:
+      title: Change password
+      new_password: New password
+      repeat_new_password: Repeat new password
+      submit: Save password
