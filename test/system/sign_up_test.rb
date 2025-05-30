@@ -3,13 +3,19 @@
 require 'application_system_test_case'
 
 class SignUpTest < ApplicationSystemTestCase
+  let(:country) { create(:country) }
+  let(:password) { SecureRandom.hex }
+
+  before { country }
+
   test 'signs up successfully' do
     visit root_path
 
     click_on 'Registrarse'
 
+    select country.name, from: 'País'
+    fill_in 'Nombre', with: 'Luis Silva'
     fill_in 'Correo electrónico', with: 'mail@mail.com'
-    password = SecureRandom.hex
     fill_in 'Contraseña', with: password
     fill_in 'Confirmar contraseña', with: password
 
@@ -23,6 +29,8 @@ class SignUpTest < ApplicationSystemTestCase
 
     click_on 'Registrarse'
 
+    select country.name, from: 'País'
+    fill_in 'Nombre', with: 'Luis Silva'
     fill_in 'Correo electrónico', with: 'mail@mail.com'
     fill_in 'Contraseña', with: 'one password'
     fill_in 'Confirmar contraseña', with: 'another password'

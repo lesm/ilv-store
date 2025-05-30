@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  belongs_to :country
+
   has_one :cart, dependent: :destroy
   has_one :default_address, -> { where(default: true) },
           class_name: 'Address', dependent: :destroy, inverse_of: :user
@@ -14,6 +16,6 @@ class User < ApplicationRecord
 
   normalizes :email, with: ->(e) { e.strip.downcase }
 
-  validates :email, presence: true
+  validates :name, :email, presence: true
   validates :email, uniqueness: true
 end

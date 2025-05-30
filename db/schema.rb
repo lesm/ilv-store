@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_28_170144) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_30_192924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -118,6 +118,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_170144) do
     t.datetime "updated_at", null: false
     t.string "theme_preference", default: "light", null: false
     t.boolean "verified", default: false, null: false
+    t.string "name"
+    t.uuid "country_id"
+    t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -133,4 +136,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_28_170144) do
   add_foreign_key "mx_postal_codes", "country_state_cities", column: "city_id"
   add_foreign_key "mx_postal_codes", "country_states", column: "state_id"
   add_foreign_key "sessions", "users"
+  add_foreign_key "users", "countries"
 end

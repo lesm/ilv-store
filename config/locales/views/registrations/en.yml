@@ -2,6 +2,8 @@ en:
   registrations:
     new:
       title: Sign up
+      name: Name
+      name_placeholder: Your name
       email: Email
       email_placeholder: mail@mail.com
       password: Password
