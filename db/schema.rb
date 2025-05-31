@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_30_214853) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_31_194918) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,6 +94,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_214853) do
     t.index ["state_id"], name: "index_mx_postal_codes_on_state_id"
   end
 
+  create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "address_id", null: false
+    t.decimal "subtotal", precision: 10, scale: 2, null: false
+    t.decimal "total", precision: 10, scale: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_orders_on_address_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
@@ -135,6 +146,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_30_214853) do
   add_foreign_key "country_states", "countries"
   add_foreign_key "mx_postal_codes", "country_state_cities", column: "city_id"
   add_foreign_key "mx_postal_codes", "country_states", column: "state_id"
+  add_foreign_key "orders", "addresses"
+  add_foreign_key "orders", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "countries"
 end
