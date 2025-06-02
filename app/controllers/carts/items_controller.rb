@@ -47,10 +47,17 @@ module Carts
     end
 
     def find_or_initialize_cart_item
-      product_id = params[:product_id]
-
-      item = cart.items.find_by(product_id:) || cart.items.new(product_id:, quantity: quantity_param)
+      item = cart.items.find_by(product_id: product.id)
+      item ||= cart.items.new(cart_item_params.merge(price: product.price))
       item.tap { it.increment(:quantity, quantity_param) if it.persisted? }
+    end
+
+    def product
+      @product ||= Product.find(cart_item_params[:product_id])
+    end
+
+    def cart_item_params
+      params.expect(cart_item: %i[product_id quantity])
     end
 
     def quantity_param

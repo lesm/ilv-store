@@ -9,7 +9,7 @@ class Cart < ApplicationRecord
   after_update_commit :broadcast_total_items
 
   def total_price
-    items.includes(:product).sum { it.product.price * it.quantity }
+    items.sum { it.price * it.quantity }
   end
 
   def number_of_items

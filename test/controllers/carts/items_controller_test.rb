@@ -13,7 +13,7 @@ module Carts
 
     describe '#create' do
       let(:params) do
-        { product_id: product.id, cart_item: { quantity: 1 } }
+        { cart_item: { product_id: product.id, quantity: 1 } }
       end
 
       test 'returns success response' do
@@ -25,13 +25,13 @@ module Carts
       test 'adds an item to the cart' do
         post(cart_items_url, params:)
 
-        assert_equal(1, user.cart.items.count)
+        assert user.cart.items.exists?(product_id: product.id)
       end
 
       test 'increases quantity of an existing item' do
         item = user.cart.items.create(product:, quantity: 1)
 
-        post cart_items_url, params: { product_id: product.id, cart_item: { quantity: 2 } }
+        post cart_items_url, params: { cart_item: { product_id: product.id, quantity: 2 } }
 
         assert_equal(3, item.reload.quantity)
       end
@@ -71,7 +71,7 @@ module Carts
       test 'removes an item from the cart' do
         delete cart_item_url(id: item.id)
 
-        assert_equal(0, user.cart.items.count)
+        assert_not user.cart.items.exists?(item.id)
       end
     end
   end

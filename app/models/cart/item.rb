@@ -5,6 +5,8 @@ class Cart
     belongs_to :product
     belongs_to :cart, touch: true
 
+    normalizes :quantity, with: ->(q) { q.to_i.abs }
+
     validates :quantity, numericality: { greater_than: 0 }
 
     delegate :name, :price, to: :product, prefix: false
