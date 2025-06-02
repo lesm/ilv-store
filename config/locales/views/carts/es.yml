@@ -7,3 +7,4 @@ es:
         other: '%{count} productos'
     show:
       link_to_checkout: Proceder al pago
+      empty: Tu carrito está vacío

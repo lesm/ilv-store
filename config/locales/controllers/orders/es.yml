@@ -1,0 +1,5 @@
+es:
+  orders:
+    create:
+      success: Hemos creado tu pedido
+      error: No se pudo crear tu pedido

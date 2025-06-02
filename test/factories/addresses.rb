@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :address do
-    user
+    user { association :user }
     country { Country.find_or_create_by(name: 'México', code: 'MX') }
     state { Country::State.find_or_create_by(name: 'Oaxaca', code: 'OAX', country:) }
     city { Country::State::City.find_or_create_by(name: 'Oaxaca de Juárez', state:) }
