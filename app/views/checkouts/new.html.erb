@@ -3,78 +3,78 @@
 <% end %>
 
 <section>
-  <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-    <div class="grid gap-4 lg:flex lg:items-start">
-      <div class="dark:border-primary-700 dark:bg-primary-70 min-w-0 flex-1 space-y-4">
-        <div class="flex items-start justify-between rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-70">
-          <div id="checkout-address">
-            <%= render partial: 'checkouts/address', locals: { address: @address } %>
+  <%= form_with(model: Order.new) do |f| %>
+    <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <div class="grid gap-4 lg:flex lg:items-start">
+        <div class="dark:border-primary-700 dark:bg-primary-70 min-w-0 flex-1 space-y-4">
+          <div class="flex items-start justify-between rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-70">
+            <div id="checkout-address">
+              <%= render partial: 'checkouts/address', locals: { address: @address } %>
+            </div>
+
+            <div class="dark:border-primary-700 sm:text-xs">
+              <% if @address.present? %>
+                <%= link_to t('.change_address'), checkout_addresses_path, class: 'text-xs sm:text-base font-medium text-primary-700 hover:underline dark:text-primary-500', data: { turbo_frame: :remote_modal } %>
+              <% else %>
+                <%= link_to t('.add_address'), new_address_path, class: 'text-xs sm:text-base font-medium text-primary-700 hover:underline dark:text-primary-500', data: { turbo_frame: :drawer } %>
+              <% end %>
+            </div>
           </div>
 
-          <div class="dark:border-primary-700 sm:text-xs">
-            <% if @address.present? %>
-            <%= link_to t('.change_address'), checkout_addresses_path, class: 'text-xs sm:text-base font-medium text-primary-700 hover:underline dark:text-primary-500', data: { turbo_frame: :remote_modal } %>
-            <% else %>
-              <%= link_to t('.add_address'), new_address_path, class: 'text-xs sm:text-base font-medium text-primary-700 hover:underline dark:text-primary-500', data: { turbo_frame: :drawer } %>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-70">
-          <div class="relative overflow-x-auto">
-            <table class="w-full text-left font-medium text-primary-900 dark:text-white md:table-fixed">
-              <thead class="text-sm text-primary-700 bg-primary-50 dark:bg-primary-800 dark:text-primary-400">
-                <tr>
-                  <th scope="col" class="px-6 py-3"><%= t('.product') %></th>
-                  <th scope="col" class="px-6 py-3"><%= t('.quantity') %></th>
-                  <th scope="col" class="px-6 py-3 text-right"><%= t('.price') %></th>
-                </tr>
-              <tbody class="divide-y divide-primary-200 dark:divide-primary-800">
-                <% current_cart.items.each do |item| %>
+          <div class="rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-70">
+            <div class="relative overflow-x-auto">
+              <table class="w-full text-left font-medium text-primary-900 dark:text-white md:table-fixed">
+                <thead class="text-sm text-primary-700 bg-primary-50 dark:bg-primary-800 dark:text-primary-400">
                   <tr>
-                    <td class="whitespace-nowrap py-4 md:w-[384px]">
-                      <div class="flex items-center gap-4">
-                        <a href="#" class="flex items-center aspect-square w-10 h-10 shrink-0">
-                          <img class="h-auto w-full max-h-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="imac image">
-                          <img class="hidden h-auto w-full max-h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="imac image">
-                        </a>
-                        <a href="#" class="hover:underline"><%= item.name %></a>
-                      </div>
-                    </td>
-
-                    <td class="p-4 text-base font-normal text-primary-900 dark:text-white"><%= item.quantity %></td>
-
-                    <td class="p-4 text-right text-base font-bold text-primary-900 dark:text-white">
-                      <%= number_to_currency(item.price) %>
-                    </td>
+                    <th scope="col" class="px-6 py-3"><%= t('.product') %></th>
+                    <th scope="col" class="px-6 py-3"><%= t('.quantity') %></th>
+                    <th scope="col" class="px-6 py-3 text-right"><%= t('.price') %></th>
                   </tr>
-                <% end %>
-            </table>
+                  <tbody class="divide-y divide-primary-200 dark:divide-primary-800">
+                    <% current_cart.items.each do |item| %>
+                      <tr>
+                        <td class="whitespace-nowrap py-4 md:w-[384px]">
+                          <div class="flex items-center gap-4">
+                            <a href="#" class="flex items-center aspect-square w-10 h-10 shrink-0">
+                              <img class="h-auto w-full max-h-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="imac image">
+                              <img class="hidden h-auto w-full max-h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="imac image">
+                            </a>
+                            <a href="#" class="hover:underline"><%= item.name %></a>
+                          </div>
+                        </td>
+
+                        <td class="p-4 text-base font-normal text-primary-900 dark:text-white"><%= item.quantity %></td>
+
+                        <td class="p-4 text-right text-base font-bold text-primary-900 dark:text-white">
+                          <%= number_to_currency(item.price) %>
+                        </td>
+                      </tr>
+                    <% end %>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-700 w-full space-y-4 lg:mt-0 lg:max-w-xs xl:max-w-md">
-        <div class="flow-root">
-          <div class="-my-3 divide-y divide-primary-200 dark:divide-primary-800">
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-normal text-primary-500 dark:text-primary-400"><%= t('.subtotal') %></dt>
-              <dd class="text-base font-medium text-primary-900 dark:text-white"><%= number_to_currency(current_cart.total_price) %></dd>
-            </dl>
+        <div class="rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-700 w-full space-y-4 lg:mt-0 lg:max-w-xs xl:max-w-md">
+          <div class="flow-root">
+            <div class="-my-3 divide-y divide-primary-200 dark:divide-primary-800">
+              <dl class="flex items-center justify-between gap-4 py-3">
+                <dt class="text-base font-normal text-primary-500 dark:text-primary-400"><%= t('.subtotal') %></dt>
+                <dd class="text-base font-medium text-primary-900 dark:text-white"><%= number_to_currency(current_cart.total_price) %></dd>
+              </dl>
 
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-bold text-primary-900 dark:text-white"><%= t('.total') %></dt>
-              <dd class="text-base font-bold text-primary-900 dark:text-white"><%= number_to_currency(current_cart.total_price) %></dd>
-            </dl>
+              <dl class="flex items-center justify-between gap-4 py-3">
+                <dt class="text-base font-bold text-primary-900 dark:text-white"><%= t('.total') %></dt>
+                <dd class="text-base font-bold text-primary-900 dark:text-white"><%= number_to_currency(current_cart.total_price) %></dd>
+              </dl>
+            </div>
           </div>
-        </div>
 
-        <div class="space-y-3">
-          <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-            <%= t('.make_order_and_pay') %>
-          </button>
+          <div class="space-y-3">
+            <%= f.button t('.make_order_and_pay'), class: 'flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800' %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </section>

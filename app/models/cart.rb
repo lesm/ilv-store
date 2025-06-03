@@ -9,11 +9,15 @@ class Cart < ApplicationRecord
   after_update_commit :broadcast_total_items
 
   def total_price
-    items.includes(:product).sum { it.product.price * it.quantity }
+    items.sum { it.price * it.quantity }
   end
 
   def number_of_items
     items.map(&:quantity).sum
+  end
+
+  def clear
+    items.destroy_all
   end
 
   private
@@ -21,5 +25,9 @@ class Cart < ApplicationRecord
   def broadcast_total_items
     broadcast_update_to(self, target: "total_items_cart_#{id}", partial: 'carts/total_items')
     broadcast_update_to(self, target: "total_items_drawer_cart_#{id}", partial: 'carts/total_items_drawer')
+
+    if items.empty? # rubocop:disable Style/GuardClause
+      broadcast_update_to(self, target: "link_to_checkout_cart_#{id}", partial: 'carts/link_to_checkout')
+    end
   end
 end

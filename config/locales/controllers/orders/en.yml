@@ -1,0 +1,5 @@
+en:
+  orders:
+    create:
+      success: We have created your order
+      error: We could not create your order

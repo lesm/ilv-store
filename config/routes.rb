@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       resources :addresses, only: %i[index update], controller: 'checkouts/addresses'
     end
 
+    resources :orders, only: %i[index create]
+
     resource :user, only: %i[] do
       resource :theme_preference, only: %i[update], controller: 'users/theme_preference'
       resource :email_verification, only: %i[show], controller: 'users/email_verifications'

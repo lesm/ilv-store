@@ -19,7 +19,7 @@ class AddressesController < ApplicationController
   end
 
   def create # rubocop:disable Metrics/AbcSize
-    @address = Address.new(address_params).tap { it.user = current_user }
+    @address = Address.new(address_params).tap { it.addressable = current_user }
 
     begin
       if create_address(@address, address_params)
