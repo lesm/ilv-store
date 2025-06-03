@@ -9,10 +9,10 @@ class User < ApplicationRecord
 
   has_one :cart, dependent: :destroy
   has_one :default_address, -> { where(default: true) },
-          class_name: 'Address', dependent: :destroy, inverse_of: :user
+          class_name: 'Address', dependent: :destroy, inverse_of: :addressable
 
   has_many :sessions, dependent: :destroy
-  has_many :addresses, dependent: :destroy
+  has_many :addresses, as: :addressable, dependent: :destroy
 
   normalizes :email, with: ->(e) { e.strip.downcase }
 

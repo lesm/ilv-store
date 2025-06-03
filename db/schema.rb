@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_02_014128) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_03_033129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
     t.uuid "country_id", null: false
     t.string "street_and_number"
     t.string "postal_code", null: false
@@ -28,11 +27,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_02_014128) do
     t.string "full_name", null: false
     t.string "phone_number"
     t.boolean "default", default: false, null: false
+    t.string "addressable_type", null: false
+    t.uuid "addressable_id", null: false
+    t.index ["addressable_id", "default"], name: "index_addresses_on_addressable_id_and_default", unique: true, where: "(\"default\" = true)"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
     t.index ["state_id"], name: "index_addresses_on_state_id"
-    t.index ["user_id", "default"], name: "index_addresses_on_user_id_and_default", unique: true, where: "(\"default\" = true)"
-    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "cart_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -108,12 +109,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_02_014128) do
 
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
-    t.uuid "address_id", null: false
     t.decimal "subtotal", precision: 10, scale: 2, default: "0.0", null: false
     t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_orders_on_address_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -150,7 +149,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_02_014128) do
   add_foreign_key "addresses", "countries"
   add_foreign_key "addresses", "country_state_cities", column: "city_id"
   add_foreign_key "addresses", "country_states", column: "state_id"
-  add_foreign_key "addresses", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
@@ -160,7 +158,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_02_014128) do
   add_foreign_key "mx_postal_codes", "country_states", column: "state_id"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
-  add_foreign_key "orders", "addresses"
   add_foreign_key "orders", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "users", "countries"

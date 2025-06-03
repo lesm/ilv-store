@@ -20,7 +20,7 @@ FactoryBot.define do
 
   trait :with_default_address do
     after(:create) do |user|
-      create(:address, :mx, user: user, default: true)
+      create(:address, :mx, addressable: user, default: true)
     end
   end
 end

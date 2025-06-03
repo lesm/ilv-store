@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Address < ApplicationRecord
-  belongs_to :user
+  belongs_to :addressable, polymorphic: true
   belongs_to :country
   belongs_to :state, class_name: 'Country::State'
   belongs_to :city, class_name: 'Country::State::City'

@@ -18,7 +18,7 @@ module Checkouts
     end
 
     describe '#PUT update' do
-      let(:address) { create(:address, :mx, user:) }
+      let(:address) { create(:address, :mx, addressable: user) }
 
       test 'updates the default address' do
         put(checkout_address_url(id: address.id, format: :turbo_stream), params: {})
