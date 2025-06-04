@@ -59,19 +59,19 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.asset_host = ENV.fetch('HOST', 'https://silmardll.com')
+  config.action_mailer.asset_host = ENV.fetch('HOST', 'https://tienda.silmardll.com')
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_options = {
     from: 'noreply@ilvmx.org',
     reply_to: 'noreply@ilvmx.org'
   }
   config.action_mailer.default_url_options = {
-    host: ENV.fetch('HOST', 'silmardll.com')
+    host: ENV.fetch('HOST', 'tienda.silmardll.com')
   }
   config.action_mailer.smtp_settings = {
     address: 'smtp.sendgrid.net',
     port: 2525,
-    domain: ENV.fetch('DOMAIN', 'silmardll.com'),
+    domain: ENV.fetch('DOMAIN', 'tienda.silmardll.com'),
     user_name: Rails.application.credentials.dig(:smtp, :user_name),
     password: Rails.application.credentials.dig(:smtp, :password),
     authentication: 'plain',
