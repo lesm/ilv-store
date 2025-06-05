@@ -23,6 +23,13 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe '#GET new' do
+    test 'returns 200 status code' do
+      get new_order_url
+      assert_response :success
+    end
+  end
+
   describe 'POST #create' do
     describe 'with valid params' do
       test 'redirects to the orders page' do
@@ -33,11 +40,11 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
 
     describe 'with invalid params' do
-      test 'redirects to the new checkout page' do
+      test 'returns unprocessable_entity response' do
         params[:order][:address_id] = nil
-        post(orders_url(format: :turbo_stream), params:)
+        post(orders_url(format: :html), params:)
 
-        assert_redirected_to new_checkout_url
+        assert_response :unprocessable_entity
       end
     end
   end

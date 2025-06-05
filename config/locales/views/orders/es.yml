@@ -1,5 +1,5 @@
 es:
-  checkouts:
+  orders:
     address:
       address_to: Enviar a
       no_addresses: No hay direcciones de envío

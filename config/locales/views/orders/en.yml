@@ -1,5 +1,5 @@
 en:
-  checkouts:
+  orders:
     address:
       address_to: Ship to
       no_addresses: No shipping addresses
