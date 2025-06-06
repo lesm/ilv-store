@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Checkouts
+module Orders
   class AddressesController < ApplicationController
     include AddressDefaultable
 
@@ -17,7 +17,7 @@ module Checkouts
         format.turbo_stream do
           render(
             turbo_stream: turbo_stream.replace(
-              'checkout-address', partial: 'checkouts/address', locals: { address: @address }
+              'orders-address', partial: 'orders/address', locals: { address: @address }
             )
           )
         end

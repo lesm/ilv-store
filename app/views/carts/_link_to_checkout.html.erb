@@ -1,5 +1,5 @@
 <% if current_cart.items.any? %>
-  <%= link_to t('link_to_checkout', scope: 'carts.show'), new_checkout_path, data: { turbo: false }, class: 'mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-700 dark:hover:bg-primary-900 dark:focus:ring-primary-800' %>
+  <%= link_to t('link_to_checkout', scope: 'carts.show'), new_order_path, data: { turbo: false }, class: 'mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-700 dark:hover:bg-primary-900 dark:focus:ring-primary-800' %>
 <% else %>
   <p class="text-center text-gray-500 dark:text-gray-400">
   <%= t('empty', scope: 'carts.show') %>

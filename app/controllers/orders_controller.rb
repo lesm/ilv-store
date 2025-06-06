@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-  def index; end
+  def index
+    @orders = current_user.orders.order(created_at: :desc)
+  end
+
+  def new
+    @address = find_address
+  end
 
   def create
     @order = build_order
@@ -11,11 +17,16 @@ class OrdersController < ApplicationController
       redirect_to orders_path, notice: t('.success')
     else
       flash.now[:alert] = @order.errors.full_messages.to_sentence
-      redirect_to new_checkout_path, alert: t('.error')
+      @address = find_address
+      render :new, status: :unprocessable_entity
     end
   end
 
   private
+
+  def find_address
+    current_user.default_address || current_user.addresses.first
+  end
 
   def build_order
     Order.new(

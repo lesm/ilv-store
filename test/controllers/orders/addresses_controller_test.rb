@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-module Checkouts
+module Orders
   class AddressesControllerTest < ActionDispatch::IntegrationTest
     let(:user) { create(:user, :with_default_address) }
 
@@ -12,7 +12,7 @@ module Checkouts
 
     describe '#GET index' do
       test 'returns a successful response' do
-        get checkout_addresses_url
+        get order_addresses_url
         assert_response :success
       end
     end
@@ -21,15 +21,15 @@ module Checkouts
       let(:address) { create(:address, :mx, addressable: user) }
 
       test 'updates the default address' do
-        put(checkout_address_url(id: address.id, format: :turbo_stream), params: {})
+        put(order_address_url(id: address.id, format: :turbo_stream), params: {})
         assert_response :success
         assert_equal address.reload.default, true
       end
 
       test 'renders the correct partial' do
-        put(checkout_address_url(id: address.id, format: :turbo_stream), params: {})
+        put(order_address_url(id: address.id, format: :turbo_stream), params: {})
 
-        assert_turbo_stream action: :replace, target: 'checkout-address'
+        assert_turbo_stream action: :replace, target: 'orders-address'
       end
     end
   end

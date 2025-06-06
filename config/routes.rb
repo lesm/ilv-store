@@ -21,11 +21,11 @@ Rails.application.routes.draw do
       resources :items, only: %i[create update destroy], controller: 'carts/items'
     end
 
-    resource :checkout, only: %i[new create] do
-      resources :addresses, only: %i[index update], controller: 'checkouts/addresses'
-    end
+    resources :orders, only: %i[index new create]
 
-    resources :orders, only: %i[index create]
+    scope module: :orders, path: :order, as: :order do
+      resources :addresses, only: %i[index update]
+    end
 
     resource :user, only: %i[] do
       resource :theme_preference, only: %i[update], controller: 'users/theme_preference'

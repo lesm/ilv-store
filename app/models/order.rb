@@ -10,4 +10,8 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :address
 
   validates :subtotal, :total, presence: true
+
+  def short_id
+    id.first(13)
+  end
 end

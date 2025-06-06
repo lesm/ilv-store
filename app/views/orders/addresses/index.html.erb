@@ -21,7 +21,7 @@
             <ul class="overflow-y-auto max-h-[60vh]">
               <% @addresses.each do |address| %>
                 <li class="w-full mb-2 flex gap-4">
-                  <%= form_with(url: checkout_address_path(id: address.id), method: :put, class: 'w-full') do |f| %>
+                  <%= form_with(url: order_address_path(id: address.id), method: :put, class: 'w-full') do |f| %>
                     <%= f.hidden_field :selected, value: true %>
                     <div class="w-full flex gap-2 rounded-lg bg-primary-100 group hover:bg-primary-700 dark:bg-primary-700">
                       <%= f.button nil, class: 'w-full flex flex-col p-4 text-left cursor-pointer', data: { action: 'click->remote-modal#close' } do %>
