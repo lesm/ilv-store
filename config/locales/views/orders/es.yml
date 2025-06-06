@@ -3,6 +3,15 @@ es:
     address:
       address_to: Enviar a
       no_addresses: No hay direcciones de envío
+    index:
+      title: Mis pedidos
+      no_orders: No hay pedidos
+      order_id: 'Orden ID:'
+      date: 'Fecha:'
+      total: 'Total:'
+      status: 'Estatus:'
+      actions:
+        view_order: Ver pedido
     new:
       product: Producto
       quantity: Cantidad

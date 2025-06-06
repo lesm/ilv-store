@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-  def index; end
+  def index
+    @orders = current_user.orders.order(created_at: :desc)
+  end
 
   def new
     @address = find_address

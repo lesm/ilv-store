@@ -3,6 +3,15 @@ en:
     address:
       address_to: Ship to
       no_addresses: No shipping addresses
+    index:
+      title: My orders
+      no_orders: No orders
+      order_id: 'Order ID:'
+      date: 'Date:'
+      total: 'Total:'
+      status: 'Status:'
+      actions:
+        view_order: View order
     new:
       product: Product
       quantity: Quantity
