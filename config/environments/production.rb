@@ -60,7 +60,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.asset_host = ENV.fetch('HOST', 'https://tienda.ilvmx.org')
-  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_options = {
     from: 'noreply@ilvmx.org',
     reply_to: 'noreply@ilvmx.org'
@@ -68,15 +68,15 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {
     host: ENV.fetch('HOST', 'tienda.ilvmx.org')
   }
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 2525,
-    domain: ENV.fetch('DOMAIN', 'tienda.ilvmx.org'),
-    user_name: Rails.application.credentials.dig(:smtp, :user_name),
-    password: Rails.application.credentials.dig(:smtp, :password),
-    authentication: 'plain',
-    enable_starttls: true
-  }
+  # config.action_mailer.smtp_settings = {
+  # address: 'smtp.sendgrid.net',
+  # port: 2525,
+  # domain: ENV.fetch('DOMAIN', 'tienda.ilvmx.org'),
+  # user_name: Rails.application.credentials.dig(:smtp, :user_name),
+  # password: Rails.application.credentials.dig(:smtp, :password),
+  # authentication: 'plain',
+  # enable_starttls: true
+  # }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

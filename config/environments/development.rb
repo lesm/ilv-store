@@ -37,8 +37,8 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.default_options = {
-    from: 'silmar.vim@gmail.com',
-    reply_to: 'silmar.vim@gmail.com'
+    from: 'noreply@ilvmx.org',
+    reply_to: 'noreply@ilvmx.org'
   }
 
   # Don't care if the mailer can't send.

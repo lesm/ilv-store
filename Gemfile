@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt'
+gem 'faraday'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'pg', '~> 1.1'
@@ -35,6 +36,7 @@ gem 'thruster', require: false
 group :development, :test do
   gem 'brakeman', require: false
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
 end
 
@@ -49,6 +51,7 @@ group :test do
   gem 'mocha'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 group :tools do
