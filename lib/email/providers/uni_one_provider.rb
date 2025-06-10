@@ -48,7 +48,7 @@ module Email
         {
           'Content-Type' => 'application/json',
           'Accept' => 'application/json',
-          'X-API-KEY' => ENV.fetch('UNI_ONE_API_KEY')
+          'X-API-KEY' => ENV.fetch('UNI_ONE_API_KEY', 'UNI_ONE_API_KEY')
         }
       end
     end

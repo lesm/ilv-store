@@ -37,7 +37,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
         assert_equal(1, User.count)
       end
 
-      test 'deliveries an email to verify email' do
+      test 'delivers an email to verify email' do
         EmailService.expects(:send_verify_email).with(user: instance_of(User))
 
         post registration_url, params: params
