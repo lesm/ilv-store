@@ -27,12 +27,20 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe '#POST create' do
+  describe '#POST create' do # rubocop:disable Metrics/BlockLength
+    before { stub_request(:any, %r{https://us1.unione.io/}) }
+
     describe 'with valid params' do
       test 'creates a user' do
         post registration_url, params: params
 
         assert_equal(1, User.count)
+      end
+
+      test 'deliveries an email to verify email' do
+        EmailService.expects(:send_verify_email).with(user: instance_of(User))
+
+        post registration_url, params: params
       end
 
       test 'returns redirect response' do

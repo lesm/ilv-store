@@ -6,6 +6,7 @@ require 'simplecov'
 require 'rails/test_help'
 require 'minitest/spec'
 require 'mocha/minitest'
+require 'webmock/minitest'
 
 SimpleCov.start 'rails'
 

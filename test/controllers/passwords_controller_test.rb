@@ -25,9 +25,12 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
 
   describe '#create' do
     describe 'with valid params' do
+      before do
+        stub_request(:any, %r{https://us1.unione.io/})
+      end
+
       test 'deliveries an email with password reset instructions' do
-        mail = AccountMailer.with(user:)
-        AccountMailer.expects(:with).with(user:).returns(mail)
+        EmailService.expects(:send_reset_password).with(user:)
 
         post passwords_url(token:), params: valid_params
       end

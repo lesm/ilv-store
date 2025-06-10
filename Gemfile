@@ -3,6 +3,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt'
+gem 'faraday'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'pg', '~> 1.1'
@@ -49,6 +50,7 @@ group :test do
   gem 'mocha'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 group :tools do
