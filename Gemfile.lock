@@ -251,6 +251,16 @@ GEM
     minitest-spec-rails (7.4.1)
       minitest (>= 5.0)
       railties (>= 4.1)
+    mission_control-jobs (1.0.2)
+      actioncable (>= 7.1)
+      actionpack (>= 7.1)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      importmap-rails (>= 1.2.1)
+      irb (~> 1.13)
+      railties (>= 7.1)
+      stimulus-rails
+      turbo-rails
     mocha (2.7.1)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
@@ -557,6 +567,7 @@ DEPENDENCIES
   letter_opener
   memory_profiler
   minitest-spec-rails
+  mission_control-jobs
   mocha
   ordinare
   pg (~> 1.1)

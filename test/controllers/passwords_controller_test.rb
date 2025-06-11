@@ -30,7 +30,7 @@ class PasswordsControllerTest < ActionDispatch::IntegrationTest
       end
 
       test 'deliveries an email with password reset instructions' do
-        EmailService.expects(:send_reset_password).with(user:)
+        AccountMailerJob.expects(:perform_later).with(user.id, :send_reset_password)
 
         post passwords_url(token:), params: valid_params
       end

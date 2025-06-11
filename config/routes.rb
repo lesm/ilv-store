@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  mount MissionControl::Jobs::Engine, at: '/jobs'
+
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     resource :session, only: %i[new create destroy]
     resource :registration, only: %i[new create]

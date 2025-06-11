@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      EmailService.send_verify_email(user: @user)
+      AccountMailerJob.perform_later(@user.id, :send_verify_email)
 
       redirect_to new_session_path, notice: t('.success')
     else
