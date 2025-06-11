@@ -38,7 +38,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       end
 
       test 'delivers an email to verify email' do
-        EmailService.expects(:send_verify_email).with(user: instance_of(User))
+        AccountMailerJob.expects(:perform_later).with(instance_of(String), :send_verify_email)
 
         post registration_url, params: params
       end

@@ -10,7 +10,7 @@ class PasswordsController < ApplicationController
 
   def create
     if (user = User.find_by(email: params[:email]))
-      EmailService.send_reset_password(user:)
+      AccountMailerJob.perform_later(user.id, :send_reset_password)
     end
 
     redirect_to new_session_path, notice: t('.success')
