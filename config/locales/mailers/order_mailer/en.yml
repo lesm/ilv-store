@@ -2,7 +2,7 @@ en:
   order_mailer:
     created:
       subject: We have received your order
-      title: '!Thank you for your order!'
+      title: 'Thank you for your order!'
       header_content: "Hello <strong>%{name}</strong>! We have received your order <strong>%{order_id}</strong> and we are processing it."
       order_summary: 'Order Summary:'
       quantity: 'Quantity:'
