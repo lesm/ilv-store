@@ -6,5 +6,6 @@ FactoryBot.define do
     address { association :address, :mx }
     subtotal { 100.00 }
     total { 100.00 }
+    status { 'created' }
   end
 end

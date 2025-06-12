@@ -21,6 +21,12 @@ class OrderTest < ActiveSupport::TestCase
 
       assert order.invalid?
     end
+
+    test 'raises an error for an unknown status' do
+      assert_raises ArgumentError do
+        order.status = 'unknown_status'
+      end
+    end
   end
 
   describe '#short_id' do
