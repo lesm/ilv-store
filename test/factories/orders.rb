@@ -8,4 +8,8 @@ FactoryBot.define do
     total { 100.00 }
     status { 'created' }
   end
+
+  trait :created do
+    status { 'created' }
+  end
 end

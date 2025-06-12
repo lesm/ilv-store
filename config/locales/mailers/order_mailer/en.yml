@@ -1,0 +1,13 @@
+en:
+  order_mailer:
+    created:
+      subject: We have received your order
+      title: '!Thank you for your order!'
+      header_content: "Hello <strong>%{name}</strong>! We have received your order <strong>%{order_id}</strong> and we are processing it."
+      order_summary: 'Order Summary:'
+      quantity: 'Quantity:'
+      subtotal: Subtotal
+      total: Total
+      status: 'Status:'
+      status_message: 'Your order is being processed and will be shipped shortly.'
+      see_order: View Order
