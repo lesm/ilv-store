@@ -10,6 +10,10 @@ class EmailService
       provider.send_email(message_delivery: AccountMailer.with(user:).reset_password)
     end
 
+    def send_order_created(order:)
+      provider.send_email(message_delivery: OrderMailer.with(order:).created)
+    end
+
     def provider
       Email::Providers::UniOneProvider.new
     end

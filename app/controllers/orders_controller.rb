@@ -9,11 +9,12 @@ class OrdersController < ApplicationController
     @address = find_address
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @order = build_order
 
     if @order.save
       current_cart.clear
+      OrderMailerJob.perform_later(@order.id, :send_order_created)
       redirect_to orders_path, notice: t('.success')
     else
       flash.now[:alert] = @order.errors.full_messages.to_sentence
