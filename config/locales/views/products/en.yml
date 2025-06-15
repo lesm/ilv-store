@@ -1,5 +1,6 @@
 en:
   products:
     index:
+      title: Products
       add_to_cart: Add
       choose_quantity: Choose quantity

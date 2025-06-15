@@ -1,5 +1,6 @@
 es:
   products:
     index:
+      title: Productos
       add_to_cart: Agregar
       choose_quantity: Elegir cantidad

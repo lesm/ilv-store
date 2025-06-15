@@ -4,7 +4,11 @@
 
 <section>
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-    <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="gap-4 sm:flex sm:items-center sm:justify-between">
+      <h2 class="text-xl font-semibold text-primary-900 dark:text-white sm:text-2xl"><%= t('.title') %></h2>
+    </div>
+
+    <div class="mt-6 mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
       <div class="max-w-md p-4 border-3 border-dashed rounded-lg shadow-sm bg-white dark:bg-primary-800 border-primary-400 dark:border-primary-700 items-center flex flex-col justify-center"
         data-controller="addresses--details">
 

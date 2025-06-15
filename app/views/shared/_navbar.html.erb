@@ -2,32 +2,12 @@
   <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4" data-controller="navbar--menu-collapse">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-8">
-        <div class="shrink-0">
-          <%= link_to root_path do %>
-            <%= image_tag 'ilv-logo.png', class: 'block w-auto h-8 dark:hidden' %>
-            <%= image_tag 'ilv-logo.png', class: 'hidden w-auto h-8 dark:block' %>
+        <div class="shrink-0 flex items-center">
+          <%= link_to root_path, class: 'flex items-center' do %>
+            <%= image_tag 'ilv-logo.png', class: 'w-auto h-8 dark:hidden' %>
+            <span class="ml-4 text-2xl text-primary-800 hidden sm:inline"><%= t('.title') %></span>
           <% end %>
         </div>
-
-        <ul class="hidden lg:flex items-center justify-start gap-6 md:gap-8 py-3 sm:justify-center">
-          <li>
-            <%= link_to t('.link_to_products'), root_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800' %>
-          </li>
-          <li class="shrink-0">
-            <a href="#" title="" class="flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800">
-              <%= t('.link_to_physical') %>
-            </a>
-          </li>
-          <li class="shrink-0">
-            <a href="#" title="" class="flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800">
-              <%= t('.link_to_digital') %>
-            </a>
-          </li>
-          <li class="shrink-0">
-            <a href="#" title="" class="text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800">
-              <%= t('.link_to_free') %>
-            </a>
-          </li>
       </div>
 
       <div class="flex items-center lg:space-x-2 gap-3">
@@ -71,13 +51,15 @@
             </div>
           </div>
 
-          <div class="pl-2">
-            <%= form_with(url: user_theme_preference_path, method: :patch, data: { turbo: false }) do |f| %>
-              <%= f.button nil, class: 'p-2 text-white bg-primary-300 hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-800 rounded cursor-pointer' do %>
-                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-11a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v2a1 1 0 0 0 1 1Zm0 12a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1ZM4.343 5.757a1 1 0 0 0 1.414-1.414L4.343 2.929a1 1 0 0 0-1.414 1.414l1.414 1.414Zm11.314 8.486a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM4 10a1 1 0 0 0-1-1H1a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1Zm15-1h-2a1 1 0 1 0 0 2h2a1 1 0 0 0 0-2ZM4.343 14.243l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a1 1 0 0 0-1.414-1.414ZM14.95 6.05a1 1 0 0 0 .707-.293l1.414-1.414a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 .707 1.707Z"></path></svg>
+          <% if false %>
+            <div class="pl-2">
+              <%= form_with(url: user_theme_preference_path, method: :patch, data: { turbo: false }) do |f| %>
+                <%= f.button nil, class: 'p-2 text-white bg-primary-300 hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-800 rounded cursor-pointer' do %>
+                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-11a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v2a1 1 0 0 0 1 1Zm0 12a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1ZM4.343 5.757a1 1 0 0 0 1.414-1.414L4.343 2.929a1 1 0 0 0-1.414 1.414l1.414 1.414Zm11.314 8.486a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM4 10a1 1 0 0 0-1-1H1a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1Zm15-1h-2a1 1 0 1 0 0 2h2a1 1 0 0 0 0-2ZM4.343 14.243l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a1 1 0 0 0-1.414-1.414ZM14.95 6.05a1 1 0 0 0 .707-.293l1.414-1.414a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 .707 1.707Z"></path></svg>
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% else %>
           <div class="flex items-center">
             <ul class="flex flex-row items-center justify-start space-x-1 gap-1 md:gap-3 py-3 sm:justify-center">

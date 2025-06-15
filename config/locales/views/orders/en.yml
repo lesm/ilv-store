@@ -4,7 +4,7 @@ en:
       address_to: Ship to
       no_addresses: No shipping addresses
     index:
-      title: My orders
+      title: Orders
       no_orders: No orders
       order_id: 'Order ID:'
       date: 'Date:'
