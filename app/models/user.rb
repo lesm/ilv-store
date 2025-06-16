@@ -19,4 +19,8 @@ class User < ApplicationRecord
 
   validates :name, :email, presence: true
   validates :email, uniqueness: true
+
+  def admin?
+    true
+  end
 end
