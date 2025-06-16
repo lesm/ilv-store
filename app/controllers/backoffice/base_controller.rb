@@ -6,6 +6,8 @@ module Backoffice
 
     before_action :authorize_admin!
 
+    layout 'backoffice'
+
     private
 
     def authorize_admin!
