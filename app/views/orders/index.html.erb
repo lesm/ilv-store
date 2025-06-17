@@ -12,40 +12,54 @@
       <div class="mt-6 flow-root sm:mt-8">
         <div class="grid gap-4">
           <% @orders.each do |order| %>
-            <div class="rounded-lg border border-primary-200 shadow-sm bg-white flex flex-wrap items-center gap-4 p-6">
-              <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                <dt class="text-base font-medium text-primary-500 dark:text-primary-400"><%= t('.order_id') %></dt>
-                <dd class="mt-1.5 text-base font-semibold text-primary-900 dark:text-white">
-                  <%= order.short_id %>
-                </dd>
-              </dl>
+            <div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 dark:bg-primary-800 dark:border-primary-700">
+              <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-5 lg:items-center">
+                <!-- Order ID -->
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.order_id') %></dt>
+                  <dd class="mt-1 text-base font-semibold text-primary-900 dark:text-white">
+                    <%= order.short_id %>
+                  </dd>
+                </div>
 
-              <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                <dt class="text-base font-medium text-primary-500 dark:text-primary-400"><%= t('.date') %></dt>
-                <dd class="mt-1.5 text-base font-semibold text-primary-900 dark:text-white">
-                  <%= l(order.created_at, format: :short_with_year) %>
-                </dd>
-              </dl>
+                <!-- Date -->
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.date') %></dt>
+                  <dd class="mt-1 text-base font-semibold text-primary-900 dark:text-white">
+                    <%= l(order.created_at, format: :short_with_year) %>
+                  </dd>
+                </div>
 
-              <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                <dt class="text-base font-medium text-primary-500 dark:text-primary-400"><%= t('.total') %></dt>
-                <dd class="mt-1.5 text-base font-semibold text-primary-900 dark:text-white">
-                  <%= number_to_currency(order.total) %>
-                </dd>
-              </dl>
+                <!-- Total -->
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.total') %></dt>
+                  <dd class="mt-1 text-base font-semibold text-primary-900 dark:text-white">
+                    <%= number_to_currency(order.total) %>
+                  </dd>
+                </div>
 
-              <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-                <dt class="text-base font-medium text-primary-500 dark:text-primary-400"><%= t('.status') %></dt>
-                <dd class="me-2 mt-1.5 inline-flex items-center rounded bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
-                  <svg class="me-1 h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
-                  </svg>
-                  Pre-order
-                </dd>
-              </dl>
+                <!-- Status -->
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.status') %></dt>
+                  <dd class="mt-1">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+                      <svg class="h-3 w-3 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z"/>
+                      </svg>
+                      <span><%= order.status.humanize %></span>
+                    </span>
+                  </dd>
+                </div>
 
-              <div class="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4">
-                <a href="#" class="w-full inline-flex justify-center rounded-lg  border border-primary-200 bg-primary-600 px-3 py-2 text-sm font-medium text-white hover:bg-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-primary-100 dark:border-primary-600 dark:bg-primary-800 dark:text-primary-400 dark:hover:bg-primary-700 dark:hover:text-white dark:focus:ring-primary-700 lg:w-auto"><%= t('.actions.view_order') %></a>
+                <!-- View Order Button -->
+                <div class="sm:col-span-2 lg:col-span-1 lg:text-right">
+                  <%= link_to orders_path, class: "inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600 sm:w-auto" do %>
+                    <%= t('.actions.view_order') %>
+                    <svg class="ml-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
+                    </svg>
+                  <% end %>
+                </div>
               </div>
             </div>
           <% end %>
