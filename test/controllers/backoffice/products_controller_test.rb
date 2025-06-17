@@ -4,7 +4,7 @@ require 'test_helper'
 
 module Backoffice
   class ProductsControllerTest < ActionDispatch::IntegrationTest
-    let(:user) { create(:user) }
+    let(:user) { create(:user, :admin) }
 
     before do
       authenticate_as(user)

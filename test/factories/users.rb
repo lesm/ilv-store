@@ -14,6 +14,10 @@ FactoryBot.define do
     verified { true }
   end
 
+  trait :admin do
+    role { 'admin' }
+  end
+
   trait :with_cart do
     cart { association(:cart, :with_items) }
   end
