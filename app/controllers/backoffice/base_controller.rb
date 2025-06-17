@@ -11,7 +11,9 @@ module Backoffice
     private
 
     def authorize_admin!
-      redirect_to root_path, alert: 'unauthorized' unless current_user.admin?
+      return if current_user.admin?
+
+      redirect_to root_path, alert: t('backoffice.base.unauthorized', email: current_user.email)
     end
   end
 end

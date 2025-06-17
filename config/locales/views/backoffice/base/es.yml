@@ -1,0 +1,4 @@
+es:
+  backoffice:
+    base:
+      unauthorized: usuario %{email} no autorizado
