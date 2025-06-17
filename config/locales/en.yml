@@ -12,6 +12,7 @@
 en:
   shared:
     navbar:
+      title: Summer Linguistic Institute
       link_to_products: Products
       link_to_physical: Physical
       link_to_digital: Digital
@@ -235,6 +236,7 @@ en:
     formats:
       default: "%a, %d %b %Y %I:%M:%S %p %Z"
       long: "%B %d, %Y %I:%M %p"
+      long_abbr: "%a, %d-%b-%Y %I:%M %p"
       short: "%d %b %I:%M %p"
       short_with_year: "%d %b %Y"
     pm: pm

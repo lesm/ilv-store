@@ -20,6 +20,7 @@ es:
       title: Editar dirección
       text_submit_button: Actualizar dirección
     index:
+      title: Direcciones
       add_address: Agregar dirección
       edit_address: Editar dirección
       show_more: Mostrar más

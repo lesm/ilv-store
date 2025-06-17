@@ -1,0 +1,11 @@
+es:
+  backoffice:
+    products:
+      index:
+        title: Productos
+        name: Nombre
+        updated_at: Última actualización
+        price: Precio
+        stock: Stock
+        actions:
+          edit: Editar

@@ -20,6 +20,7 @@ en:
       title: Edit address
       text_submit_button: Update address
     index:
+      title: Addresses
       add_address: Add address
       edit_address: Edit address
       show_more: Show more

@@ -1,7 +1,3 @@
-<% content_for :turbo_frame_content do %>
-    <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
-<% end %>
-
 <section>
   <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     <div class="mx-auto">
@@ -11,45 +7,45 @@
 
       <div class="mt-6 flow-root sm:mt-8">
         <div class="grid gap-4">
-          <% @orders.each do |order| %>
+          <% @products.each do |product| %>
             <div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 dark:bg-primary-800 dark:border-primary-700">
               <div class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-2 lg:grid-cols-5 lg:items-center">
-                <dl>
-                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.order_id') %></dt>
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.name') %></dt>
                   <dd class="mt-1 text-base font-semibold text-primary-900 dark:text-white">
-                    <%= order.short_id %>
+                    <%= product.name %>
                   </dd>
-                </dl>
+                </div>
 
-                <dl>
-                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.date') %></dt>
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.updated_at') %></dt>
+                  <dd class="whitespace-nowrap mt-1 text-base font-semibold text-primary-900 dark:text-white">
+                    <%= l(product.updated_at, format: :long_abbr) %>
+                  </dd>
+                </div>
+
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.price') %></dt>
                   <dd class="mt-1 text-base font-semibold text-primary-900 dark:text-white">
-                    <%= l(order.created_at, format: :short_with_year) %>
+                    <%= number_to_currency(product.price) %>
                   </dd>
-                </dl>
+                </div>
 
-                <dl>
-                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.total') %></dt>
-                  <dd class="mt-1 text-base font-semibold text-primary-900 dark:text-white">
-                    <%= number_to_currency(order.total) %>
-                  </dd>
-                </dl>
-
-                <dl>
-                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.status') %></dt>
+                <div>
+                  <dt class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.stock') %></dt>
                   <dd class="mt-1">
                     <span class="inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
                       <svg class="h-3 w-3 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
                       </svg>
-                      <span><%= order.status.humanize %></span>
+                      <span><%= product.stock %></span>
                     </span>
                   </dd>
-                </dl>
+                </div>
 
                 <div class="sm:col-span-2 lg:col-span-1 lg:text-right">
-                  <%= link_to orders_path, class: 'inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600 sm:w-auto' do %>
-                    <%= t('.actions.view_order') %>
+                  <%= link_to products_path, class: 'inline-flex w-full items-center justify-center rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600 sm:w-auto' do %>
+                    <%= t('.actions.edit') %>
                     <svg class="ml-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
                     </svg>

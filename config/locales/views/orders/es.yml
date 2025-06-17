@@ -4,7 +4,7 @@ es:
       address_to: Enviar a
       no_addresses: No hay direcciones de envío
     index:
-      title: Mis pedidos
+      title: Pedidos
       no_orders: No hay pedidos
       order_id: 'Orden ID:'
       date: 'Fecha:'

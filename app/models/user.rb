@@ -3,6 +3,12 @@
 class User < ApplicationRecord
   include EmailVerification
 
+  enum :role, {
+    customer: 'customer',
+    seller: 'seller',
+    admin: 'admin'
+  }
+
   has_secure_password
 
   belongs_to :country

@@ -31,6 +31,12 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  describe '#role' do
+    test 'defaults to customer' do
+      assert_equal 'customer', user.role
+    end
+  end
+
   test 'requires a password' do
     user.password = nil
 
