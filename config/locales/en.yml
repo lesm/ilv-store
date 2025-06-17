@@ -236,6 +236,7 @@ en:
     formats:
       default: "%a, %d %b %Y %I:%M:%S %p %Z"
       long: "%B %d, %Y %I:%M %p"
+      long_abbr: "%a, %d-%b-%Y %I:%M %p"
       short: "%d %b %I:%M %p"
       short_with_year: "%d %b %Y"
     pm: pm
