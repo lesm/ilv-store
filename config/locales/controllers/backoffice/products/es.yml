@@ -1,0 +1,5 @@
+es:
+  backoffice:
+    products:
+      update:
+        success: Producto actualizado

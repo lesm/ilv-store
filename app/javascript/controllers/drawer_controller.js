@@ -15,6 +15,13 @@ export default class extends Controller {
     if (this.#isEntering) enter(target);
   }
 
+  hideSidebar() {
+    const sidebar = document.getElementById('sidebar');
+
+    sidebar.classList.toggle('-translate-x-full');
+    sidebar.classList.toggle('hidden');
+  }
+
   async animate(event) {
     const {
       detail: { newFrame },
