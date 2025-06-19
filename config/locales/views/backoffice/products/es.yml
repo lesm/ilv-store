@@ -3,7 +3,13 @@ es:
     products:
       index:
         title: Productos
-        name: Nombre
+        internal_code: Código
+        original_title: Título original
+        title_mx: Título en español
+        language: Idioma
+        language_zone: Zona
+        edition_number: No. de edición
+        pages_number: No. de páginas
         updated_at: Última actualización
         price: Precio
         stock: Stock
