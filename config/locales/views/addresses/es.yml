@@ -1,6 +1,6 @@
 es:
   addresses:
-    shared:
+    shared: &shared
       contact_info: Información de contacto
       country: País
       postal_code: Código postal
@@ -20,14 +20,9 @@ es:
       title: Editar dirección
       text_submit_button: Actualizar dirección
     index:
+      <<: *shared
       title: Direcciones
       add_address: Agregar dirección
       edit_address: Editar dirección
       show_more: Mostrar más
       show_less: Mostrar menos
-      street_and_number: Calle y número
-      postal_code: Código postal
-      state: Estado
-      city: Ciudad
-      neighborhood: Colonia
-      reference: Referencia

@@ -9,7 +9,7 @@ class ProductTest < ActiveSupport::TestCase
     assert product.valid?
   end
 
-  describe '#validations' do
+  describe '#validations' do # rubocop:disable Metrics/BlockLength
     test 'validates presence of original_title' do
       product.original_title = nil
 

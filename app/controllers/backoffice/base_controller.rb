@@ -6,7 +6,7 @@ module Backoffice
 
     before_action :authorize_admin!
 
-    layout 'backoffice'
+    layout -> { turbo_frame_request? ? 'turbo_rails/frame' : 'backoffice' }
 
     private
 

@@ -1,3 +1,7 @@
+<% content_for :turbo_frame_content do %>
+    <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate turbo:before-frame-render->drawer#hideSidebar' } %>
+<% end %>
+
 <section>
   <div class="mx-auto max-w-screen-xl 2xl:px-0">
     <div class="mx-auto">
@@ -63,7 +67,7 @@
                     <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.pages_number %></p>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.price') %></p>
+                    <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.price_mx') %></p>
                     <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= number_to_currency(product.price_mx) %></p>
                   </div>
                 </div>

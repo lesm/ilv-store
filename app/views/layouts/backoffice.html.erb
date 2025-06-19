@@ -28,8 +28,10 @@
       <%= render 'shared/sidebar' %>
       <div id="flash"> <%= render 'shared/flash' %> </div>
 
+      <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate turbo:before-frame-render->drawer#hideSidebar' } %>
+
       <div class="flex-1 flex flex-col">
-        <main class="flex-1 p-4">
+        <main class="flex-1 py-4 pr-4 md:pl-4 md:ml-64">
           <%= yield %>
         </main>
 

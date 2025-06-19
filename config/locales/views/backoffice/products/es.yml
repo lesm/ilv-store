@@ -1,8 +1,8 @@
 es:
   backoffice:
     products:
-      index:
-        title: Productos
+      shared: &shared
+        title: Editar producto
         internal_code: Código
         original_title: Título original
         title_mx: Título en español
@@ -11,7 +11,12 @@ es:
         edition_number: No. de edición
         pages_number: No. de páginas
         updated_at: Última actualización
-        price: Precio
+        price_mx: Precio en pesos mexicanos
         stock: Stock
+        text_submit_button: Actualizar producto
+      index:
+        <<: *shared
+        title: Productos
+        updated_at: Última actualización
         actions:
           edit: Editar
