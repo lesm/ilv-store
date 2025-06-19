@@ -1,32 +1,32 @@
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.select :country_id, select_country_options, { selected: default_country.id }, class: 'address--new-form-field', required: true %>
-  <%= form.label :country_id, t('country', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.select :country_id, select_country_options, { selected: default_country.id }, class: 'drawer--form-field', required: true %>
+  <%= form.label :country_id, t('country', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.text_field :postal_code, class: 'address--new-form-field peer', maxlength: 5, required: true, placeholder: ' ', data: { action: 'change->addresses--form#completeAddress input->addresses--form#restrictToNumbers', addresses__form_target: 'postalCode' } %>
-  <%= form.label :postal_code, t('postal_code', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.text_field :postal_code, class: 'drawer--form-field peer', maxlength: 5, required: true, placeholder: ' ', data: { action: 'change->addresses--form#completeAddress input->addresses--form#restrictToNumbers', addresses__form_target: 'postalCode' } %>
+  <%= form.label :postal_code, t('postal_code', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
   <%= form.text_field :state_id, value: address.state_id, hidden: true, data: { addresses__form_target: 'stateId' } %>
-  <%= text_field_tag :state_name, address.state_name, disabled: true, placeholder: ' ', autocomplete: 'off', class: 'address--new-form-field peer', data: { addresses__form_target: 'stateName' } %>
-  <%= form.label :state_id, t('state', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= text_field_tag :state_name, address.state_name, disabled: true, placeholder: ' ', autocomplete: 'off', class: 'drawer--form-field peer', data: { addresses__form_target: 'stateName' } %>
+  <%= form.label :state_id, t('state', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.text_field :city_id, value: address.city_id, hidden: true, class: 'address--new-form-field', required: true, data: { addresses__form_target: 'cityId' } %>
-  <%= text_field_tag :city_name, address.city_name, disabled: true, placeholder: ' ', autocomplete: 'off', class: 'address--new-form-field peer', data: { addresses__form_target: 'cityName' } %>
-  <%= form.label :city_id, t('city', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.text_field :city_id, value: address.city_id, hidden: true, class: 'drawer--form-field', required: true, data: { addresses__form_target: 'cityId' } %>
+  <%= text_field_tag :city_name, address.city_name, disabled: true, placeholder: ' ', autocomplete: 'off', class: 'drawer--form-field peer', data: { addresses__form_target: 'cityName' } %>
+  <%= form.label :city_id, t('city', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.select :neighborhood, select_neighborhood_options(address.postal_code), { include_blank: t('choose_option', scope: 'addresses.shared'), selected: address.neighborhood }, class: 'address--new-form-select peer', required: true, data: { addresses__form_target: 'neighborhood' } %>
-  <%= form.label :neighborhood, t('neighborhood', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.select :neighborhood, select_neighborhood_options(address.postal_code), { include_blank: t('choose_option', scope: 'addresses.shared'), selected: address.neighborhood }, class: 'drawer--form-select peer', required: true, data: { addresses__form_target: 'neighborhood' } %>
+  <%= form.label :neighborhood, t('neighborhood', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.text_field :street_and_number, class: 'address--new-form-field peer', required: true, placeholder: ' ' %>
-  <%= form.label :street_and_number, t('street_and_number', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.text_field :street_and_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+  <%= form.label :street_and_number, t('street_and_number', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.text_field :reference, class: 'address--new-form-field peer', placeholder: ' ' %>
-  <%= form.label :reference, t('reference', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.text_field :reference, class: 'drawer--form-field peer', placeholder: ' ' %>
+  <%= form.label :reference, t('reference', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 
 <h2 class="text-2xl font-bold text-primary-900 dark:text-white mb-4">
@@ -34,12 +34,12 @@
 </h2>
 
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.text_field :full_name, class: 'address--new-form-field peer', required: true, placeholder: ' ' %>
-  <%= form.label :full_name, t('full_name', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.text_field :full_name, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+  <%= form.label :full_name, t('full_name', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 <div class="relative z-0 w-full mb-5 group">
-  <%= form.text_field :phone_number, class: 'address--new-form-field peer', required: true, placeholder: ' ' %>
-  <%= form.label :phone_number, t('phone_number', scope: 'addresses.shared'), class: 'address--new-form-label' %>
+  <%= form.text_field :phone_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+  <%= form.label :phone_number, t('phone_number', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 
 <div class="relative z-0 w-full pt-4 mb-5 group">
