@@ -4,10 +4,14 @@ require 'test_helper'
 
 class OrderMailerTest < ActionMailer::TestCase
   let(:user) { create(:user, email: 'test@mail.com') }
-  let(:order) { create(:order, :created, user:) }
+  let(:order) { create(:order, :order_created, user:) }
 
   test '.created' do
     email = OrderMailer.with(order:).created
+
+    assert_emails 1 do
+      email.deliver_now
+    end
 
     assert_equal ['mail@mail.com'], email.from
     assert_equal ['test@mail.com'], email.to

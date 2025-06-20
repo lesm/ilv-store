@@ -8,6 +8,10 @@ class AccountMailerTest < ActionMailer::TestCase
   test '.reset_password' do
     email = AccountMailer.with(user:).reset_password
 
+    assert_emails 1 do
+      email.deliver_now
+    end
+
     assert_equal ['mail@mail.com'], email.from
     assert_equal ['test@mail.com'], email.to
     assert_equal 'Restablecer contraseña', email.subject
@@ -16,6 +20,10 @@ class AccountMailerTest < ActionMailer::TestCase
 
   test '.verify_email' do
     email = AccountMailer.with(user:).verify_email
+
+    assert_emails 1 do
+      email.deliver_now
+    end
 
     assert_equal ['mail@mail.com'], email.from
     assert_equal ['test@mail.com'], email.to

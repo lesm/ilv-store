@@ -7,5 +7,7 @@ class Order
 
     validates :quantity, numericality: { greater_than: 0 }
     validates :quantity, :price, presence: true
+
+    delegate :title_mx, to: :product, prefix: true
   end
 end

@@ -9,7 +9,12 @@ FactoryBot.define do
     status { 'created' }
   end
 
-  trait :created do
+  # :created for some reason can not be used as a trait name
+  trait :order_created do
+    before(:create) do |order|
+      order.items << build_list(:order_item, 2)
+    end
+
     status { 'created' }
   end
 end
