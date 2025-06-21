@@ -73,7 +73,7 @@
           </div>
 
           <div class="space-y-3">
-            <%= f.submit t('.make_order_and_pay'), class: "form--submit #{class_names('disabled:pointer-events-none' => @address.nil?, 'disabled:opacity-50' => @address.nil?)}", disabled: @address.nil? %>
+            <%= f.submit t('.make_order_and_pay'), class: "form--submit #{class_names('disabled:pointer-events-none': @address.nil?, 'disabled:opacity-50': @address.nil?)}", disabled: @address.nil?, 'aria-disabled': @address.nil? %>
           </div>
         </div>
       </div>
