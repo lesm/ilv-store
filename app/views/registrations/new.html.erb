@@ -31,7 +31,7 @@
                   <%= form.password_field :password_confirmation, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
                 </div>
 
-                <%= form.submit t('.submit'), class: 'registration--new-form-submit' %>
+                <%= form.submit t('.submit'), class: 'form--submit' %>
 
                 <div class="flex items-center justify-between">
                   <%= link_to t('.link_to_sign_in'), new_session_path, class: 'text-sm font-medium text-primary-600 hover:underline dark:text-white' %>
