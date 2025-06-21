@@ -73,7 +73,7 @@
           </div>
 
           <div class="space-y-3">
-            <%= f.button t('.make_order_and_pay'), class: 'flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800' %>
+            <%= f.submit t('.make_order_and_pay'), class: "form--submit #{class_names('disabled:pointer-events-none' => @address.nil?, 'disabled:opacity-50' => @address.nil?)}", disabled: @address.nil? %>
           </div>
         </div>
       </div>
