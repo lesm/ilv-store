@@ -23,8 +23,8 @@ class Cart < ApplicationRecord
   private
 
   def broadcast_total_items
-    broadcast_update_to(self, target: "total_items_cart_#{id}", partial: 'carts/total_items')
-    broadcast_update_to(self, target: "total_items_drawer_cart_#{id}", partial: 'carts/total_items_drawer')
+    broadcast_update_to(self, target: "number_of_items_cart_#{id}", partial: 'carts/number_of_items')
+    broadcast_update_to(self, target: "subtotal_drawer_cart_#{id}", partial: 'carts/subtotal_drawer')
     broadcast_update_to(self, target: "subtotal_order_cart_#{id}", partial: 'orders/total')
     broadcast_update_to(self, target: "total_order_cart_#{id}", partial: 'orders/total')
 

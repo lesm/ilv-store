@@ -1,6 +1,6 @@
 en:
   carts:
-    total_items_drawer:
+    subtotal_drawer:
       product:
         zero: 0 products
         one: 1 product
