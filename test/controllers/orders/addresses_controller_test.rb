@@ -18,7 +18,7 @@ module Orders
     end
 
     describe '#PUT update' do
-      let(:address) { create(:address, :mx, addressable: user) }
+      let(:address) { create(:address, :oxxo_bustamante, addressable: user) }
 
       test 'updates the default address' do
         put(order_address_url(id: address.id, format: :turbo_stream), params: {})
@@ -29,7 +29,7 @@ module Orders
       test 'renders the correct partial' do
         put(order_address_url(id: address.id, format: :turbo_stream), params: {})
 
-        assert_turbo_stream action: :replace, target: 'orders-address'
+        assert_turbo_stream action: :update, target: 'orders-address'
       end
     end
   end
