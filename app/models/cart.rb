@@ -25,6 +25,8 @@ class Cart < ApplicationRecord
   def broadcast_total_items
     broadcast_update_to(self, target: "total_items_cart_#{id}", partial: 'carts/total_items')
     broadcast_update_to(self, target: "total_items_drawer_cart_#{id}", partial: 'carts/total_items_drawer')
+    broadcast_update_to(self, target: "subtotal_order_cart_#{id}", partial: 'orders/total')
+    broadcast_update_to(self, target: "total_order_cart_#{id}", partial: 'orders/total')
 
     if items.empty? # rubocop:disable Style/GuardClause
       broadcast_update_to(self, target: "link_to_checkout_cart_#{id}", partial: 'carts/link_to_checkout')
