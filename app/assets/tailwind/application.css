@@ -108,6 +108,21 @@
   from, to { opacity: 1; }
 }
 
+@keyframes subtle-ping {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.animate-cart {
+  animation: subtle-ping 0.6s cubic-bezier(0.4, 0, 0.6, 1) 1 forwards;
+}
+
 .flash {
   @apply opacity-0;
   animation:

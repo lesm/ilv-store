@@ -18,7 +18,7 @@ module Carts
     end
 
     def update
-      @item = cart.items.find(params[:id])
+      @item = current_cart.items.find(params[:id])
       @item.update(quantity: quantity_param)
 
       respond_to do |format|
@@ -27,7 +27,7 @@ module Carts
     end
 
     def destroy
-      @item = cart.items.find(params[:id])
+      @item = current_cart.items.find(params[:id])
       @item.destroy
 
       respond_to do |format|
@@ -40,15 +40,15 @@ module Carts
 
     def broadcast_animate_cart
       Turbo::StreamsChannel.broadcast_append_to(
-        cart,
-        target: 'animate_cart_target',
-        partial: 'carts/ping_effect_stream', locals: { cart: }
+        current_cart,
+        target: "number_of_items_cart_#{current_cart.id}",
+        partial: 'carts/ping_effect_stream', locals: { cart: current_cart }
       )
     end
 
     def find_or_initialize_cart_item
-      item = cart.items.find_by(product_id: product.id)
-      item ||= cart.items.new(cart_item_params.merge(price: product.price_mx))
+      item = current_cart.items.find_by(product_id: product.id)
+      item ||= current_cart.items.new(cart_item_params.merge(price: product.price_mx))
       item.tap { it.increment(:quantity, quantity_param) if it.persisted? }
     end
 
@@ -62,10 +62,6 @@ module Carts
 
     def quantity_param
       params.dig(:cart_item, :quantity).to_i.abs
-    end
-
-    def cart
-      @cart ||= Cart.find_or_create_by(user: current_user)
     end
   end
 end

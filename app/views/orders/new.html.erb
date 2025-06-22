@@ -32,24 +32,8 @@
                   </tr>
                   <tbody class="divide-y divide-primary-200 dark:divide-primary-800">
                     <% current_cart.items.each do |item| %>
-                      <tr>
-                        <td class="py-4 w-[60%]">
-                          <div class="flex items-center gap-4">
-                            <a href="#" class="flex items-center aspect-square w-10 h-10 shrink-0">
-                              <img class="h-auto w-full max-h-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="imac image">
-                              <img class="hidden h-auto w-full max-h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="imac image">
-                            </a>
-                            <a href="#" class="hover:underline"><%= item.title_mx %>
-                              <span class="text-sm text-primary-500 dark:text-primary-400">(<%= item.original_title %>)</span>
-                            </a>
-                          </div>
-                        </td>
-
-                        <td class="w-[10%] p-4 text-base text-center font-normal text-primary-900 dark:text-white"><%= item.quantity %></td>
-
-                        <td class="w-[20%] p-4 text-right text-base font-bold text-primary-900 dark:text-white">
-                          <%= number_to_currency(item.price) %>
-                        </td>
+                      <tr id="order-item-<%= item.id %>">
+                        <%= render 'orders/item', item: %>
                       </tr>
                     <% end %>
               </table>
@@ -62,12 +46,16 @@
             <div class="-my-3 divide-y divide-primary-200 dark:divide-primary-800">
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-normal text-primary-500 dark:text-primary-400"><%= t('.subtotal') %></dt>
-                <dd class="text-base font-medium text-primary-900 dark:text-white"><%= number_to_currency(current_cart.total_price) %></dd>
+                <dd id="<%= dom_id(current_cart, :subtotal_order) %>" class="text-base font-medium text-primary-900 dark:text-white">
+                  <%= render 'total' %>
+                </dd>
               </dl>
 
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-bold text-primary-900 dark:text-white"><%= t('.total') %></dt>
-                <dd class="text-base font-bold text-primary-900 dark:text-white"><%= number_to_currency(current_cart.total_price) %></dd>
+                <dd id="<%= dom_id(current_cart, :total_order) %>" class="text-base font-bold text-primary-900 dark:text-white">
+                  <%= render 'total' %>
+                </dd>
               </dl>
             </div>
           </div>
