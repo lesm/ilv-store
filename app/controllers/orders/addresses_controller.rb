@@ -16,7 +16,7 @@ module Orders
       respond_to do |format|
         format.turbo_stream do
           render(
-            turbo_stream: turbo_stream.replace(
+            turbo_stream: turbo_stream.update(
               'orders-address', partial: 'orders/address', locals: { address: @address }
             )
           )

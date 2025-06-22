@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :order do
     user { association :user }
-    address { association :address, :mx }
+    address { association :address, :oxxo_bustamante }
     subtotal { 100.00 }
     total { 100.00 }
     status { 'created' }

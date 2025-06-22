@@ -7,7 +7,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   let(:params) do
     {
       order: {
-        address_id: create(:address, :mx, addressable: user).id
+        address_id: create(:address, :oxxo_bustamante, addressable: user).id
       }
     }
   end

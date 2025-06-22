@@ -3,10 +3,10 @@
 require 'test_helper'
 
 class AddressTest < ActiveSupport::TestCase
-  let(:mx_address) { build(:address, :mx) }
+  let(:mx_address) { build(:address, :oxxo_bustamante) }
 
   test 'builds a valid mexican address' do
-    assert build(:address, :mx).valid?
+    assert build(:address, :oxxo_bustamante).valid?
   end
 
   describe '#validations' do

@@ -44,7 +44,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe '#GET edit' do
-    let(:address) { create(:address, :mx, addressable: user) }
+    let(:address) { create(:address, :oxxo_bustamante, addressable: user) }
 
     test 'returns a 200 response' do
       create(:mx_postal_code, :oaxaca_centro, state:, city:)
@@ -73,7 +73,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe '#PATCH update' do
-    let(:address) { create(:address, :mx, addressable: user) }
+    let(:address) { create(:address, :oxxo_bustamante, addressable: user) }
 
     describe 'with valid params' do
       test 'redirects to the addresses page' do
