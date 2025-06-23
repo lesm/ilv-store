@@ -30,6 +30,13 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe '#GET show' do
+    test 'returns 200 status code' do
+      get order_url(id: create(:order, user:).id, turbo_frame: 'drawer')
+      assert_response :success
+    end
+  end
+
   describe 'POST #create' do
     describe 'with valid params' do
       test 'redirects to the orders page' do

@@ -21,3 +21,13 @@ en:
       make_order_and_pay: Make order and pay
       change_address: Change
       add_address: Add address
+    show:
+      title: Order details
+      delivery_address: 'Shipping address:'
+      products: Products
+      order_id: 'Order ID:'
+      date: 'Date:'
+      total: 'Total:'
+      status: 'Status:'
+      product:
+        quantity: Quantity

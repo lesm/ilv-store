@@ -11,7 +11,7 @@ resource :cart, only: %i[show] do
   resources :items, only: %i[create update destroy], controller: 'carts/items'
 end
 
-resources :orders, only: %i[index new create]
+resources :orders, only: %i[index new show create]
 
 scope module: :orders, path: :order, as: :order do
   resources :addresses, only: %i[index update]
