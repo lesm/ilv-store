@@ -2,7 +2,6 @@ es:
   backoffice:
     products:
       shared: &shared
-        title: Editar producto
         internal_code: Código
         original_title: Título original
         title_mx: Título en español
@@ -13,10 +12,16 @@ es:
         updated_at: Última actualización
         price_mx: Precio en pesos mexicanos
         stock: Stock
-        text_submit_button: Actualizar producto
       index:
         <<: *shared
         title: Productos
         updated_at: Última actualización
         actions:
           edit: Editar
+          new: Nuevo producto
+      new:
+        title: Nuevo producto
+        text_submit_button: Crear producto
+      edit:
+        title: Editar producto
+        text_submit_button: Actualizar producto

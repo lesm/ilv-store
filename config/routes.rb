@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   namespace :backoffice do
     resource :dashboard, only: %i[show]
-    resources :products, only: %i[index edit update]
+    resources :products, only: %i[index new edit create update]
   end
 
   resources :postal_codes, only: %i[index]
