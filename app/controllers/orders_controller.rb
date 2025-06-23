@@ -9,6 +9,11 @@ class OrdersController < ApplicationController
     @address = find_address
   end
 
+  def show
+    request.variant = :drawer
+    @order = current_user.orders.find(params[:id])
+  end
+
   def create # rubocop:disable Metrics/AbcSize
     @order = build_order
 

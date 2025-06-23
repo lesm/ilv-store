@@ -21,4 +21,13 @@ es:
       make_order_and_pay: Realizar pedido y pagar
       change_address: Cambiar
       add_address: Agregar dirección
-
+    show:
+      title: Detalles del pedido
+      delivery_address: 'Dirección de envío:'
+      products: Productos
+      order_id: 'Orden ID:'
+      date: 'Fecha:'
+      total: 'Total:'
+      status: 'Estatus:'
+      product:
+        quantity: Cantidad
