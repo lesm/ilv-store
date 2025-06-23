@@ -10,6 +10,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   describe '#email' do
+    test 'validates format' do
+      user.email = 'invalid_email'
+      assert user.invalid?
+      assert_includes user.errors.details[:email], error: :invalid, value: 'invalid_email'
+    end
+
     test 'normalizes the email address' do
       user.email = ' maIL@mail.com'
 
