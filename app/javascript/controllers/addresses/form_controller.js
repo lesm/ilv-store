@@ -10,7 +10,16 @@ export default class extends Controller {
   }
 
   async completeAddress() {
-    if (this.postalCodeTarget.value.length === 5) {
+    if (this.postalCodeTarget.value.length < 5) {
+      const message = `El código postal ${this.postalCodeTarget.value} debe tener 5 dígitos`;
+      this.createFlashMessage(message);
+      this.stateIdTarget.value = '';
+      this.stateNameTarget.value = '';
+      this.cityIdTarget.value = '';
+      this.cityNameTarget.value = '';
+      this.neighborhoodTarget.innerHTML = '';
+      return;
+    } else if (this.postalCodeTarget.value.length === 5) {
       const response = await get('/postal_codes.json',
         { query: { postal_code: this.postalCodeTarget.value }, dataType: 'json' }
       );
@@ -36,7 +45,7 @@ export default class extends Controller {
 
   createFlashMessage(message) {
     const template = document.getElementById('alertTemplate').content.cloneNode(true);
-    template.querySelector('.error-message').innerText = message;
+    template.querySelector('.flash-message').innerText = message;
     this.element.appendChild(template);
   }
 
