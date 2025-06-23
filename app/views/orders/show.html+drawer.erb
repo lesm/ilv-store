@@ -8,7 +8,7 @@
     </div>
 
     <!-- Order Summary Card -->
-    <div class="bg-white dark:bg-primary-800 rounded-lg shadow-sm p-4 sm:p-6 border border-primary-200 dark:border-primary-700">
+    <div class="bg-primary-50/40 dark:bg-primary-800 rounded-lg shadow-sm p-4 sm:p-6 border border-primary-200 dark:border-primary-700">
       <div class="flex flex-col gap-2 mb-2">
         <p class="text-sm font-medium text-primary-600 dark:text-primary-300"><%= t('order_id', scope: 'orders.show') %></p>
         <p class="font-mono text-primary-900 dark:text-white"><%= @order.id %></p>
@@ -39,7 +39,7 @@
         <%= t('delivery_address', scope: 'orders.show') %>
       </h3>
 
-      <div class="bg-white dark:bg-primary-800 rounded-lg shadow-sm p-4 sm:p-6 border border-primary-200 dark:border-primary-700">
+      <div class="bg-primary-50/40 dark:bg-primary-800 rounded-lg shadow-sm p-4 sm:p-6 border border-primary-200 dark:border-primary-700">
         <h4 class="text-lg font-semibold text-primary-900 dark:text-white mb-2">
           <%= @order.address.full_name %>
         </h4>
@@ -55,7 +55,7 @@
         <%= t('products', scope: 'orders.show') %>
       </h3>
 
-      <div class="bg-white dark:bg-primary-800 rounded-lg shadow-sm overflow-hidden border border-primary-200 dark:border-primary-700">
+      <div class="bg-primary-50/40 dark:bg-primary-800 rounded-lg shadow-sm overflow-hidden border border-primary-200 dark:border-primary-700">
         <% @order.items.each do |item| %>
           <div class="p-4 sm:p-6 border-b border-primary-200 dark:border-primary-700 last:border-b-0">
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
