@@ -24,5 +24,6 @@ class User < ApplicationRecord
   normalizes :email, with: ->(e) { e.strip.downcase }
 
   validates :name, :email, presence: true
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :email, uniqueness: true
 end
