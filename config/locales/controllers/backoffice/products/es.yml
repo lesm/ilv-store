@@ -1,5 +1,7 @@
 es:
   backoffice:
     products:
+      create:
+        success: Producto creado
       update:
         success: Producto actualizado

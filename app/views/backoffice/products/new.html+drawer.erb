@@ -2,12 +2,12 @@
   <div class="relative mt-6 flex-1 px-4 flex flex-col gap-6 m-2 sm:m-10" data-controller="addresses--form">
     <%= form_with(model: [:backoffice, @product]) do |form| %>
       <h2 class="text-2xl font-bold text-primary-900 dark:text-white mb-4">
-        <%= t('title', scope: 'backoffice.products.edit') %>
+        <%= t('title', scope: 'backoffice.products.new') %>
       </h2>
 
       <%= render 'form_fields', form:, product: @product %>
 
-      <%= form.submit t('text_submit_button', scope: 'backoffice.products.edit'), class: 'drawer--form-submit' %>
+      <%= form.submit t('text_submit_button', scope: 'backoffice.products.new'), class: 'drawer--form-submit' %>
     <% end %>
   </div>
 

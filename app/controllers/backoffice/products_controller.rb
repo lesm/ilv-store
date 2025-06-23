@@ -6,9 +6,26 @@ module Backoffice
       @products = Product.all
     end
 
+    def new
+      request.variant = :drawer
+      @product = Product.new
+    end
+
     def edit
       request.variant = :drawer
       @product = Product.find(params[:id])
+    end
+
+    def create # rubocop:disable Metrics/AbcSize
+      @product = Product.new(product_params)
+
+      if @product.save
+        flash[:notice] = t('.success')
+        render turbo_stream: turbo_stream.action(:redirect, backoffice_products_path)
+      else
+        flash.now[:alert] = @product.errors.full_messages.to_sentence
+        render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
+      end
     end
 
     def update # rubocop:disable Metrics/AbcSize
