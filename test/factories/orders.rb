@@ -6,7 +6,7 @@ FactoryBot.define do
     address { association :address, :oxxo_bustamante }
     subtotal { 100.00 }
     total { 100.00 }
-    status { 'created' }
+    workflow_status { 'created' }
   end
 
   # :created for some reason can not be used as a trait name
@@ -15,6 +15,6 @@ FactoryBot.define do
       order.items << build_list(:order_item, 2)
     end
 
-    status { 'created' }
+    workflow_status { 'created' }
   end
 end
