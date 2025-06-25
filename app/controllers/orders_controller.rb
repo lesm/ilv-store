@@ -6,15 +6,16 @@ class OrdersController < ApplicationController
   end
 
   def new
+    @cart = find_cart
     @address = find_address
   end
 
   def show
     request.variant = :drawer
-    @order = current_user.orders.find(params[:id])
+    @order = current_user.orders.includes(items: [:product]).find(params[:id])
   end
 
-  def create # rubocop:disable Metrics/AbcSize
+  def create # rubocop:disable Metrics/AbcSize, Metric/MethodLength
     @order = build_order
 
     if @order.save
@@ -23,12 +24,17 @@ class OrdersController < ApplicationController
       redirect_to orders_path, notice: t('.success')
     else
       flash.now[:alert] = @order.errors.full_messages.to_sentence
+      @cart = find_cart
       @address = find_address
       render :new, status: :unprocessable_entity
     end
   end
 
   private
+
+  def find_cart
+    Cart.includes(items: [:product]).find_by(user: current_user)
+  end
 
   def find_address
     current_user.default_address || current_user.addresses.first

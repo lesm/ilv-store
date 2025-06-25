@@ -5,7 +5,7 @@ module Orders
     include AddressDefaultable
 
     def index
-      @addresses = current_user.addresses
+      @addresses = current_user.addresses.includes(%i[state city])
     end
 
     def update # rubocop:disable Metrics/MethodLength
