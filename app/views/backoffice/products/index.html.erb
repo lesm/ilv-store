@@ -7,7 +7,7 @@
     <div class="mx-auto">
       <div class="pt-4 gap-4 sm:flex sm:items-center sm:justify-between">
         <h2 class="text-xl font-semibold text-primary-900 dark:text-white sm:text-2xl"><%= t('.title') %></h2>
-        <%= link_to new_backoffice_product_path, class: 'inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-lg font-medium text-primary-700 hover:underline dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600', data: { turbo_frame: :drawer } do %>
+        <%= link_to new_backoffice_product_path, class: 'inline-flex items-center justify-center rounded-lg text-lg font-medium text-primary-700 hover:underline dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600', data: { turbo_frame: :drawer } do %>
           <%= t('.actions.new') %>
           <svg class="ml-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
@@ -18,8 +18,8 @@
       <div class="mt-6 flow-root">
         <div class="grid gap-4">
           <% @products.each do |product| %>
-            <div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:bg-primary-100 hover:shadow-md transition-shadow duration-200 dark:bg-primary-800 dark:border-primary-700">
-              <div class="border-b border-primary-200 dark:border-primary-700 p-4 flex justify-between items-center">
+            <div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 dark:bg-primary-800 dark:border-primary-700">
+              <div class="border-b border-primary-200 dark:border-primary-700 p-4 flex justify-between items-center hover:bg-primary-100">
                 <div>
                   <h3 class="text-lg font-semibold text-primary-900 dark:text-white">
                     <%= product.internal_code %>
