@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  enum :status, {
+  enum :workflow_status, {
     created: 'created',
     in_transit: 'in_transit',
     canceled: 'canceled',
@@ -15,9 +15,5 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :address
 
   validates :subtotal, :total, presence: true
-  validates :status, inclusion: { in: statuses.keys }
-
-  def short_id
-    id.first(13)
-  end
+  validates :workflow_status, inclusion: { in: workflow_statuses.keys }
 end

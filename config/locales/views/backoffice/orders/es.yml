@@ -1,0 +1,12 @@
+es:
+  backoffice:
+    orders:
+      index:
+        title: Pedidos
+        order_id: 'Orden ID:'
+        date: 'Fecha:'
+        email: 'Email:'
+        total: 'Total:'
+        workflow_status: 'Estatus:'
+        actions:
+          edit: Editar

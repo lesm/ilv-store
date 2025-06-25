@@ -24,16 +24,8 @@ class OrderTest < ActiveSupport::TestCase
 
     test 'raises an error for an unknown status' do
       assert_raises ArgumentError do
-        order.status = 'unknown_status'
+        order.workflow_status = 'unknown_status'
       end
-    end
-  end
-
-  describe '#short_id' do
-    test 'returns the first 13 characters of the id' do
-      order.save!
-
-      assert_equal 13, order.short_id.size
     end
   end
 end

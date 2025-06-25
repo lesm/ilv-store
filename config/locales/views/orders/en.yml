@@ -9,7 +9,7 @@ en:
       order_id: 'Order ID:'
       date: 'Date:'
       total: 'Total:'
-      status: 'Status:'
+      workflow_status: 'Status:'
       actions:
         view_order: View order
     new:
@@ -28,6 +28,6 @@ en:
       order_id: 'Order ID:'
       date: 'Date:'
       total: 'Total:'
-      status: 'Status:'
+      workflow_status: 'Status:'
       product:
         quantity: Quantity
