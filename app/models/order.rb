@@ -16,8 +16,4 @@ class Order < ApplicationRecord
 
   validates :subtotal, :total, presence: true
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
-
-  def short_id
-    id.first(13)
-  end
 end

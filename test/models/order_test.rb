@@ -28,12 +28,4 @@ class OrderTest < ActiveSupport::TestCase
       end
     end
   end
-
-  describe '#short_id' do
-    test 'returns the first 13 characters of the id' do
-      order.save!
-
-      assert_equal 13, order.short_id.size
-    end
-  end
 end
