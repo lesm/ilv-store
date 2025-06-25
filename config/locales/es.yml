@@ -3,7 +3,7 @@ es:
     sidebar:
       title: Instituto Lingüístico de Verano
       link_to_products: Productos
-      link_to_physical: Físicos
+      link_to_orders: Ordenes
       link_to_signout: Cerrar sesión
     navbar:
       title: Instituto Lingüístico de Verano
