@@ -97,6 +97,9 @@ GEM
     brakeman (7.0.2)
       racc
     builder (3.3.0)
+    bullet (8.0.8)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     bundler-audit (0.9.2)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
@@ -515,6 +518,7 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
+    uniform_notifier (1.17.0)
     uri (1.0.3)
     useragent (0.16.11)
     virtus (2.0.0)
@@ -554,6 +558,7 @@ DEPENDENCIES
   bcrypt
   bootsnap
   brakeman
+  bullet
   bundler-audit
   capybara
   csv
@@ -601,4 +606,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.6.5
+   2.6.9

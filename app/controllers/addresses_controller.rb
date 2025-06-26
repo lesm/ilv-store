@@ -3,10 +3,8 @@
 class AddressesController < ApplicationController
   include AddressDefaultable
 
-  before_action :set_address, only: %i[edit update]
-
   def index
-    @addresses = current_user.addresses
+    @addresses = current_user.addresses.includes(%i[state city])
   end
 
   def new
@@ -15,6 +13,7 @@ class AddressesController < ApplicationController
   end
 
   def edit
+    @address = current_user.addresses.includes(%i[state city]).find(params[:id])
     request.variant = :drawer
   end
 
@@ -33,6 +32,8 @@ class AddressesController < ApplicationController
   end
 
   def update # rubocop:disable Metrics/AbcSize
+    @address = current_user.addresses.find(params[:id])
+
     if update_address(@address, address_params)
       flash[:notice] = t('.success')
       render turbo_stream: turbo_stream.action(:redirect, addresses_path)
@@ -43,10 +44,6 @@ class AddressesController < ApplicationController
   end
 
   private
-
-  def set_address
-    @address = current_user.addresses.find(params[:id])
-  end
 
   def url_redirect
     request.referer || addresses_path

@@ -3,6 +3,6 @@
 class CartsController < ApplicationController
   def show
     request.variant = :drawer
-    @cart = current_cart
+    @cart = Cart.includes(items: [:product]).find_by(user: current_user)
   end
 end
