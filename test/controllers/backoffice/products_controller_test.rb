@@ -5,21 +5,24 @@ require 'test_helper'
 module Backoffice
   class ProductsControllerTest < ActionDispatch::IntegrationTest
     let(:user) { create(:user, :admin) }
-    let(:product) { create(:product) }
+    let(:book) { create(:book) }
+    let(:product) { book.product }
 
     let(:params) do
       {
-        product: {
+        book: {
           internal_code: '12345',
-          original_title: 'Test Product',
-          title_mx: 'Producto de Prueba',
           language: 'Spanish',
           language_zone: 'MX',
-          edition_number: '1',
-          pages_number: '100',
-          price_mx: 99.99,
-          stock: 50
-        }
+          edition_number: '100',
+          pages_number: '1000',
+          product_attributes: {
+            original_title: 'Test Product',
+            title_mx: 'Producto de Prueba',
+            price_mx: 99.99,
+            stock: 50
+          }
+        },
       }
     end
 
@@ -43,7 +46,7 @@ module Backoffice
 
     describe '#GET edit' do
       test 'returns success response' do
-        get edit_backoffice_product_url(id: product.id, turbo_frame: 'drawer')
+        get edit_backoffice_product_url(id: book.id, turbo_frame: 'drawer')
         assert_response :success
       end
     end
@@ -59,7 +62,7 @@ module Backoffice
 
       describe 'with invalid params' do
         test 'redirects to the new backoffice product page' do
-          params[:product][:internal_code] = nil
+          params[:book][:internal_code] = nil
           post(backoffice_products_url(format: :turbo_stream), params:)
 
           assert_turbo_stream action: :append, target: 'flash'
@@ -69,23 +72,30 @@ module Backoffice
 
     describe '#PATCH update' do # rubocop:disable Metrics/BlockLength
       describe 'with valid params' do
+        before do
+          params[:book][:product_attributes][:id] = product.id
+        end
+
         test 'redirects to the backoffice products page' do
-          put(backoffice_product_url(id: product.id, format: :turbo_stream), params:)
+          put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
           assert_turbo_stream action: :redirect
         end
 
         test 'updates the product' do
-          put(backoffice_product_url(id: product.id, format: :turbo_stream), params:)
+          put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
+
+          book.reload
           product.reload
-          assert_equal '12345', product.internal_code
+          assert_equal '12345', book.internal_code
+          assert_equal 'Spanish', book.language
+          assert_equal 'MX', book.language_zone
+          assert_equal '100', book.edition_number
+          assert_equal '1000', book.pages_number
+
           assert_equal 'Test Product', product.original_title
           assert_equal 'Producto de Prueba', product.title_mx
-          assert_equal 'Spanish', product.language
-          assert_equal 'MX', product.language_zone
-          assert_equal '1', product.edition_number
-          assert_equal '100', product.pages_number
           assert_equal 99.99, product.price_mx
           assert_equal 50, product.stock
         end
@@ -93,16 +103,16 @@ module Backoffice
 
       describe 'with invalid params' do
         test 'redirects to the edit backoffice product page' do
-          params[:product][:price_mx] = nil
-          put(backoffice_product_url(id: product.id, format: :turbo_stream), params:)
+          params[:book][:product_attributes][:price_mx] = nil
+          put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
           assert_turbo_stream action: :append, target: 'flash'
         end
 
         test 'does not update the product' do
           original_price = product.price_mx
-          params[:product][:price_mx] = nil
-          put(backoffice_product_url(id: product.id, format: :turbo_stream), params:)
+          params[:book][:product_attributes][:price_mx] = nil
+          put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
           assert_equal original_price, product.reload.price_mx
         end

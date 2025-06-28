@@ -5,7 +5,7 @@ require 'test_helper'
 module Carts
   class ItemsControllerTest < ActionDispatch::IntegrationTest
     let(:user) { create(:user, :with_cart) }
-    let(:product) { create(:product) }
+    let(:product) { create(:book).product }
 
     before do
       authenticate_as(user)

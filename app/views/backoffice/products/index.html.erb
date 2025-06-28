@@ -22,7 +22,7 @@
               <div class="border-b border-primary-200 dark:border-primary-700 p-4 flex justify-between items-center hover:bg-primary-100">
                 <div>
                   <h3 class="text-lg font-semibold text-primary-900 dark:text-white">
-                    <%= product.internal_code %>
+                    <%= product.productable.internal_code %>
                   </h3>
                   <p class="text-sm text-primary-500 dark:text-primary-400">
                   <%= product.original_title %>
@@ -35,7 +35,7 @@
                     </svg>
                     <span><%= product.stock %></span>
                   </span>
-                  <%= link_to edit_backoffice_product_path(product), class: 'inline-flex items-center justify-center rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600', data: { turbo_frame: :drawer } do %>
+                  <%= link_to edit_backoffice_product_path(product.productable_id), class: 'inline-flex items-center justify-center rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600', data: { turbo_frame: :drawer } do %>
                     <%= t('.actions.edit') %>
                     <svg class="ml-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
@@ -52,25 +52,25 @@
                   </div>
                   <div>
                     <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.language') %></p>
-                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.language %></p>
+                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.productable.language %></p>
                   </div>
                 </div>
 
                 <div class="space-y-3">
                   <div>
                     <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.language_zone') %></p>
-                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.language_zone %></p>
+                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.productable.language_zone %></p>
                   </div>
                   <div>
                     <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.edition_number') %></p>
-                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.edition_number %></p>
+                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.productable.edition_number %></p>
                   </div>
                 </div>
 
                 <div class="space-y-3">
                   <div>
                     <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.pages_number') %></p>
-                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.pages_number %></p>
+                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.productable.pages_number %></p>
                   </div>
                   <div>
                     <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.price_mx') %></p>
@@ -81,7 +81,7 @@
                 <div class="space-y-3">
                   <div>
                     <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.updated_at') %></p>
-                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= l(product.updated_at, format: :long_abbr) %></p>
+                    <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= l(product.productable.updated_at, format: :long_abbr) %></p>
                   </div>
                 </div>
               </div>

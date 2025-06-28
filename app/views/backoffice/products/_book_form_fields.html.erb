@@ -1,0 +1,41 @@
+<%= fields_for book do |f| %>
+  <%= f.fields_for :product do |ff| %>
+    <div class="relative z-0 w-full mb-5 group">
+      <%= ff.text_field :original_title, value: product.original_title, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+      <%= ff.label :original_title, t('original_title', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <%= ff.text_field :title_mx, value: product.title_mx, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+      <%= ff.label :title_mx, t('title_mx', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <%= ff.text_field :price_mx, value: product.price_mx, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+      <%= ff.label :price_mx, t('price_mx', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      <%= ff.text_field :stock, value: product.stock, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+      <%= ff.label :stock, t('stock', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+    </div>
+  <% end %>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :internal_code, value: book.internal_code, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :internal_code, t('internal_code', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :language, value: book.language, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :language, t('language', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :language_zone, value: book.language_zone, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :language_zone, t('language_zone', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :edition_number, value: book.edition_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :edition_number, t('edition_number', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :pages_number, value: book.pages_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :pages_number, t('pages_number', scope: 'backoffice.products.shared'), class: 'drawer--form-label' %>
+  </div>
+<% end %>

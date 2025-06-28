@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_24_030050) do
+ActiveRecord::Schema[8.0].define(version: 2025_06_26_211743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_24_030050) do
     t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
     t.index ["state_id"], name: "index_addresses_on_state_id"
+  end
+
+  create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "language", null: false
+    t.string "language_zone", null: false
+    t.string "edition_number", null: false
+    t.string "pages_number", null: false
+    t.string "internal_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["internal_code"], name: "index_books_on_internal_code", unique: true
   end
 
   create_table "cart_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -125,12 +136,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_24_030050) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title_mx", null: false
-    t.string "language", null: false
-    t.string "language_zone", null: false
-    t.string "edition_number", null: false
-    t.string "internal_code", null: false
-    t.string "pages_number", null: false
-    t.index ["internal_code"], name: "index_products_on_internal_code", unique: true
+    t.string "productable_type", null: false
+    t.uuid "productable_id", null: false
+    t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
   end
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
