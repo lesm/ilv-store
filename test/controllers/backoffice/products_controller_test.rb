@@ -17,12 +17,15 @@ module Backoffice
           edition_number: '100',
           pages_number: '1000',
           product_attributes: {
-            original_title: 'Test Product',
-            title_mx: 'Producto de Prueba',
-            price_mx: 99.99,
-            stock: 50
+            stock: 50,
+            translation_attributes: {
+              title: 'Test Product',
+              subtitle: 'Producto de Prueba',
+              locale: 'es',
+              price: 99.99
+            }
           }
-        },
+        }
       }
     end
 
@@ -32,6 +35,8 @@ module Backoffice
 
     describe '#GET index' do
       test 'returns success response' do
+        create_list(:book, 3)
+
         get backoffice_products_url
         assert_response :success
       end
@@ -85,7 +90,6 @@ module Backoffice
         test 'updates the product' do
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
-
           book.reload
           product.reload
           assert_equal '12345', book.internal_code
@@ -94,27 +98,27 @@ module Backoffice
           assert_equal '100', book.edition_number
           assert_equal '1000', book.pages_number
 
-          assert_equal 'Test Product', product.original_title
-          assert_equal 'Producto de Prueba', product.title_mx
-          assert_equal 99.99, product.price_mx
+          assert_equal 'Test Product', product.title
+          assert_equal 'Producto de Prueba', product.subtitle
+          assert_equal 99.99, product.price
           assert_equal 50, product.stock
         end
       end
 
       describe 'with invalid params' do
         test 'redirects to the edit backoffice product page' do
-          params[:book][:product_attributes][:price_mx] = nil
+          params[:book][:product_attributes][:translation_attributes][:price] = nil
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
           assert_turbo_stream action: :append, target: 'flash'
         end
 
         test 'does not update the product' do
-          original_price = product.price_mx
-          params[:book][:product_attributes][:price_mx] = nil
+          original_price = product.price
+          params[:book][:product_attributes][:translation_attributes][:price] = nil
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
-          assert_equal original_price, product.reload.price_mx
+          assert_equal original_price, product.reload.price
         end
       end
     end

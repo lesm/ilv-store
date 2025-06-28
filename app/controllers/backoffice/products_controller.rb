@@ -3,12 +3,13 @@
 module Backoffice
   class ProductsController < BaseController
     def index
-      @products = Product.includes(:productable).all
+      @products = Product.includes(:translation, :productable)
+                         .where(productable_type: params[:type].to_s.capitalize)
     end
 
     def new
       request.variant = :drawer
-      @product = Book.new(product: Product.new)
+      @product = Book.new(product: Product.new(translation: Product::Translation.new))
     end
 
     def edit
@@ -46,7 +47,7 @@ module Backoffice
       params.expect(
         book: [
           :internal_code, :language, :language_zone, :edition_number, :pages_number,
-          product_attributes: [:id, :original_title, :title_mx, :price_mx, :stock]
+          { product_attributes: [:id, :stock, { translation_attributes: %i[id title subtitle locale price] }] }
         ]
       )
     end

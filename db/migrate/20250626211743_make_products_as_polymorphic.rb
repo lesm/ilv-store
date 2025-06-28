@@ -25,7 +25,7 @@ class MakeProductsAsPolymorphic < ActiveRecord::Migration[8.0]
   end
 
   def down
-    change_table :products do |t|
+    change_table :products, bulk: true do |t|
       t.string :language
       t.string :language_zone
       t.string :edition_number
@@ -44,7 +44,7 @@ class MakeProductsAsPolymorphic < ActiveRecord::Migration[8.0]
       WHERE products.productable_id = books.id
     SQL
 
-    change_table :products do |t|
+    change_table :products, bulk: true do |t|
       t.change_null :language, false
       t.change_null :language_zone, false
       t.change_null :pages_number, false

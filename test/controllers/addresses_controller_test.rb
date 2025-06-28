@@ -31,6 +31,8 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
 
   describe '#GET index' do
     test 'returns a 200 response' do
+      create_list(:address, 3, addressable: user)
+
       get addresses_url
       assert_response :success
     end

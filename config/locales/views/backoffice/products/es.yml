@@ -1,27 +1,28 @@
 es:
   backoffice:
     products:
-      shared: &shared
+      book: &book
         internal_code: Código
-        original_title: Título original
-        title_mx: Título en español
+        title: Título en español
+        subtitle: Título original
         language: Idioma
         language_zone: Zona
         edition_number: No. de edición
         pages_number: No. de páginas
-        updated_at: Última actualización
-        price_mx: Precio en pesos mexicanos
+        price: Precio en pesos mexicanos
         stock: Stock
-      index:
-        <<: *shared
-        title: Productos
         updated_at: Última actualización
+      book_card:
+        <<: *book
         actions:
           edit: Editar
-          new: Nuevo producto
+      index:
+        title: Libros
+        actions:
+          new: Nuevo libro
       new:
-        title: Nuevo producto
-        text_submit_button: Crear producto
+        title: Nuevo libro
+        text_submit_button: Crear libro
       edit:
-        title: Editar producto
-        text_submit_button: Actualizar producto
+        title: Editar libro
+        text_submit_button: Actualizar libro

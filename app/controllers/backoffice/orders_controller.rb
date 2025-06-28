@@ -3,7 +3,7 @@
 module Backoffice
   class OrdersController < BaseController
     def index
-      @orders = Order.all
+      @orders = Order.includes(:user).all
     end
   end
 end

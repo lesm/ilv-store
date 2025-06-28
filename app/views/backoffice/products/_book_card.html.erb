@@ -1,0 +1,70 @@
+<div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 dark:bg-primary-800 dark:border-primary-700">
+  <div class="border-b border-primary-200 dark:border-primary-700 p-4 flex justify-between items-center hover:bg-primary-100">
+    <div>
+      <h3 class="text-lg font-semibold text-primary-900 dark:text-white">
+        <%= book.internal_code %>
+      </h3>
+      <p class="text-sm text-primary-500 dark:text-primary-400">
+      <%= product.subtitle %>
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 text-xs font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-300">
+        <svg class="h-3 w-3 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
+        </svg>
+        <span><%= product.stock %></span>
+      </span>
+      <%= link_to edit_backoffice_product_path(book), class: 'inline-flex items-center justify-center rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600', data: { turbo_frame: :drawer } do %>
+        <%= t('.actions.edit') %>
+        <svg class="ml-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+        </svg>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.title') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= product.title %></p>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.language') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= book.language %></p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.language_zone') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= book.language_zone %></p>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.edition_number') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= book.edition_number %></p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.pages_number') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= book.pages_number %></p>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.price') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white"><%= number_to_currency(product.price) %></p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <div>
+        <p class="text-sm font-medium text-primary-500 dark:text-primary-400"><%= t('.updated_at') %></p>
+        <p class="text-sm font-semibold text-primary-900 dark:text-white">
+          <%= l(product.updated_at, format: :long_abbr) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

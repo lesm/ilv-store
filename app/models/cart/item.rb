@@ -9,6 +9,6 @@ class Cart
 
     validates :quantity, numericality: { greater_than: 0 }
 
-    delegate :title_mx, :original_title, to: :product, prefix: false
+    delegate :title, :subtitle, to: :product
   end
 end

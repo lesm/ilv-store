@@ -12,6 +12,8 @@ module Backoffice
 
     describe '#GET index' do
       test 'returns success response' do
+        create_list(:order, 3, :order_created)
+
         get backoffice_orders_url
         assert_response :success
       end

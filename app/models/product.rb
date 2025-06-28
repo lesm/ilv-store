@@ -2,8 +2,11 @@
 
 class Product < ApplicationRecord
   belongs_to :productable, polymorphic: true
+  has_one :translation, class_name: 'Product::Translation', dependent: :destroy, required: true
 
-  validates :original_title, :title_mx, presence: true
-  validates :price_mx, presence: true, numericality: { greater_than: 0 }
   validates :stock, presence: true, numericality: { greater_than: 0 }
+
+  delegate :title, :subtitle, :price, to: :translation
+
+  accepts_nested_attributes_for :translation
 end
