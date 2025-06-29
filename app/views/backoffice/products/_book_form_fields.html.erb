@@ -1,0 +1,46 @@
+<%= fields_for book do |bf| %>
+  <%= bf.fields_for :product do |pf| %>
+    <%= pf.fields_for :translation do |tf| %>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= tf.text_field :title, value: product.title, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+        <%= tf.label :title, t('title', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= tf.text_field :subtitle, value: product.subtitle, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+        <%= tf.label :subtitle, t('subtitle', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+      </div>
+      <div class="relative z-0 w-full mb-5 group">
+        <%= tf.text_field :price, value: product.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+        <%= tf.label :price, t('price', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+      </div>
+
+      <%= tf.hidden_field :locale, value: product.translation.locale %>
+    <% end %>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <%= pf.text_field :stock, value: product.stock, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+      <%= pf.label :stock, t('stock', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+    </div>
+  <% end %>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :internal_code, value: book.internal_code, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :internal_code, t('internal_code', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :language, value: book.language, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :language, t('language', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :language_zone, value: book.language_zone, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :language_zone, t('language_zone', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :edition_number, value: book.edition_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :edition_number, t('edition_number', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :pages_number, value: book.pages_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :pages_number, t('pages_number', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+<% end %>

@@ -48,7 +48,7 @@ module Carts
 
     def find_or_initialize_cart_item
       item = current_cart.items.find_by(product_id: product.id)
-      item ||= current_cart.items.new(cart_item_params.merge(price: product.price_mx))
+      item ||= current_cart.items.new(cart_item_params.merge(price: product.price))
       item.tap { it.increment(:quantity, quantity_param) if it.persisted? }
     end
 

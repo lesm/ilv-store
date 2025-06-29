@@ -3,21 +3,25 @@
 module Backoffice
   class ProductsController < BaseController
     def index
-      @products = Product.all
+      @products = Product.includes(:translation, :productable)
+                         .where(productable_type: product_type.capitalize)
     end
 
     def new
       request.variant = :drawer
-      @product = Product.new
+
+      @product = product_klass.new(
+        product: Product.new(translation: Product::Translation.new(locale: 'es'))
+      )
     end
 
     def edit
       request.variant = :drawer
-      @product = Product.find(params[:id])
+      @product = product_klass.find(params[:id])
     end
 
     def create # rubocop:disable Metrics/AbcSize
-      @product = Product.new(product_params)
+      @product = product_klass.new(product_params)
 
       if @product.save
         flash[:notice] = t('.success')
@@ -29,7 +33,7 @@ module Backoffice
     end
 
     def update # rubocop:disable Metrics/AbcSize
-      @product = Product.find(params[:id])
+      @product = product_klass.find(params[:id])
 
       if @product.update(product_params)
         flash[:notice] = t('.success')
@@ -42,11 +46,19 @@ module Backoffice
 
     private
 
+    def product_type
+      (['book'] & [params[:type]]).first || 'book'
+    end
+
+    def product_klass
+      product_type.classify.constantize
+    end
+
     def product_params
       params.expect(
-        product: %i[
-          internal_code original_title title_mx language
-          language_zone edition_number pages_number price_mx stock
+        book: [
+          :internal_code, :language, :language_zone, :edition_number, :pages_number,
+          { product_attributes: [:id, :stock, { translation_attributes: %i[id title subtitle locale price] }] }
         ]
       )
     end

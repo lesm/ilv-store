@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  validates :original_title, :title_mx, :language, :language_zone,
-            :edition_number, :pages_number, presence: true
-  validates :internal_code, presence: true, uniqueness: true
-  validates :price_mx, presence: true, numericality: { greater_than: 0 }
+  belongs_to :productable, polymorphic: true
+  has_one :translation, class_name: 'Product::Translation', dependent: :destroy, required: true
+
   validates :stock, presence: true, numericality: { greater_than: 0 }
+
+  delegate :title, :subtitle, :price, to: :translation
+
+  accepts_nested_attributes_for :translation
 end

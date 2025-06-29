@@ -1,11 +1,11 @@
 <%= render 'application/drawer' do %>
   <div class="relative mt-6 flex-1 px-4 flex flex-col gap-6 m-2 sm:m-10">
-    <%= form_with(model: [:backoffice, @product]) do |form| %>
+    <%= form_with(url: backoffice_product_path(@product), method: :patch) do |form| %>
       <h2 class="text-2xl font-bold text-primary-900 dark:text-white mb-4">
         <%= t('title', scope: 'backoffice.products.edit') %>
       </h2>
 
-      <%= render 'form_fields', form:, product: @product %>
+      <%= render "#{@product.model_name.param_key}_form_fields", book: @product, product: @product.product %>
 
       <%= form.submit t('text_submit_button', scope: 'backoffice.products.edit'), class: 'drawer--form-submit' %>
     <% end %>

@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :cart_item, class: 'Cart::Item' do
-    product { association :product }
+    product { association(:product) }
     cart { association :cart }
     quantity { 1 }
-    price { product.price_mx }
+    price { product.translation.price }
   end
 end
