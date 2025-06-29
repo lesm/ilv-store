@@ -10,6 +10,7 @@ module Backoffice
 
     let(:params) do
       {
+        type: 'book',
         book: {
           internal_code: '12345',
           language: 'Spanish',
@@ -37,21 +38,21 @@ module Backoffice
       test 'returns success response' do
         create_list(:book, 3)
 
-        get backoffice_products_url
+        get backoffice_products_url(type: 'book')
         assert_response :success
       end
     end
 
     describe '#GET new' do
       test 'returns success response' do
-        get new_backoffice_product_url(turbo_frame: 'drawer')
+        get new_backoffice_product_url(type: 'book', turbo_frame: 'drawer')
         assert_response :success
       end
     end
 
     describe '#GET edit' do
       test 'returns success response' do
-        get edit_backoffice_product_url(id: book.id, turbo_frame: 'drawer')
+        get edit_backoffice_product_url(id: book.id, type: 'book', turbo_frame: 'drawer')
         assert_response :success
       end
     end

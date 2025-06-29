@@ -13,6 +13,8 @@
         <%= tf.text_field :price, value: product.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
         <%= tf.label :price, t('price', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
       </div>
+
+      <%= tf.hidden_field :locale, value: product.translation.locale %>
     <% end %>
 
     <div class="relative z-0 w-full mb-5 group">

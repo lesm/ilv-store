@@ -5,7 +5,7 @@
         <%= t('title', scope: 'backoffice.products.edit') %>
       </h2>
 
-      <%= render 'book_form_fields', book: @product, product: @product.product %>
+      <%= render "#{@product.model_name.param_key}_form_fields", book: @product, product: @product.product %>
 
       <%= form.submit t('text_submit_button', scope: 'backoffice.products.edit'), class: 'drawer--form-submit' %>
     <% end %>
