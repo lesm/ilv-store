@@ -9,7 +9,7 @@
 
       <%= hidden_field :type, value: product_type %>
 
-      <%= render "#{product_type}_form_fields", book: @product, product: @product.product %>
+      <%= render "#{product_type}_form_fields", product_type.to_sym => @product, product: @product.product %>
 
       <%= form.submit t('text_submit_button', scope: 'backoffice.products.new'), class: 'drawer--form-submit' %>
     <% end %>

@@ -17,6 +17,9 @@ module Backoffice
           language_zone: 'MX',
           edition_number: '100',
           pages_number: '1000',
+          cover_color: 'White',
+          dimensions: '19.05 x 1.73 x 23.5 cm',
+          weight_grams: 250,
           product_attributes: {
             stock: 50,
             translation_attributes: {
