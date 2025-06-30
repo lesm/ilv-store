@@ -3,14 +3,17 @@ es:
     products:
       book: &book
         internal_code: Código
-        title: Título en español
+        title: Título (MX)
         subtitle: Título original
         language: Idioma
         language_zone: Zona
         edition_number: No. de edición
         pages_number: No. de páginas
-        price: Precio en pesos mexicanos
+        price: Precio (MX)
         stock: Stock
+        cover_color: Color de la portada
+        dimensions: Dimensiones (largo x ancho x alto)
+        weight_grams: Peso en gramos
         updated_at: Última actualización
       book_card:
         <<: *book

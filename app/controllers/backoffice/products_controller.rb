@@ -58,6 +58,7 @@ module Backoffice
       params.expect(
         book: [
           :internal_code, :language, :language_zone, :edition_number, :pages_number,
+          :cover_color, :dimensions, :weight_grams,
           { product_attributes: [:id, :stock, { translation_attributes: %i[id title subtitle locale price] }] }
         ]
       )

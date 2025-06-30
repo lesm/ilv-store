@@ -43,4 +43,16 @@
     <%= bf.text_field :pages_number, value: book.pages_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :pages_number, t('pages_number', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :cover_color, value: book.cover_color, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :cover_color, t('cover_color', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.text_field :dimensions, value: book.dimensions, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :dimensions, t('dimensions', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= bf.number_field :weight_grams, value: book.weight_grams, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= bf.label :weight_grams, t('weight_grams', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
+  </div>
 <% end %>
