@@ -71,4 +71,5 @@ group :tools do
   gem 'rubocop-thread_safety', require: false
   gem 'rubycritic', require: false
   gem 'ruby-lsp', require: false
+  gem 'trace_location', require: false
 end

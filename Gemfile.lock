@@ -249,6 +249,7 @@ GEM
     marcel (1.0.4)
     matrix (0.4.3)
     memory_profiler (1.1.0)
+    method_source (1.1.0)
     mini_mime (1.1.5)
     minitest (5.25.5)
     minitest-spec-rails (7.4.1)
@@ -509,6 +510,9 @@ GEM
     thruster (0.1.14-arm64-darwin)
     thruster (0.1.14-x86_64-linux)
     timeout (0.4.3)
+    trace_location (1.2.0)
+      csv
+      method_source
     tty-which (0.5.0)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
@@ -600,6 +604,7 @@ DEPENDENCIES
   stimulus-rails
   tailwindcss-rails
   thruster
+  trace_location
   turbo-rails
   tzinfo-data
   web-console
