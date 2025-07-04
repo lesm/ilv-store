@@ -4,8 +4,8 @@
       <%= t('.address_to') %> <%= address.full_name %>
     </h4>
     <p class="text-xs sm:text-base text-primary-900 dark:text-white">
-    <%= address.short_summary %>
-    <%= hidden_field_tag 'order[address_id]', address.id %>
+      <%= address.short_summary %>
+      <%= hidden_field_tag 'order[address_id]', address.id %>
     </p>
   </div>
 <% else %>

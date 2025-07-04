@@ -1,43 +1,43 @@
 <section class="bg-primary-50 dark:bg-primary-800">
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-primary-600 dark:border-primary-700">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-primary-900 md:text-2xl dark:text-white">
-                  <%= t('.title') %>
-              </h1>
-              <%= form_with url: registration_url, model: @user, method: :post, class: 'space-y-4 md:space-y-6' do |form| %>
-                <div class="">
-                  <%= form.label :country_id, t('country', scope: 'addresses.shared'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.select :country_id, select_country_options, { selected: default_country.id }, class: 'registration--new-form-field', required: true %>
-                </div>
-
-                <div>
-                  <%= form.label :name, t('.name'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.text_field :name, required: true, autofocus: true, autocomplete: 'on', placeholder: t('.name_placeholder'), value: @user.name, class: 'registration--new-form-field' %>
-                </div>
-
-                <div>
-                  <%= form.label :email, t('.email'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.email_field :email, required: true, autofocus: true, autocomplete: 'on', placeholder: t('.email_placeholder'), value: @user.email, class: 'registration--new-form-field' %>
-                </div>
-
-                <div>
-                  <%= form.label :password, t('.password'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.password_field :password, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
-                </div>
-
-                <div>
-                  <%= form.label :password_confirmation, t('.password_confirmation'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
-                  <%= form.password_field :password_confirmation, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
-                </div>
-
-                <%= form.submit t('.submit'), class: 'form--submit' %>
-
-                <div class="flex items-center justify-between">
-                  <%= link_to t('.link_to_sign_in'), new_session_path, class: 'text-sm font-medium text-primary-600 hover:underline dark:text-white' %>
-                </div>
-              <% end %>
+    <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-primary-600 dark:border-primary-700">
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-primary-900 md:text-2xl dark:text-white">
+          <%= t('.title') %>
+        </h1>
+        <%= form_with url: registration_url, model: @user, method: :post, class: 'space-y-4 md:space-y-6' do |form| %>
+          <div class="">
+            <%= form.label :country_id, t('country', scope: 'addresses.shared'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
+            <%= form.select :country_id, select_country_options, { selected: default_country.id }, class: 'registration--new-form-field', required: true %>
           </div>
+
+          <div>
+            <%= form.label :name, t('.name'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
+            <%= form.text_field :name, required: true, autofocus: true, autocomplete: 'on', placeholder: t('.name_placeholder'), value: @user.name, class: 'registration--new-form-field' %>
+          </div>
+
+          <div>
+            <%= form.label :email, t('.email'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
+            <%= form.email_field :email, required: true, autofocus: true, autocomplete: 'on', placeholder: t('.email_placeholder'), value: @user.email, class: 'registration--new-form-field' %>
+          </div>
+
+          <div>
+            <%= form.label :password, t('.password'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
+            <%= form.password_field :password, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
+          </div>
+
+          <div>
+            <%= form.label :password_confirmation, t('.password_confirmation'), class: 'block mb-2 text-sm font-medium text-primary-900 dark:text-white' %>
+            <%= form.password_field :password_confirmation, required: true, autocomplete: 'current-password', placeholder: '**********', maxlength: 72, class: 'registration--new-form-field' %>
+          </div>
+
+          <%= form.submit t('.submit'), class: 'form--submit' %>
+
+          <div class="flex items-center justify-between">
+            <%= link_to t('.link_to_sign_in'), new_session_path, class: 'text-sm font-medium text-primary-600 hover:underline dark:text-white' %>
+          </div>
+        <% end %>
       </div>
+    </div>
   </div>
 </section>

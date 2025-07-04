@@ -202,6 +202,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.2.0)
+    htmlbeautifier (1.4.3)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -571,6 +572,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faraday
+  htmlbeautifier
   importmap-rails
   jbuilder
   kamal

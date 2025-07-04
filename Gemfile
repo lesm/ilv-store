@@ -59,6 +59,7 @@ end
 group :tools do
   gem 'bundler-audit', require: false
   gem 'erb_lint', require: false
+  gem 'htmlbeautifier', require: false
   gem 'memory_profiler', require: false
   gem 'ordinare', require: false
   gem 'rack-mini-profiler', require: false

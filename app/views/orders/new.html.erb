@@ -1,5 +1,5 @@
 <% content_for :turbo_frame_content do %>
-    <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
+  <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
 <% end %>
 
 <section>
@@ -36,35 +36,35 @@
                         <%= render 'orders/item', item: %>
                       </tr>
                     <% end %>
-              </table>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-700 w-full space-y-4 lg:mt-0 lg:max-w-xs xl:max-w-md">
+              <div class="flow-root">
+                <div class="-my-3 divide-y divide-primary-200 dark:divide-primary-800">
+                  <dl class="flex items-center justify-between gap-4 py-3">
+                    <dt class="text-base font-normal text-primary-500 dark:text-primary-400"><%= t('.subtotal') %></dt>
+                    <dd id="<%= dom_id(current_cart, :subtotal_order) %>" class="text-base font-medium text-primary-900 dark:text-white">
+                      <%= render 'total' %>
+                    </dd>
+                  </dl>
+
+                  <dl class="flex items-center justify-between gap-4 py-3">
+                    <dt class="text-base font-bold text-primary-900 dark:text-white"><%= t('.total') %></dt>
+                    <dd id="<%= dom_id(current_cart, :total_order) %>" class="text-base font-bold text-primary-900 dark:text-white">
+                      <%= render 'total' %>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <%= f.submit t('.make_order_and_pay'), class: "form--submit #{class_names('disabled:pointer-events-none': @address.nil?, 'disabled:opacity-50': @address.nil?)}", disabled: @address.nil?, 'aria-disabled': @address.nil? %>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="rounded-lg border border-primary-200 bg-white p-6 shadow-sm dark:border-primary-700 dark:bg-primary-700 w-full space-y-4 lg:mt-0 lg:max-w-xs xl:max-w-md">
-          <div class="flow-root">
-            <div class="-my-3 divide-y divide-primary-200 dark:divide-primary-800">
-              <dl class="flex items-center justify-between gap-4 py-3">
-                <dt class="text-base font-normal text-primary-500 dark:text-primary-400"><%= t('.subtotal') %></dt>
-                <dd id="<%= dom_id(current_cart, :subtotal_order) %>" class="text-base font-medium text-primary-900 dark:text-white">
-                  <%= render 'total' %>
-                </dd>
-              </dl>
-
-              <dl class="flex items-center justify-between gap-4 py-3">
-                <dt class="text-base font-bold text-primary-900 dark:text-white"><%= t('.total') %></dt>
-                <dd id="<%= dom_id(current_cart, :total_order) %>" class="text-base font-bold text-primary-900 dark:text-white">
-                  <%= render 'total' %>
-                </dd>
-              </dl>
-            </div>
-          </div>
-
-          <div class="space-y-3">
-            <%= f.submit t('.make_order_and_pay'), class: "form--submit #{class_names('disabled:pointer-events-none': @address.nil?, 'disabled:opacity-50': @address.nil?)}", disabled: @address.nil?, 'aria-disabled': @address.nil? %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</section>
+      <% end %>
+    </section>
