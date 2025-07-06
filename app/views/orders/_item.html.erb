@@ -4,7 +4,7 @@
       <img class="h-auto w-full max-h-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="imac image">
       <img class="hidden h-auto w-full max-h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="imac image">
     </a>
-    <a href="#" class="hover:underline"><%= item.title %>
+    <a href="#" class="text-black hover:underline"><%= item.title %>
       <span class="text-sm text-primary-500 dark:text-primary-400">(<%= item.subtitle %>)</span>
     </a>
   </div>
@@ -12,6 +12,6 @@
 
 <td class="w-[10%] p-4 text-base text-center font-normal text-primary-900 dark:text-white"><%= item.quantity %></td>
 
-<td class="w-[20%] p-4 text-right text-base font-bold text-primary-900 dark:text-white">
+<td class="w-[20%] p-4 text-right text-base font-bold text-magenta-500 dark:text-white">
   <%= number_to_currency(item.price) %>
 </td>

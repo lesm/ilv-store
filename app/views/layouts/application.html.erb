@@ -30,7 +30,7 @@
     <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
     <%= turbo_frame_tag :remote_modal %>
 
-    <main class="flex-grow bg-primary-50 py-8 antialiased dark:bg-primary-800 md:py-12">
+    <main class="flex-grow bg-blue-50 p-8 antialiased dark:bg-primary-800">
       <%= yield %>
     </main>
   </body>
