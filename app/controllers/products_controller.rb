@@ -6,4 +6,9 @@ class ProductsController < ApplicationController
   def index
     @products = Product.includes(:translation).all
   end
+
+  def show
+    request.variant = :drawer
+    @product = Product.includes(:translation, :productable).find(params[:id])
+  end
 end
