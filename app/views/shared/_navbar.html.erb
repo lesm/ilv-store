@@ -1,11 +1,11 @@
-<nav class="bg-white dark:bg-primary-600 antialiased">
-  <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0 py-4" data-controller="navbar--menu-collapse">
+<nav class="py-4 px-8 bg-white dark:bg-primary-600 antialiased">
+  <div class="max-w-screen-xl mx-auto" data-controller="navbar--menu-collapse">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-8">
         <div class="shrink-0 flex items-center">
           <%= link_to root_path, class: 'flex items-center' do %>
             <%= image_tag 'ilv-logo.png', class: 'w-auto h-8 dark:hidden' %>
-            <span class="ml-4 text-2xl text-primary-800 hidden sm:inline"><%= t('.title') %></span>
+            <span class="ml-4 text-2xl text-black font-semibold hidden sm:inline"><%= t('.title') %></span>
           <% end %>
         </div>
       </div>
