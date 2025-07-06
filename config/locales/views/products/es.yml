@@ -1,8 +1,9 @@
 es:
   products:
+    form_quantity:
+      choose_quantity: Elegir cantidad
+      add_to_cart: Agregar al carrito
     index:
       title: Productos
-      add_to_cart: Agregar
-      choose_quantity: Elegir cantidad
       edition_number: Edición
       pages_number: Páginas

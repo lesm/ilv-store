@@ -1,8 +1,9 @@
 en:
   products:
+    form_quantity:
+      choose_quantity: Choose quantity
+      add_to_cart: Add to cart
     index:
       title: Products
-      add_to_cart: Add
-      choose_quantity: Choose quantity
       edition_number: Edition
       pages_number: Pages
