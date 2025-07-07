@@ -12,7 +12,7 @@
       <% @products.each do |product| %>
         <div class="flex flex-col h-full rounded-lg border border-primary-200 hover:border-primary-600 bg-white p-6 shadow-lg dark:border-primary-700 dark:bg-primary-700">
           <div class="h-56 w-full">
-            <%= link_to product_path(product), class: 'hover:underline', data: { turbo_frame: :drawer } do %>
+            <%= link_to product_path(product), class: 'hover:underline active:underline', data: { turbo_frame: :drawer } do %>
               <img class="mx-auto h-full object-contain block dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="">
               <img class="mx-auto hidden object-contain h-full dark:block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="">
             <% end %>
@@ -20,7 +20,7 @@
 
           <div class="pt-6 flex flex-col flex-grow gap-4">
             <div class="grid flex-grow justify-between">
-              <%= link_to product_path(product), class: 'hover:underline', data: { turbo_frame: :drawer } do %>
+              <%= link_to product_path(product), class: 'hover:underline active:underline', data: { turbo_frame: :drawer } do %>
                 <p class="text-lg font-semibold leading-tight text-black dark:text-white"><%= product.title %>
                   <span class="text-sm text-primary-600 dark:text-primary-400">(<%= product.subtitle %>)</span>
                 </p>
