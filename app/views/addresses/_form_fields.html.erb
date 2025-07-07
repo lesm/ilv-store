@@ -29,7 +29,7 @@
   <%= form.label :reference, t('reference', scope: 'addresses.shared'), class: 'drawer--form-label' %>
 </div>
 
-<h2 class="text-2xl font-bold text-black dark:text-white mb-4">
+<h2 class="text-2xl font-bold text-black mb-4">
   <%= t('contact_info', scope: 'addresses.shared') %>
 </h2>
 
@@ -43,6 +43,6 @@
 </div>
 
 <div class="relative z-0 w-full pt-4 mb-5 group">
-  <%= form.check_box :default, class: 'w-4 h-4 text-gray-600 bg-primary-100 border-primary-300 rounded-sm focus:ring-primary-500 cursor-pointer dark:focus:ring-primary-600 dark:ring-offset-primary-800 focus:ring-2 dark:bg-primary-700 dark:border-primary-600' %>
-  <%= form.label :default, t('default', scope: 'addresses.shared'), class: 'ms-2 text-sm font-medium cursor-pointer hover:underline text-gray-600 dark:text-primary-300' %>
+  <%= form.check_box :default, class: 'w-4 h-4 text-gray-600 bg-primary-100 border-primary-300 rounded-sm focus:ring-primary-500 cursor-pointer focus:ring-2' %>
+  <%= form.label :default, t('default', scope: 'addresses.shared'), class: 'ms-2 text-sm font-medium cursor-pointer hover:underline text-gray-600' %>
 </div>

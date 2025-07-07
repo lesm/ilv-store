@@ -1,10 +1,10 @@
-<nav class="py-4 px-8 bg-white dark:bg-primary-600 antialiased">
+<nav class="py-4 px-8 bg-white antialiased">
   <div class="max-w-screen-xl mx-auto" data-controller="navbar--menu-collapse">
     <div class="flex items-center justify-between">
       <div class="flex items-center space-x-8">
         <div class="shrink-0 flex items-center">
           <%= link_to root_path, class: 'flex items-center' do %>
-            <%= image_tag 'ilv-logo.png', class: 'w-auto h-8 dark:hidden' %>
+            <%= image_tag 'ilv-logo.png', class: 'w-auto h-8' %>
             <span class="ml-4 text-2xl text-black font-semibold hidden sm:inline"><%= t('.title') %></span>
           <% end %>
         </div>
@@ -12,7 +12,7 @@
 
       <div class="flex items-center lg:space-x-2 gap-3">
         <% if authenticated? %>
-          <%= link_to cart_path, class: 'inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-800 dark:text-white', data: { turbo_frame: :drawer } do %>
+          <%= link_to cart_path, class: 'inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 text-sm font-medium leading-none text-primary-800', data: { turbo_frame: :drawer } do %>
             <span class="sr-only">
               Cart
             </span>
@@ -22,30 +22,30 @@
             <span id="<%= dom_id(current_cart, :number_of_items) %>" class="ml-auto bg-primary-500 text-white text-xs font-bold px-2 py-1 rounded-full">
               <%= render 'carts/number_of_items' %>
             </span>
-            <svg class="w-4 h-4 text-primary-900 dark:text-white ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-primary-900 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
             </svg>
           <% end %>
 
           <div class="relative" data-controller="navbar--account-dropdown">
-            <button data-action="click->navbar--account-dropdown#toggle click@window->navbar--account-dropdown#outsideClick" type="button" class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 dark:hover:bg-primary-700 text-sm font-medium leading-none text-primary-900 dark:text-white">
+            <button data-action="click->navbar--account-dropdown#toggle click@window->navbar--account-dropdown#outsideClick" type="button" class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 text-sm font-medium leading-none text-primary-900">
               <svg class="w-5 h-5 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
               </svg>
               <%= t('.link_to_account') %>
-              <svg class="w-4 h-4 text-primary-900 dark:text-white ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-primary-900 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
               </svg>
             </button>
 
-            <div class="absolute hidden right-0 z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow dark:divide-primary-600 dark:bg-primary-700" data-navbar--account-dropdown-target="dropdown">
-              <ul class="p-2 text-start text-sm font-medium text-primary-900 dark:text-white">
-                <li><%= link_to t('.link_to_orders'), orders_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600' %></li>
-                <li><%= link_to t('.link_to_addresses'), addresses_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600' %></li>
+            <div class="absolute hidden right-0 z-10 w-56 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow" data-navbar--account-dropdown-target="dropdown">
+              <ul class="p-2 text-start text-sm font-medium text-primary-900">
+                <li><%= link_to t('.link_to_orders'), orders_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100' %></li>
+                <li><%= link_to t('.link_to_addresses'), addresses_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100' %></li>
               </ul>
 
-              <div class="p-2 text-sm font-medium text-primary-900 dark:text-white">
-                <%= link_to t('.link_to_signout'), session_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-600', data: { turbo_method: :delete } %>
+              <div class="p-2 text-sm font-medium text-primary-900">
+                <%= link_to t('.link_to_signout'), session_path, class: 'inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-primary-100', data: { turbo_method: :delete } %>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
           <% if false %>
             <div class="pl-2">
               <%= form_with(url: user_theme_preference_path, method: :patch, data: { turbo: false }) do |f| %>
-                <%= f.button nil, class: 'p-2 text-white bg-primary-300 hover:bg-primary-500 dark:bg-primary-700 dark:hover:bg-primary-800 rounded cursor-pointer' do %>
+                <%= f.button nil, class: 'p-2 text-white bg-primary-300 hover:bg-primary-500 rounded cursor-pointer' do %>
                   <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0-11a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v2a1 1 0 0 0 1 1Zm0 12a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1ZM4.343 5.757a1 1 0 0 0 1.414-1.414L4.343 2.929a1 1 0 0 0-1.414 1.414l1.414 1.414Zm11.314 8.486a1 1 0 0 0-1.414 1.414l1.414 1.414a1 1 0 0 0 1.414-1.414l-1.414-1.414ZM4 10a1 1 0 0 0-1-1H1a1 1 0 0 0 0 2h2a1 1 0 0 0 1-1Zm15-1h-2a1 1 0 1 0 0 2h2a1 1 0 0 0 0-2ZM4.343 14.243l-1.414 1.414a1 1 0 1 0 1.414 1.414l1.414-1.414a1 1 0 0 0-1.414-1.414ZM14.95 6.05a1 1 0 0 0 .707-.293l1.414-1.414a1 1 0 1 0-1.414-1.414l-1.414 1.414a1 1 0 0 0 .707 1.707Z"></path></svg>
                 <% end %>
               <% end %>
@@ -63,17 +63,17 @@
           <div class="flex items-center">
             <ul class="flex flex-row items-center justify-start space-x-1 gap-1 md:gap-3 py-3 sm:justify-center">
               <li>
-                <%= link_to t('.link_to_signin'), new_session_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800' %>
+                <%= link_to t('.link_to_signin'), new_session_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600' %>
               </li>
-              <p class="font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800">|</p>
+              <p class="font-medium text-primary-800 hover:text-primary-600">|</p>
               <li>
-                <%= link_to t('.link_to_signup'), new_registration_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600 dark:text-white dark:hover:text-primary-800' %>
+                <%= link_to t('.link_to_signup'), new_registration_path, class: 'flex text-sm font-medium text-primary-800 hover:text-primary-600' %>
               </li>
             </ul>
           </div>
         <% end %>
 
-        <button type="button" class="inline-flex lg:hidden items-center justify-center hover:bg-primary-100 rounded-md dark:hover:bg-primary-700 p-1 text-primary-900 dark:text-white" data-action="click->navbar--menu-collapse#toggle" aria-controls="ecommerce-navbar-menu-1" aria-expanded="false">
+        <button type="button" class="inline-flex lg:hidden items-center justify-center hover:bg-primary-100 rounded-md p-1 text-primary-900" data-action="click->navbar--menu-collapse#toggle" aria-controls="ecommerce-navbar-menu-1" aria-expanded="false">
           <span class="sr-only">
             Open Menu
           </span>
@@ -84,19 +84,19 @@
       </div>
     </div>
 
-    <div id="ecommerce-navbar-menu-1" class="bg-primary-50 dark:bg-primary-700 dark:border-primary-600 border border-primary-200 rounded-lg py-3 hidden px-4 mt-4" data-navbar--menu-collapse-target="menu">
-      <ul class="text-primary-900 text-sm font-medium dark:text-white space-y-3">
+    <div id="ecommerce-navbar-menu-1" class="bg-primary-50 border border-primary-200 rounded-lg py-3 hidden px-4 mt-4" data-navbar--menu-collapse-target="menu">
+      <ul class="text-primary-900 text-sm font-medium space-y-3">
         <li>
-          <%= link_to t('.link_to_products'), root_path, class: 'hover:text-primary-700 dark:hover:text-primary-500' %>
+          <%= link_to t('.link_to_products'), root_path, class: 'hover:text-primary-700' %>
         </li>
         <li>
-          <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500"><%= t('.link_to_physical') %></a>
+          <a href="#" class="hover:text-primary-700"><%= t('.link_to_physical') %></a>
         </li>
         <li>
-          <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500"><%= t('.link_to_digital') %></a>
+          <a href="#" class="hover:text-primary-700"><%= t('.link_to_digital') %></a>
         </li>
         <li>
-          <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500"><%= t('.link_to_free') %></a>
+          <a href="#" class="hover:text-primary-700"><%= t('.link_to_free') %></a>
         </li>
       </ul>
     </div>

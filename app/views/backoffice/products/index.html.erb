@@ -6,8 +6,8 @@
   <div class="mx-auto max-w-screen-xl 2xl:px-0">
     <div class="mx-auto">
       <div class="pt-4 gap-4 sm:flex sm:items-center sm:justify-between">
-        <h2 class="text-xl font-semibold text-primary-900 dark:text-white sm:text-2xl"><%= t('.title') %></h2>
-        <%= link_to new_backoffice_product_path(type: params[:type]), class: 'inline-flex items-center justify-center rounded-lg text-lg font-medium text-primary-700 hover:underline dark:bg-primary-700 dark:hover:bg-primary-600 dark:focus:ring-primary-600', data: { turbo_frame: :drawer } do %>
+        <h2 class="text-xl font-semibold text-primary-900 sm:text-2xl"><%= t('.title') %></h2>
+        <%= link_to new_backoffice_product_path(type: params[:type]), class: 'inline-flex items-center justify-center rounded-lg text-lg font-medium text-primary-700 hover:underline', data: { turbo_frame: :drawer } do %>
           <%= t('.actions.new') %>
           <svg class="ml-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />

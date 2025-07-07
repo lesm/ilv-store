@@ -5,15 +5,15 @@
 <section>
   <div class="mx-auto max-w-screen-xl 2xl:px-0">
     <div class="gap-4 sm:flex sm:items-center sm:justify-between">
-      <h2 class="text-xl font-semibold text-black dark:text-white sm:text-2xl"><%= t('.title') %></h2>
+      <h2 class="text-xl font-semibold text-black sm:text-2xl"><%= t('.title') %></h2>
     </div>
 
     <div class="mt-6 mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-      <div class="max-w-md border-3 border-dashed rounded-lg shadow-sm bg-white hover:underline dark:bg-primary-800 border-magenta-500 dark:border-primary-700 items-center flex flex-col justify-center"
+      <div class="max-w-md border-3 border-dashed rounded-lg shadow-sm bg-white hover:underline border-magenta-500 items-center flex flex-col justify-center"
         data-controller="addresses--details">
 
         <%= link_to new_address_path, class: 'p-4 w-full h-full text-xl text-magenta-500 hover:text-white hover:bg-magenta-500 hover:underline active:text-white active:bg-magenta-500 active:underline items-center flex flex-col justify-center cursor-pointer', data: { turbo_frame: :drawer } do %>
-          <svg class="w-6 h-6 text-magenta-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <svg class="w-6 h-6 text-magenta-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
           </svg>
           <%= t('.add_address') %>
@@ -21,13 +21,13 @@
       </div>
 
       <% @addresses.each do |address| %>
-        <div class="max-w-md p-4 border rounded-lg shadow-sm bg-white hover:border-primary-600 dark:bg-primary-800 border-primary-200 dark:border-primary-700" data-controller="addresses--details">
+        <div class="max-w-md p-4 border rounded-lg shadow-sm bg-white hover:border-primary-600 border-primary-200" data-controller="addresses--details">
 
           <!-- Compact View (Default) -->
           <div data-addresses--details-target="compact">
             <div class="flex">
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100 dark:bg-primary-700">
+                <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100">
                   🇲🇽 MX
                 </span>
                 <h3 class="font-medium"><%= address.full_name %></h3>
@@ -36,7 +36,7 @@
               <div class="flex ml-auto">
                 <div class="group relative">
                   <%= link_to edit_address_path(address), class: 'text-xs text-primary-600', aria: { label: t('.edit_address') }, data: { turbo_frame: :drawer } do %>
-                    <svg class="w-6 h-6 text-primary-600 hover:text-primary-800 active:text-primary-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-primary-600 hover:text-primary-800 active:text-primary-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                     </svg>
                   <% end %>
@@ -48,7 +48,7 @@
               </div>
             </div>
 
-            <div class="text-sm text-black dark:text-primary-300 space-y-1">
+            <div class="text-sm text-black space-y-1">
               <p class="text-primary-800 line-clamp-1"><%= address.street_and_number %></p>
               <p class="text-primary-800"><%= address.short_summary %></p>
             </div>
@@ -56,7 +56,7 @@
             <div class="flex items-center justify-between">
               <button class="inline-flex mt-3 text-xs text-blue-600 cursor-pointer hover:underline" data-action="click->addresses--details#toggle">
                 <%= t('.show_more') %>
-                <svg class="w-4 h-4 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 14-4-4m4 4 4-4" />
                 </svg>
               </button>
@@ -66,7 +66,7 @@
           <div data-addresses--details-target="expanded" class="hidden">
             <div class="flex">
               <div class="flex items-center gap-2 mb-2">
-                <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100 dark:bg-primary-700">
+                <span class="text-xs font-medium px-2 py-1 rounded bg-primary-100">
                   🇲🇽 MX
                 </span>
                 <h3 class="font-medium"><%= address.full_name %></h3>
@@ -75,7 +75,7 @@
               <div class="flex ml-auto">
                 <div class="group relative">
                   <%= link_to edit_address_path(address), class: 'text-xs text-primary-600', aria: { label: t('.edit_address') }, data: { turbo_frame: :drawer } do %>
-                    <svg class="w-6 h-6 text-primary-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-primary-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
                     </svg>
                   <% end %>
@@ -89,28 +89,28 @@
 
             <div class="text-sm space-y-2">
               <div>
-                <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.street_and_number') %></p>
+                <p class="font-medium text-primary-500"><%= t('.street_and_number') %></p>
                 <p><%= address.street_and_number %></p>
               </div>
 
               <div class="grid grid-cols-2 gap-2">
                 <div>
-                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.state') %></p>
+                  <p class="font-medium text-primary-500"><%= t('.state') %></p>
                   <p><%= address.state_name %></p>
                 </div>
                 <div>
-                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.city') %></p>
+                  <p class="font-medium text-primary-500"><%= t('.city') %></p>
                   <p><%= address.city_name %></p>
                 </div>
               </div>
 
               <div class="grid grid-cols-2 gap-2">
                 <div>
-                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.neighborhood') %></p>
+                  <p class="font-medium text-primary-500"><%= t('.neighborhood') %></p>
                   <p><%= address.neighborhood %></p>
                 </div>
                 <div>
-                  <p class="font-medium text-primary-500 dark:text-primary-400"><%= t('.postal_code') %></p>
+                  <p class="font-medium text-primary-500"><%= t('.postal_code') %></p>
                   <p><%= address.postal_code %></p>
                 </div>
               </div>
@@ -118,7 +118,7 @@
 
             <button class="inline-flex mt-3 text-xs text-blue-600 cursor-pointer hover:underline" data-action="click->addresses--details#toggle">
               <%= t('.show_less') %>
-              <svg class="w-4 h-4 text-blue-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-blue-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4" />
               </svg>
             </button>
