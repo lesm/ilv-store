@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_01_033355) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_08_042333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "country_id", null: false
-    t.string "street_and_number"
+    t.string "street_and_number", null: false
     t.string "postal_code", null: false
     t.string "reference"
     t.datetime "created_at", null: false
@@ -101,8 +101,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_033355) do
   create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "state_id", null: false
     t.uuid "city_id", null: false
-    t.string "postal_code"
-    t.string "neighborhood"
+    t.string "postal_code", null: false
+    t.string "neighborhood", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_mx_postal_codes_on_city_id"
@@ -141,7 +141,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_01_033355) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id", "locale"], name: "index_product_translations_on_product_id_and_locale", unique: true
-    t.index ["product_id"], name: "index_product_translations_on_product_id"
   end
 
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

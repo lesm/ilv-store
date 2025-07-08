@@ -6,4 +6,7 @@ class MxPostalCode < ApplicationRecord
 
   delegate :id, :name, to: :state, prefix: true
   delegate :id, :name, to: :city, prefix: true
+
+  validates :postal_code, presence: true
+  validates :neighborhood, presence: true, uniqueness: { scope: :postal_code }
 end
