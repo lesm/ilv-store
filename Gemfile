@@ -43,6 +43,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'database_consistency'
   gem 'letter_opener'
   gem 'web-console'
 end

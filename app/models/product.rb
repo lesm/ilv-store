@@ -2,7 +2,10 @@
 
 class Product < ApplicationRecord
   belongs_to :productable, polymorphic: true
-  has_one :translation, class_name: 'Product::Translation', dependent: :destroy, required: true
+  has_one :translation,
+          lambda {
+            where(locale: I18n.locale)
+          }, class_name: 'Product::Translation', inverse_of: :product, dependent: :destroy, required: true
 
   validates :stock, presence: true, numericality: { greater_than: 0 }
 

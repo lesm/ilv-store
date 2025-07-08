@@ -10,6 +10,8 @@ class Address < ApplicationRecord
 
   validates :postal_code, :full_name, :street_and_number, presence: true
 
+  validates :default, uniqueness: { scope: :addressable_id, if: -> { default? } }
+
   delegate :name, to: :state, prefix: true, allow_nil: true
   delegate :name, to: :city, prefix: true, allow_nil: true
 

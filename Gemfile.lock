@@ -123,6 +123,8 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
+    database_consistency (2.0.4)
+      activerecord (>= 3.2)
     date (3.4.1)
     debug (1.11.0)
       irb (~> 1.10)
@@ -567,6 +569,7 @@ DEPENDENCIES
   bundler-audit
   capybara
   csv
+  database_consistency
   debug
   dotenv-rails
   erb_lint

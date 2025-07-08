@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   belongs_to :country
 
-  has_one :cart, dependent: :destroy
+  has_one :cart, -> { order(created_at: :desc).limit(1) }, dependent: :destroy, inverse_of: :user
   has_one :default_address, -> { where(default: true) },
           class_name: 'Address', dependent: :destroy, inverse_of: :addressable
 
@@ -26,4 +26,5 @@ class User < ApplicationRecord
   validates :name, :email, presence: true
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :email, uniqueness: true
+  validates :password_digest, presence: true
 end
