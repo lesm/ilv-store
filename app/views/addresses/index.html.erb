@@ -12,8 +12,8 @@
       <div class="max-w-md border-3 border-dashed rounded-lg shadow-sm bg-white hover:underline border-magenta-500 items-center flex flex-col justify-center"
         data-controller="addresses--details">
 
-        <%= link_to new_address_path, class: 'p-4 w-full h-full text-xl text-magenta-500 hover:text-white hover:bg-magenta-500 hover:underline active:text-white active:bg-magenta-500 active:underline items-center flex flex-col justify-center cursor-pointer', data: { turbo_frame: :drawer } do %>
-          <svg class="w-6 h-6 text-magenta-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <%= link_to new_address_path, class: 'p-4 w-full h-full text-xl text-magenta-500 group hover:text-white hover:bg-magenta-500 hover:underline active:text-white active:bg-magenta-500 active:underline items-center flex flex-col justify-center cursor-pointer', data: { turbo_frame: :drawer } do %>
+          <svg class="w-6 h-6 text-magenta-500 group-hover:text-white group-active:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
           </svg>
           <%= t('.add_address') %>
