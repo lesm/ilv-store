@@ -21,6 +21,14 @@
       <%= pf.text_field :stock, value: product.stock, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
       <%= pf.label :stock, t('stock', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
     </div>
+
+    <div class="relative z-0 w-full mb-5 group" data-controller="image-preview">
+      <div class="flex items-center justify-start gap-2">
+        <%= pf.file_field :cover, class: 'drawer--form-file-field peer', placeholder: ' ', data: { image_preview_target: 'source', action: 'image-preview#show' } %>
+        <%= pf.label :cover, t('cover', scope: 'backoffice.products.book'), class: 'drawer--form-file-label' %>
+        <%= image_tag(cover_image(product.cover), class: 'w-25', data: { image_preview_target: 'image' }) %>
+      </div>
+    </div>
   <% end %>
 
   <div class="relative z-0 w-full mb-5 group">

@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'faraday'
 gem 'importmap-rails'
@@ -44,7 +45,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'database_consistency'
+  gem 'database_consistency', require: false
   gem 'letter_opener'
   gem 'web-console'
 end
