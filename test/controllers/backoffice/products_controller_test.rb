@@ -22,6 +22,7 @@ module Backoffice
           weight_grams: 250,
           product_attributes: {
             stock: 50,
+            cover: fixture_file_upload('test/fixtures/files/book.png', 'image/png'),
             translation_attributes: {
               title: 'Test Product',
               subtitle: 'Producto de Prueba',
@@ -106,6 +107,7 @@ module Backoffice
           assert_equal 'Producto de Prueba', product.subtitle
           assert_equal 99.99, product.price
           assert_equal 50, product.stock
+          assert_equal 'book.png', product.cover.blob.filename.to_s
         end
       end
 

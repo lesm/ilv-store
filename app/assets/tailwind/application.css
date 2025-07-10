@@ -159,12 +159,20 @@
   @apply peer-focus:font-medium absolute text-sm text-primary-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-primary-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6;
 }
 
+.drawer--form-file-label {
+  @apply peer-focus:font-medium absolute text-sm text-primary-500 scale-75 top-3 -translate-y-2 origin-[0];
+}
+
 .drawer--form-select {
   @apply block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 focus:outline-none focus:ring-0 focus:border-primary-600;
 }
 
 .drawer--form-field {
   @apply block py-2.5 px-0 w-full text-sm text-primary-900 bg-transparent border-0 border-b-2 border-primary-300 appearance-none focus:outline-none focus:ring-0 focus:border-primary-600;
+}
+
+.drawer--form-file-field {
+  @apply border border-primary-700 block w-full text-xs file:mr-4 file:border file:border-primary-500 file:bg-white file:px-4 file:py-1 file:text-sm file:font-semibold file:text-primary-700 hover:file:bg-primary-700 hover:file:text-white cursor-pointer;
 }
 
 .drawer--form-submit, .drawer--link-to,

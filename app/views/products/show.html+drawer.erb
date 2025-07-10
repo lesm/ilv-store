@@ -1,10 +1,9 @@
 <%= render 'drawer' do %>
   <div class="relative mt-6 flex-1 px-4 flex flex-col gap-2 m-2 sm:m-10">
     <div class="flex flex-col gap-4">
-      <div class="h-56">
+      <div class="h-96">
         <a href="#">
-          <img class="mx-auto h-full object-contain block" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="">
-          <img class="mx-auto hidden object-contain h-full" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="">
+          <%= image_tag(cover_image(@product.cover), class: 'mx-auto h-full object-contain block', alt: @product.title) %>
         </a>
       </div>
 

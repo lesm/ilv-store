@@ -6,6 +6,7 @@ class Product < ApplicationRecord
           lambda {
             where(locale: I18n.locale)
           }, class_name: 'Product::Translation', inverse_of: :product, dependent: :destroy, required: true
+  has_one_attached :cover
 
   validates :stock, presence: true, numericality: { greater_than: 0 }
 

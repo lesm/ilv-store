@@ -11,6 +11,7 @@ es:
         pages_number: No. de páginas
         price: Precio (MX)
         stock: Stock
+        cover: Imagen de portada
         cover_color: Color de la portada
         dimensions: Dimensiones (largo x ancho x alto)
         weight_grams: Peso en gramos
