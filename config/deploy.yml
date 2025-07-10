@@ -39,6 +39,10 @@ env:
     - UNI_ONE_API_KEY
     - SENTRY_DSN
     - SENTRY_ENABLED_ENVIRONMENTS
+    - CLOUDFLARE_R2_JURISDICTION_ENDPOINT
+    - CLOUDFLARE_R2_ACCESS_KEY_ID
+    - CLOUDFLARE_R2_SECRET_ACCESS_KEY
+    - CLOUDFLARE_R2_BUCKET_NAME
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
