@@ -2,6 +2,7 @@
 
 class Country < ApplicationRecord
   has_many :states, dependent: :destroy
+  has_many :users, dependent: :nullify
 
   validates :name, :code, presence: true
   validates :name, :code, uniqueness: true

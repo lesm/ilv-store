@@ -17,7 +17,7 @@ module Backoffice
 
     def edit
       request.variant = :drawer
-      @product = product_klass.find(params[:id])
+      @product = product_klass.includes(product: [:translation, { cover_attachment: :blob }]).find(params[:id])
     end
 
     def create # rubocop:disable Metrics/AbcSize
