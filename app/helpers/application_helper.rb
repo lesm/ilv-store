@@ -5,7 +5,7 @@ module ApplicationHelper
     current_user&.theme_preference || 'light'
   end
 
-  def cover_image(cover)
-    cover.attached? ? cover : 'default-cover.svg'
+  def cover_image(cover, variant: :small)
+    cover.variant(variant) || 'default-cover.svg'
   end
 end

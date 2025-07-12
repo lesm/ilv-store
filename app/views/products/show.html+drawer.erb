@@ -3,7 +3,7 @@
     <div class="flex flex-col gap-4">
       <div class="h-96">
         <a href="#">
-          <%= image_tag(cover_image(@product.cover), class: 'mx-auto h-full object-contain block', alt: @product.title) %>
+          <%= image_tag(cover_image(@product.cover, variant: :medium), class: 'mx-auto h-full object-contain block', alt: @product.title) %>
         </a>
       </div>
 

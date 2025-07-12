@@ -1,7 +1,7 @@
 <div id="cart-item-<%= item.id %>" class="flex flex-col gap-4">
   <div class="grid grid-cols-4 gap-4">
     <div class="col-span-1">
-      <%= image_tag(cover_image(item.cover), class: 'w-16 mx-auto h-full object-contain block') %>
+      <%= image_tag(cover_image(item.cover, variant: :small), class: 'w-16 mx-auto h-full object-contain block') %>
     </div>
     <div class="grid col-span-3 gap-4">
       <div class="flex">

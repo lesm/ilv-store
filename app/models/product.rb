@@ -6,7 +6,10 @@ class Product < ApplicationRecord
           lambda {
             where(locale: I18n.locale)
           }, class_name: 'Product::Translation', inverse_of: :product, dependent: :destroy, required: true
-  has_one_attached :cover
+  has_one_attached :cover do |attachable|
+    attachable.variant :small, resize_to_limit: [300, 300]
+    attachable.variant :medium, resize_to_limit: [600, 600]
+  end
 
   validates :stock, presence: true, numericality: { greater_than: 0 }
 
