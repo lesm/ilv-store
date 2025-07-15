@@ -22,11 +22,15 @@
       <%= pf.label :stock, t('stock', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
     </div>
 
-    <div class="relative z-0 w-full mb-5 group" data-controller="image-preview">
-      <div class="flex items-center justify-start gap-2">
-        <%= pf.file_field :cover, class: 'drawer--form-file-field peer', placeholder: ' ', data: { image_preview_target: 'source', action: 'image-preview#show' } %>
+    <div class="relative z-0 w-full mb-5 group" data-controller="image-preview direct-upload">
+      <div class="flex items-center justify-start gap-3">
+        <%= pf.file_field :cover, accept: 'image/png,image/jpeg', class: 'drawer--form-file-field peer', direct_upload: true, placeholder: ' ', data: { image_preview_target: 'source', direct_upload_target: 'input', action: 'image-preview#show change->direct-upload#now' } %>
         <%= pf.label :cover, t('cover', scope: 'backoffice.products.book'), class: 'drawer--form-file-label' %>
-        <%= image_tag(cover_image(product.cover), class: 'w-25', data: { image_preview_target: 'image' }) %>
+
+        <div>
+          <%= image_tag(cover_image(product.cover), class: 'w-25 h-20', alt: t('cover_preview', scope: 'backoffice.products.book'), data: { image_preview_target: 'image' }) %>
+          <span class="block h-1 bg-gray-500 transition-all duration-300 w-0" style="width: 0%" data-direct-upload-target="progressBar"></span>
+        </div>
       </div>
     </div>
   <% end %>
