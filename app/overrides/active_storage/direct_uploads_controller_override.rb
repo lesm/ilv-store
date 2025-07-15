@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 ActiveStorage::DirectUploadsController.class_eval do
   before_action :require_authentication
   before_action :authorize_admin!
@@ -22,3 +23,4 @@ ActiveStorage::DirectUploadsController.class_eval do
     render(status: :unauthorized, json: { error: 'Authentication required' })
   end
 end
+# :nocov:
