@@ -6,6 +6,7 @@ export default class extends Controller {
 
   now() {
     Array.from(this.inputTarget.files).forEach(file => this.#uploadFile(file));
+    this.inputTargets.forEach(input => input.value = null);
   }
 
   #uploadFile(file) {
