@@ -21,5 +21,13 @@ class ProductTest < ActiveSupport::TestCase
 
       assert product.invalid?
     end
+
+    test 'validates cover image type' do
+      product.cover.attach(io: File.open(Rails.root.join('test/fixtures/files/cover.webp')),
+                           filename: 'cover.webp', content_type: 'image/webp')
+
+      assert product.invalid?
+      assert_includes product.errors[:cover], 'no es válida: debe ser JPG, JPEG o PNG.'
+    end
   end
 end

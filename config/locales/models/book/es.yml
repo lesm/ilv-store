@@ -1,0 +1,5 @@
+es:
+  activerecord:
+    attributes:
+      book:
+        product_cover: Imagen de portada

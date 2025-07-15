@@ -1,0 +1,8 @@
+es:
+  activerecord:
+    errors:
+      models:
+        product:
+          attributes:
+            cover:
+              invalid_image_type: 'no es válida: debe ser JPG, JPEG o PNG.'

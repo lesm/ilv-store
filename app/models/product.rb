@@ -13,7 +13,16 @@ class Product < ApplicationRecord
 
   validates :stock, presence: true, numericality: { greater_than: 0 }
 
+  validate :cover_image_type
+
   delegate :title, :subtitle, :price, to: :translation
 
   accepts_nested_attributes_for :translation
+
+  def cover_image_type
+    return unless cover.attached?
+    return if cover.content_type.in?(%w[image/png image/jpg image/jpeg])
+
+    errors.add(:cover, :invalid_image_type)
+  end
 end
