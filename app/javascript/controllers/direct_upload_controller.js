@@ -10,15 +10,34 @@ export default class extends Controller {
   }
 
   #uploadFile(file) {
+    this.#toggleSubmitButton();
+
     const url = this.inputTarget.dataset.directUploadUrl;
     const upload = new DirectUpload(file, url, this);
 
     upload.create((error, blob) => {
       if (error) {
+        this.#createErrorMessage(file);
       } else {
         this.#createHiddenInput(blob);
+        this.#toggleSubmitButton(false);
       }
     })
+  }
+
+  #toggleSubmitButton(disabled = true) {
+    const submitButton = this.element.closest('form').querySelector('input[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = disabled;
+    }
+  }
+
+  #createErrorMessage(file) {
+    const message = `Error al subir el archivo ${file.name}, intente nuevamente.`;
+    const span = document.createElement('span');
+    span.classList.add('text-xs', 'text-red-500');
+    span.innerText = message;
+    this.element.appendChild(span);
   }
 
   #createHiddenInput(blob) {
