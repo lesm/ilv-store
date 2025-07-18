@@ -8,6 +8,6 @@ class Order
     validates :quantity, numericality: { greater_than: 0 }
     validates :quantity, :price, presence: true
 
-    delegate :title, to: :product
+    delegate :title, :cover, to: :product
   end
 end

@@ -12,7 +12,9 @@ class OrdersController < ApplicationController
 
   def show
     request.variant = :drawer
-    @order = current_user.orders.includes(items: [product: :translation]).find(params[:id])
+    @order = current_user.orders
+                         .includes(items: [product: [:translation, { cover_attachment: :blob }]])
+                         .find(params[:id])
   end
 
   def create # rubocop:disable Metrics/AbcSize, Metric/MethodLength
@@ -33,7 +35,9 @@ class OrdersController < ApplicationController
   private
 
   def find_cart
-    Cart.includes(items: [product: [:translation]]).find_by(user: current_user)
+    Cart
+      .includes(items: [product: [:translation, { cover_attachment: :blob }]])
+      .find_by(user: current_user)
   end
 
   def find_address
