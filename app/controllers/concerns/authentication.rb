@@ -38,7 +38,11 @@ module Authentication
 
   def request_authentication
     session[:return_to_after_authenticating] = request.url
-    redirect_to new_session_path
+    if turbo_frame_request?
+      render turbo_stream: turbo_stream.action(:redirect, new_session_path)
+    else
+      redirect_to new_session_path
+    end
   end
 
   def after_authentication_url

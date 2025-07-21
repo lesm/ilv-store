@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  allow_unauthenticated_access only: %i[index]
+  allow_unauthenticated_access only: %i[index show]
 
   def index
     @products = Product.includes(:translation, cover_attachment: :blob)
