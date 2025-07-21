@@ -74,6 +74,6 @@ group :tools do
   gem 'rubocop-rails', require: false
   gem 'rubocop-thread_safety', require: false
   gem 'rubycritic', require: false
-  gem 'ruby-lsp', '~> 0.24.2', require: false
+  gem 'ruby-lsp', '~> 0.26.0', require: false
   gem 'trace_location', require: false
 end
