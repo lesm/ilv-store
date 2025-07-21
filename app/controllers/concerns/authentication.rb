@@ -38,10 +38,14 @@ module Authentication
 
   def request_authentication
     session[:return_to_after_authenticating] = request.url
+    locale = params[:locale]
+
+    flash[:alert] = t('authentication.required', locale:)
+
     if turbo_frame_request?
-      render turbo_stream: turbo_stream.action(:redirect, new_session_path)
+      render turbo_stream: turbo_stream.action(:redirect, new_session_path(locale:))
     else
-      redirect_to new_session_path
+      redirect_to new_session_path(locale:)
     end
   end
 
