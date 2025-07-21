@@ -17,7 +17,7 @@ module Backoffice
     end
 
     # Overrides the redirect_to_new_session method from Authentication module
-    # Backoffice cobntrollers are not under locale scope
+    # Backoffice controllers are not under locale scope
     def redirect_to_new_session(locale)
       flash[:alert] = t('authentication.required', locale:)
 
