@@ -15,7 +15,7 @@ class ChangeOrderAddressTest < ApplicationSystemTestCase
     sign_in(user, password)
   end
 
-  test 'change order address' do
+  test 'changes order address' do
     find('nav').find('a[data-turbo-frame="drawer"]').click
     click_on 'Proceder al pago'
 

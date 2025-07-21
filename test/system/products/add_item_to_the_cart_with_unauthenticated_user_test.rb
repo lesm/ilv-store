@@ -10,7 +10,7 @@ class AddItemToTheCartWithUnauthenticatedUserTest < ApplicationSystemTestCase
     product
   end
 
-  test 'add item to the cart with unauthenticated user' do
+  test 'adds item to the cart with unauthenticated user' do
     visit root_path(locale: :en)
     click_on product.title
 

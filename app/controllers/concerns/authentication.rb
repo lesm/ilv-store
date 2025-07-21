@@ -38,8 +38,12 @@ module Authentication
 
   def request_authentication
     session[:return_to_after_authenticating] = request.url
-    locale = params[:locale]
+    locale = params[:locale] || I18n.default_locale
 
+    redirect_to_new_session(locale)
+  end
+
+  def redirect_to_new_session(locale)
     flash[:alert] = t('authentication.required', locale:)
 
     if turbo_frame_request?
