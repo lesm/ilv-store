@@ -15,5 +15,13 @@ module Backoffice
 
       redirect_to root_path, alert: t('backoffice.base.unauthorized', email: current_user.email)
     end
+
+    # Overrides the redirect_to_new_session method from Authentication module
+    # Backoffice controllers are not under locale scope
+    def redirect_to_new_session(locale)
+      flash[:alert] = t('authentication.required', locale:)
+
+      redirect_to new_session_path
+    end
   end
 end
