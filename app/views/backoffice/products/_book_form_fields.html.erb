@@ -1,26 +1,26 @@
 <%= fields_for book do |bf| %>
   <%= bf.fields_for :product do |pf| %>
-    <%= pf.fields_for :translation do |tf| %>
-      <div class="relative z-0 w-full mb-5 group">
-        <%= tf.text_field :title, value: product.title, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
-        <%= tf.label :title, t('title', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
-      </div>
-      <div class="relative z-0 w-full mb-5 group">
-        <%= tf.text_field :subtitle, value: product.subtitle, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
-        <%= tf.label :subtitle, t('subtitle', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
-      </div>
-      <div class="relative z-0 w-full mb-5 group">
-        <%= tf.text_field :price, value: product.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
-        <%= tf.label :price, t('price', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
-      </div>
+    <%= pf.fields_for :translations do |tf| %>
+      <fieldset>
+        <legend class="text-lg font-semibold text-primary-900 mb-4">
+          <%= t('translation_for', scope: 'backoffice.products.book', locale: tf.object.locale) %>
+        </legend>
+        <div class="relative z-0 w-full mb-5 group">
+          <%= tf.text_field :title, value: tf.object.title, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+          <%= tf.label :title, t('title', scope: 'backoffice.products.book', locale: tf.object.locale), class: 'drawer--form-label' %>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <%= tf.text_field :subtitle, value: tf.object.subtitle, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+          <%= tf.label :subtitle, t('subtitle', scope: 'backoffice.products.book', locale: tf.object.locale), class: 'drawer--form-label' %>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+          <%= tf.text_field :price, value: tf.object.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+          <%= tf.label :price, t('price', scope: 'backoffice.products.book', locale: tf.object.locale), class: 'drawer--form-label' %>
+        </div>
 
-      <%= tf.hidden_field :locale, value: product.translation.locale %>
+        <%= tf.hidden_field :locale, value: tf.object.locale %>
+      </fieldset>
     <% end %>
-
-    <div class="relative z-0 w-full mb-5 group">
-      <%= pf.text_field :stock, value: product.stock, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
-      <%= pf.label :stock, t('stock', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
-    </div>
 
     <div class="relative z-0 w-full mb-5 group" data-controller="image-preview direct-upload">
       <div class="flex items-center justify-start gap-3">
@@ -32,6 +32,11 @@
           <span class="block h-1 bg-gray-500 transition-all duration-300 w-0" style="width: 0%" data-direct-upload-target="progressBar"></span>
         </div>
       </div>
+    </div>
+
+    <div class="relative z-0 w-full mb-5 group">
+      <%= pf.text_field :stock, value: product.stock, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+      <%= pf.label :stock, t('stock', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
     </div>
   <% end %>
 

@@ -2,22 +2,29 @@
 
 class Product < ApplicationRecord
   belongs_to :productable, polymorphic: true
-  has_one :translation,
-          lambda {
-            where(locale: I18n.locale)
-          }, class_name: 'Product::Translation', inverse_of: :product, dependent: :destroy, required: true
+
+  has_many :translations, class_name: 'Product::Translation', inverse_of: :product, dependent: :destroy do
+    def for_locale(locale = I18n.locale)
+      find { it.locale == locale.to_s }
+    end
+  end
+
+  accepts_nested_attributes_for :translations
+
   has_one_attached :cover do |attachable|
     attachable.variant :small, resize_to_limit: [300, 300]
     attachable.variant :medium, resize_to_limit: [600, 600]
   end
 
   validates :stock, presence: true, numericality: { greater_than: 0 }
-
+  validates :translations, presence: true
   validate :cover_image_type
 
-  delegate :title, :subtitle, :price, to: :translation
+  delegate :title, :subtitle, :price, to: :current_translation
 
-  accepts_nested_attributes_for :translation
+  def current_translation = translations.for_locale
+
+  private
 
   def cover_image_type
     return unless cover.attached?

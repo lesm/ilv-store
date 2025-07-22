@@ -3,7 +3,7 @@
 module Backoffice
   class ProductsController < BaseController
     def index
-      @products = Product.includes(:translation, :productable)
+      @products = Product.includes(:translations, :productable)
                          .where(productable_type: product_type.capitalize)
     end
 
@@ -11,13 +11,16 @@ module Backoffice
       request.variant = :drawer
 
       @product = product_klass.new(
-        product: Product.new(translation: Product::Translation.new(locale: 'es'))
+        product: Product.new(
+          translations: [Product::Translation.new(locale: 'es'), Product::Translation.new(locale: 'en')]
+        )
       )
     end
 
     def edit
       request.variant = :drawer
-      @product = product_klass.includes(product: [:translation, { cover_attachment: :blob }]).find(params[:id])
+      @product = product_klass.includes(product: [:translations, { cover_attachment: :blob }])
+                              .find(params[:id])
     end
 
     def create # rubocop:disable Metrics/AbcSize
@@ -59,7 +62,11 @@ module Backoffice
         book: [
           :internal_code, :language, :language_zone, :edition_number, :pages_number,
           :cover_color, :dimensions, :weight_grams,
-          { product_attributes: [:id, :stock, :cover, { translation_attributes: %i[id title subtitle locale price] }] }
+          {
+            product_attributes: [
+              :id, :stock, :cover, { translations_attributes: [%i[id title subtitle locale price]] }
+            ]
+          }
         ]
       )
     end

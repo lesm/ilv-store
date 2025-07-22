@@ -2,14 +2,15 @@ es:
   backoffice:
     products:
       book: &book
+        translation_for: Para México
         internal_code: Código
         title: Título (MX)
-        subtitle: Título original
+        subtitle: Título original (MX)
         language: Idioma
         language_zone: Zona
         edition_number: No. de edición
         pages_number: No. de páginas
-        price: Precio (MX)
+        price: Precio (Pesos MX)
         stock: Stock
         cover: Imagen de portada
         cover_preview: Vista previa del libro

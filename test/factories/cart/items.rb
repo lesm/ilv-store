@@ -5,6 +5,6 @@ FactoryBot.define do
     product { association(:product) }
     cart { association :cart }
     quantity { 1 }
-    price { product.translation.price }
+    price { product.current_translation.price }
   end
 end

@@ -23,12 +23,14 @@ module Backoffice
           product_attributes: {
             stock: 50,
             cover: fixture_file_upload('test/fixtures/files/book.png', 'image/png'),
-            translation_attributes: {
-              title: 'Test Product',
-              subtitle: 'Producto de Prueba',
-              locale: 'es',
-              price: 99.99
-            }
+            translations_attributes: [
+              {
+                title: 'Test Product',
+                subtitle: 'Producto de Prueba',
+                locale: 'es',
+                price: 99.99
+              }
+            ]
           }
         }
       }
@@ -82,8 +84,19 @@ module Backoffice
 
     describe '#PATCH update' do # rubocop:disable Metrics/BlockLength
       describe 'with valid params' do
+        let(:es_translation) { product.translations.find { it.locale == 'es' } }
+
         before do
           params[:book][:product_attributes][:id] = product.id
+          params[:book][:product_attributes][:translations_attributes] = {
+            0 => {
+              id: es_translation.id,
+              title: 'Test Product',
+              subtitle: 'Producto de Prueba',
+              locale: 'es',
+              price: 99.99
+            }
+          }
         end
 
         test 'redirects to the backoffice products page' do
@@ -113,7 +126,7 @@ module Backoffice
 
       describe 'with invalid params' do
         test 'redirects to the edit backoffice product page' do
-          params[:book][:product_attributes][:translation_attributes][:price] = nil
+          params[:book][:product_attributes][:translations_attributes][0][:price] = nil
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
           assert_turbo_stream action: :append, target: 'flash'
@@ -121,7 +134,7 @@ module Backoffice
 
         test 'does not update the product' do
           original_price = product.price
-          params[:book][:product_attributes][:translation_attributes][:price] = nil
+          params[:book][:product_attributes][:translations_attributes][0][:price] = nil
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
           assert_equal original_price, product.reload.price
