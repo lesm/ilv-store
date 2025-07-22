@@ -11,3 +11,4 @@
 #   end
 
 load(Rails.root.join('db/seeds/states.rb'))
+load(Rails.root.join('db/seeds/books_list.rb'))
