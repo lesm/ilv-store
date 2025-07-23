@@ -82,7 +82,7 @@ module Backoffice
       end
     end
 
-    describe '#PATCH update' do # rubocop:disable Metrics/BlockLength
+    describe '#PATCH update' do
       describe 'with valid params' do
         let(:es_translation) { product.translations.find { it.locale == 'es' } }
 

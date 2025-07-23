@@ -23,7 +23,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe '#POST create' do # rubocop:disable Metrics/BlockLength
+  describe '#POST create' do
     describe 'reaches rate limit' do
       test 'redirects to new session url' do
         10.times { post session_url, params: invalid_params }

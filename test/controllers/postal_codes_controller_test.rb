@@ -10,7 +10,7 @@ class PostalCodesControllerTest < ActionDispatch::IntegrationTest
     authenticate_as(create(:user))
   end
 
-  describe '#GET index' do # rubocop:disable Metrics/BlockLength
+  describe '#GET index' do
     test 'returns 400 status code if postal_code param is missing' do
       get(postal_codes_url, params: {}, headers:)
 

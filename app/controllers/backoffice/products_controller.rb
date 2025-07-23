@@ -57,7 +57,7 @@ module Backoffice
       product_type.classify.constantize
     end
 
-    def product_params
+    def product_params # rubocop:disable Metrics/MethodLength
       params.expect(
         book: [
           :internal_code, :language, :language_zone, :edition_number, :pages_number,
