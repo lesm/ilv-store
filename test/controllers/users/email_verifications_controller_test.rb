@@ -6,7 +6,7 @@ module Users
   class EmailVerificationsControllerTest < ActionDispatch::IntegrationTest
     let(:user) { create(:user) }
 
-    describe '#GET show' do # rubocop:disable Metrics/BlockLength
+    describe '#GET show' do
       describe 'with a valid token' do
         before { get user_email_verification_url(token: user.email_verification_token) }
 

@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :product do
     stock { 10 }
 
-    translation { build(:product_translation, product: instance) }
+    translations { [build(:product_translation, product: instance)] }
     productable { association :book, product: instance }
   end
 end

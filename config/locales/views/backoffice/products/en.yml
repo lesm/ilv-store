@@ -1,0 +1,8 @@
+en:
+  backoffice:
+    products:
+      book:
+        translation_for: Para Estados Unidos
+        title: Título (USA)
+        subtitle: Título original (USA)
+        price: Precio (Dólares)

@@ -27,7 +27,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  describe '#POST create' do # rubocop:disable Metrics/BlockLength
+  describe '#POST create' do
     before { stub_request(:any, %r{https://us1.unione.io/}) }
 
     describe 'with valid params' do
