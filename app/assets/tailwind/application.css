@@ -92,6 +92,16 @@
   }
 }
 
+@keyframes slide-out {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes slide-out-left {
   from {
     transform: translateX(0%);
