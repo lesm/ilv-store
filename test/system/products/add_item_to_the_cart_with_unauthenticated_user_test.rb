@@ -14,7 +14,9 @@ class AddItemToTheCartWithUnauthenticatedUserTest < ApplicationSystemTestCase
     visit root_path(locale: :en)
     click_on translation.title
 
-    click_on 'Add to cart'
+    within '#drawer' do
+      click_on 'Add to cart'
+    end
 
     assert_text 'You need to sign in or sign up before continuing.'
     assert_selector 'input[type="submit"][value="Sign in"]'
