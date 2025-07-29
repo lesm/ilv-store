@@ -1,5 +1,7 @@
 en:
   orders:
+    item:
+      delete_item: Delete
     address:
       address_to: Ship to
       no_addresses: No shipping addresses

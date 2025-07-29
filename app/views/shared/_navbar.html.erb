@@ -12,7 +12,7 @@
 
       <div class="flex items-center lg:space-x-2 gap-3">
         <% if authenticated? %>
-          <%= link_to cart_path, class: 'inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 text-sm font-medium leading-none text-primary-800', data: { turbo_frame: :drawer } do %>
+          <%= link_to cart_path, class: "#{class_names('hidden': current_page?(new_order_path))} flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 text-sm font-medium leading-none text-primary-800", data: { turbo_frame: :drawer } do %>
             <span class="sr-only">
               Cart
             </span>
