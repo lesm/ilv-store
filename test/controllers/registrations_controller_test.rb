@@ -59,10 +59,10 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
         assert_equal(0, User.count)
       end
 
-      test 'returns unprocessable_entity response' do
+      test 'returns unprocessable_content response' do
         post registration_url, params: params
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
       end
     end
   end

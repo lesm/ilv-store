@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
       flash.now[:alert] = @form.errors.full_messages.to_sentence
       @cart = find_cart
       @address = find_address
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

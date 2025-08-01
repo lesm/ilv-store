@@ -18,7 +18,7 @@ class RegistrationsController < ApplicationController
       redirect_to new_session_path, notice: t('.success')
     else
       flash.now[:alert] = @user.errors.full_messages.to_sentence
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 

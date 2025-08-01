@@ -56,8 +56,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
           assert_equal(0, user.sessions.count)
         end
 
-        test 'renders to new action with unprocessable_entity status' do
-          assert_response :unprocessable_entity
+        test 'renders to new action with unprocessable_content status' do
+          assert_response :unprocessable_content
           assert_match(/Iniciar sesión/, response.body)
         end
       end

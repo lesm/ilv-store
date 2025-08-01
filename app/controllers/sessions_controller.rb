@@ -30,6 +30,6 @@ class SessionsController < ApplicationController
 
   def email_verification_required
     flash.now[:notice] = t('.email_verification_required')
-    render :new, status: :unprocessable_entity
+    render :new, status: :unprocessable_content
   end
 end

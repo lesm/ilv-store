@@ -49,11 +49,11 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
 
     describe 'with invalid params' do
-      test 'returns unprocessable_entity response' do
+      test 'returns unprocessable_content response' do
         params[:order][:address_id] = nil
         post(orders_url(format: :html), params:)
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
       end
     end
   end
