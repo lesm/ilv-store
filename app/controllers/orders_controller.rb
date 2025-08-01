@@ -17,15 +17,13 @@ class OrdersController < ApplicationController
                          .find(params[:id])
   end
 
-  def create # rubocop:disable Metrics/AbcSize, Metric/MethodLength
-    @order = build_order
+  def create
+    @form = build_form
 
-    if @order.save
-      current_cart.clear
-      OrderMailerJob.perform_later(@order.id, :send_order_created)
+    if @form.save
       redirect_to orders_path, notice: t('.success')
     else
-      flash.now[:alert] = @order.errors.full_messages.to_sentence
+      flash.now[:alert] = @form.errors.full_messages.to_sentence
       @cart = find_cart
       @address = find_address
       render :new, status: :unprocessable_entity
@@ -33,6 +31,13 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def build_form
+    OrderForm.new(order_params.to_h).tap do |form|
+      form.current_cart = current_cart
+      form.current_user = current_user
+    end
+  end
 
   def find_cart
     Cart
@@ -42,35 +47,6 @@ class OrdersController < ApplicationController
 
   def find_address
     current_user.default_address || current_user.addresses.first
-  end
-
-  def build_order
-    Order.new(
-      subtotal: current_cart.total_price,
-      total: current_cart.total_price,
-      address_attributes: address_attributes,
-      items_attributes: items_attributes,
-      user: current_user
-    )
-  end
-
-  def address_attributes
-    address = Address.find_by(id: order_params[:address_id])
-    return {} unless address
-
-    address.dup.attributes.except('id', 'created_at', 'updated_at').tap do |hash|
-      hash['default'] = false
-    end
-  end
-
-  def items_attributes
-    current_cart.items.map do |item|
-      {
-        product_id: item.product_id,
-        quantity: item.quantity,
-        price: item.price
-      }
-    end
   end
 
   def order_params

@@ -16,4 +16,23 @@ class Order < ApplicationRecord
 
   validates :subtotal, :total, presence: true
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
+
+  after_commit :complete_order_processing, on: :create
+
+  private
+
+  def complete_order_processing
+    process_inventory_changes
+    send_order_confirmation_email
+  end
+
+  def process_inventory_changes
+    items.each do
+      Product.decrement_counter(:stock, it.product_id, by: it.quantity) # rubocop:disable Rails/SkipsModelValidations
+    end
+  end
+
+  def send_order_confirmation_email
+    OrderMailerJob.perform_later(id, :send_order_created)
+  end
 end
