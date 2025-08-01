@@ -20,7 +20,6 @@ class OrderForm < ApplicationForm
 
     order.save!
     current_cart.clear
-    OrderMailerJob.perform_later(order.id, :send_order_created)
   end
 
   def address_attributes

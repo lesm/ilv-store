@@ -35,9 +35,31 @@ class OrderFormTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'address atrributes' do
+  describe 'address attributes' do
     test "do not clone 'id', 'created_at', 'updated_at' attributes" do
       assert form.expects(:address_attributes).returns(address_attributes)
+
+      form.save
+    end
+  end
+
+  describe 'updates product stock' do
+    test 'after submitting the form' do
+      quantities = current_cart.items.pluck(:product_id, :quantity).to_h
+      initial_stocks = Product.where(id: quantities.keys).pluck(:id, :stock).to_h
+
+      # The save method clears the cart items
+      form.save
+
+      initial_stocks.each do |id, stock|
+        assert_equal stock - quantities[id], Product.find(id).stock
+      end
+    end
+  end
+
+  describe 'enqueues the OrderMailerJob' do
+    test 'with the order id and :send_order_created' do
+      OrderMailerJob.expects(:perform_later).with(instance_of(String), :send_order_created)
 
       form.save
     end
@@ -48,14 +70,6 @@ class OrderFormTest < ActiveSupport::TestCase
       form.save
 
       assert_empty current_cart.items
-    end
-  end
-
-  describe 'enqueues the OrderMailerJob' do
-    test 'with the order id and :send_order_created' do
-      OrderMailerJob.expects(:perform_later).with(instance_of(String), :send_order_created)
-
-      form.save
     end
   end
 end
