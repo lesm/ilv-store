@@ -1,5 +1,7 @@
 es:
   carts:
+    item:
+      delete_item: Eliminar
     subtotal_drawer:
       product:
         zero: 0 productos

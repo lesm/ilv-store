@@ -1,7 +1,5 @@
 es:
   orders:
-    item:
-      delete_item: Eliminar
     address:
       address_to: Enviar a
       no_addresses: No hay direcciones de envío
@@ -16,6 +14,7 @@ es:
         view_order: Ver pedido
     new:
       product: Producto
+      products: Productos
       quantity: Cantidad
       price: Precio
       subtotal: Subtotal
