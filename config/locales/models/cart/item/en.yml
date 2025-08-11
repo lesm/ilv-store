@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    attributes:
+      cart/item:
+        quantity: Quantity
+    errors:
+      models:
+        cart/item:
+          attributes:
+            quantity:
+              not_enough_stock: Only %{count} available.

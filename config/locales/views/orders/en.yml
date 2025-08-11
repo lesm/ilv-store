@@ -16,6 +16,7 @@ en:
         view_order: View order
     new:
       product: Product
+      products: Products
       quantity: Quantity
       price: Price
       subtotal: Subtotal
