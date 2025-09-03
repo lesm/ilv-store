@@ -16,5 +16,6 @@ FactoryBot.define do
     end
 
     workflow_status { 'created' }
+    payment_status { 'pending' }
   end
 end

@@ -14,6 +14,7 @@ Metrics/BlockLength:
     - lib/tasks/load_mx_postal_codes.rake
     - test/factories/*.rb
     - test/controllers/**/*.rb
+    - test/models/**/*.rb
 Metrics/MethodLength:
   Exclude:
     - db/migrate/*.rb

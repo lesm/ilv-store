@@ -27,5 +27,27 @@ class OrderTest < ActiveSupport::TestCase
         order.workflow_status = 'unknown_status'
       end
     end
+
+    test 'validates inclusion of workflow_status' do
+      %w[created in_transit canceled delivered].each do |status|
+        order.workflow_status = status
+        assert order.valid?
+      end
+
+      assert_raises ArgumentError do
+        order.workflow_status = 'invalid_status'
+      end
+    end
+
+    test 'validates inclusion of payment_status' do
+      %w[pending paid failed].each do |status|
+        order.payment_status = status
+        assert order.valid?
+      end
+
+      assert_raises ArgumentError do
+        order.payment_status = 'invalid_status'
+      end
+    end
   end
 end
