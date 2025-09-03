@@ -29,7 +29,7 @@ class OrderTest < ActiveSupport::TestCase
     end
 
     test 'validates inclusion of workflow_status' do
-      %w[created in_transit canceled delivered].each do |status|
+      %w[pending created in_transit canceled delivered].each do |status|
         order.workflow_status = status
         assert order.valid?
       end
