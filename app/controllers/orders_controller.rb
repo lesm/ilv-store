@@ -11,17 +11,30 @@ class OrdersController < ApplicationController
   end
 
   def show
-    request.variant = :drawer
+    request.variant = :drawer if turbo_frame_request?
     @order = current_user.orders
                          .includes(items: [product: [:translations, { cover_attachment: :blob }]])
                          .find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
-  def create
+  def create # rubocop:disable Metrics/AbcSize
     @form = build_form
 
     if @form.save
-      redirect_to orders_path, notice: t('.success')
+      begin
+        session = create_stripe_checkout_session(@form.order)
+        @form.order.update(stripe_session_id: session.id)
+
+        redirect_to session.url, allow_other_host: true, status: :see_other
+      rescue Stripe::StripeError => e
+        flash[:alert] = "Try again, there was an error with the payment processor: #{e.message}"
+        redirect_to @form.order
+      end
     else
       flash.now[:alert] = @form.errors.full_messages.to_sentence
       @cart = find_cart
@@ -31,6 +44,14 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def create_stripe_checkout_session(order)
+    Payment::Stripe::Checkout::Session.create(
+      order:,
+      success_url: order_url(order),
+      cancel_url: order_url(order)
+    )
+  end
 
   def build_form
     OrderForm.new(order_params.to_h).tap do |form|

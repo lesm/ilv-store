@@ -4,13 +4,15 @@ class OrderForm < ApplicationForm
   attribute :address_id, :string
 
   attr_accessor :current_cart, :current_user
+  attr_reader :order
 
   validates :address_id, presence: true
 
   private
 
   def submit
-    order = Order.new(
+    @order = Order.new(
+      workflow_status: 'pending',
       subtotal: current_cart.total_price,
       total: current_cart.total_price,
       address_attributes: address_attributes,
@@ -18,7 +20,7 @@ class OrderForm < ApplicationForm
       user: current_user
     )
 
-    order.save!
+    @order.save!
     current_cart.clear
   end
 

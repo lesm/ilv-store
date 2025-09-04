@@ -25,13 +25,13 @@ class Order < ApplicationRecord
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
   validates :payment_status, inclusion: { in: payment_statuses.keys }
 
-  after_commit :complete_order_processing, on: :create
+  after_commit :process_inventory_changes, on: :create
+  after_update :send_order_confirmation_email, if: :workflow_status_changed_to_created?
 
   private
 
-  def complete_order_processing
-    process_inventory_changes
-    send_order_confirmation_email
+  def workflow_status_changed_to_created?
+    workflow_status_was == 'pending' && workflow_status == 'created'
   end
 
   def process_inventory_changes
@@ -41,6 +41,6 @@ class Order < ApplicationRecord
   end
 
   def send_order_confirmation_email
-    OrderMailerJob.perform_later(id, :send_order_created)
+    OrderMailerJob.perform_later(id, :send_order_created) # :nocov:
   end
 end

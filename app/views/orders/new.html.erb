@@ -7,7 +7,7 @@
     <div class="grid gap-4 lg:flex lg:items-start">
       <div class="min-w-0 flex-1 space-y-4">
         <div class="flex items-start justify-between rounded-lg border border-primary-200 bg-white p-6 shadow-sm">
-          <%= form_with(model: Order.new, html: { id: 'new-order-form' }) do |f| %>
+          <%= form_with(model: Order.new, html: { id: 'new-order-form' }, data: { turbo: false }) do |f| %>
             <div id="orders-address">
               <%= render partial: 'orders/address', locals: { address: @address } %>
             </div>
