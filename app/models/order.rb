@@ -26,21 +26,12 @@ class Order < ApplicationRecord
   validates :payment_status, inclusion: { in: payment_statuses.keys }
 
   after_commit :process_inventory_changes, on: :create
-  after_update :send_order_confirmation_email, if: :workflow_status_changed_to_created?
 
   private
-
-  def workflow_status_changed_to_created?
-    workflow_status_was == 'pending' && workflow_status == 'created'
-  end
 
   def process_inventory_changes
     items.each do
       Product.decrement_counter(:stock, it.product_id, by: it.quantity) # rubocop:disable Rails/SkipsModelValidations
     end
-  end
-
-  def send_order_confirmation_email
-    OrderMailerJob.perform_later(id, :send_order_created) # :nocov:
   end
 end

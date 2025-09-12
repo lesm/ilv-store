@@ -22,19 +22,11 @@ class OrdersController < ApplicationController
     end
   end
 
-  def create # rubocop:disable Metrics/AbcSize
+  def create
     @form = build_form
 
     if @form.save
-      begin
-        session = create_stripe_checkout_session(@form.order)
-        @form.order.update(stripe_session_id: session.id)
-
-        redirect_to session.url, allow_other_host: true, status: :see_other
-      rescue Stripe::StripeError => e
-        flash[:alert] = "Try again, there was an error with the payment processor: #{e.message}"
-        redirect_to @form.order
-      end
+      handle_successful_form_save
     else
       flash.now[:alert] = @form.errors.full_messages.to_sentence
       @cart = find_cart
@@ -44,6 +36,15 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def handle_successful_form_save
+    session = create_stripe_checkout_session(@form.order)
+    @form.order.update(stripe_session_id: session.id)
+    redirect_to session.url, allow_other_host: true, status: :see_other
+  rescue Stripe::StripeError => e
+    flash[:alert] = "Try again, there was an error with the payment processor: #{e.message}"
+    redirect_to @form.order
+  end
 
   def create_stripe_checkout_session(order)
     Payment::Stripe::Checkout::Session.create(

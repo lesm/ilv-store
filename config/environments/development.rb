@@ -50,6 +50,8 @@ Rails.application.configure do
     reply_to: 'noreply@ilvmx.org'
   }
 
+  config.hosts << '.ngrok-free.app'
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
