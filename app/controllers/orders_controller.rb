@@ -40,6 +40,7 @@ class OrdersController < ApplicationController
   def handle_successful_form_save
     puts "Creating Stripe Checkout Session for Order ID: #{@form.order.id}"
     session = create_stripe_checkout_session(@form.order)
+    puts "Stripe Checkout Session response: #{session.inspect}"
     puts "Stripe Checkout Session created with ID: #{session.id}"
     @form.order.update(stripe_session_id: session.id)
     redirect_to session.url, allow_other_host: true, status: :see_other
