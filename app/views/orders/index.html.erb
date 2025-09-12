@@ -39,14 +39,25 @@
             </div>
 
             <div class="space-y-3">
-            </div>
-
-            <div class="space-y-3">
               <div>
                 <p class="text-xs sm:text-sm font-medium text-black"><%= t('.total') %></p>
                 <p class="text-xs sm:text-sm font-semibold text-magenta-500">
                   <%= number_to_currency(order.total) %>
                 </p>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <p class="text-xs sm:text-sm font-medium text-black">
+                  <%= t('.payment_status') %>
+                </p>
+                <span class="text-xs sm:text-sm inline-flex items-center gap-1 rounded-full bg-primary-100 px-3 py-1 font-medium text-primary-700">
+                  <svg class="h-3 w-3 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
+                  </svg>
+                  <span><%= order.class.human_attribute_name("payment_status.#{order.payment_status}") %></span>
+                </span>
               </div>
             </div>
 
@@ -59,7 +70,7 @@
                   <svg class="h-3 w-3 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
                   </svg>
-                  <span><%= order.workflow_status.humanize %></span>
+                  <span><%= order.class.human_attribute_name("workflow_status.#{order.workflow_status}") %></span>
                 </span>
               </div>
             </div>

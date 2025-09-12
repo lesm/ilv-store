@@ -11,6 +11,7 @@ en:
       order_id: 'Order ID:'
       date: 'Date:'
       total: 'Total:'
+      payment_status: 'Payment status:'
       workflow_status: 'Status:'
       actions:
         view_order: View order

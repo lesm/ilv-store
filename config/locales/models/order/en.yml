@@ -1,0 +1,14 @@
+en:
+  activerecord:
+    attributes:
+      order:
+      payment_status:
+        pending: Pending
+        paid: Paid
+        failed: Failed
+      workflow_status:
+        pending: Pending
+        created: Created
+        in_transit: In Transit
+        cancelled: Cancelled
+        delivered: Delivered
