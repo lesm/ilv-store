@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'test_helper'
-require 'ostruct'
 
 class OrdersControllerTest < ActionDispatch::IntegrationTest
   let(:user) { create(:user, :with_cart) }
@@ -44,7 +43,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     describe 'with valid params' do
       before do
         Stripe::Checkout::Session.stubs(:create).returns(
-          ::OpenStruct.new(
+          Data.define(:id, :object, :url).new(
             id: 'cs_test_a1b2c3d4e5f6g7h8i9j0',
             object: 'checkout.session',
             url: 'https://checkout.stripe.com/pay/cs_test_a1b2c3d4e5f6g7h8i9j0'
