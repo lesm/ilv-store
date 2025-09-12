@@ -15,6 +15,7 @@ gem 'rails', '~> 8.0.2'
 gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'stimulus-rails'
+gem 'stripe'
 gem 'tailwindcss-rails'
 gem 'turbo-rails'
 

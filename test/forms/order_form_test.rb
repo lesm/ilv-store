@@ -57,19 +57,13 @@ class OrderFormTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'enqueues the OrderMailerJob' do
-    test 'with the order id and :send_order_created' do
-      OrderMailerJob.expects(:perform_later).with(instance_of(String), :send_order_created)
+  describe '#save' do
+    describe 'clears the cart' do
+      test 'after submitting the form' do
+        form.save
 
-      form.save
-    end
-  end
-
-  describe 'clears the cart' do
-    test 'after submitting the form' do
-      form.save
-
-      assert_empty current_cart.items
+        assert_empty current_cart.items
+      end
     end
   end
 end

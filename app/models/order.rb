@@ -2,11 +2,18 @@
 
 class Order < ApplicationRecord
   enum :workflow_status, {
+    pending: 'pending',
     created: 'created',
     in_transit: 'in_transit',
     canceled: 'canceled',
     delivered: 'delivered'
-  }
+  }, prefix: true
+
+  enum :payment_status, {
+    pending: 'pending',
+    paid: 'paid',
+    failed: 'failed'
+  }, prefix: true
 
   belongs_to :user
   has_one :address, as: :addressable, dependent: :destroy
@@ -16,23 +23,15 @@ class Order < ApplicationRecord
 
   validates :subtotal, :total, presence: true
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
+  validates :payment_status, inclusion: { in: payment_statuses.keys }
 
-  after_commit :complete_order_processing, on: :create
+  after_commit :process_inventory_changes, on: :create
 
   private
-
-  def complete_order_processing
-    process_inventory_changes
-    send_order_confirmation_email
-  end
 
   def process_inventory_changes
     items.each do
       Product.decrement_counter(:stock, it.product_id, by: it.quantity) # rubocop:disable Rails/SkipsModelValidations
     end
-  end
-
-  def send_order_confirmation_email
-    OrderMailerJob.perform_later(id, :send_order_created)
   end
 end

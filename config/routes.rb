@@ -23,5 +23,9 @@ Rails.application.routes.draw do
 
   resources :postal_codes, only: %i[index]
 
+  namespace :webhooks do
+    resource :stripe, only: %i[create]
+  end
+
   root 'products#index'
 end

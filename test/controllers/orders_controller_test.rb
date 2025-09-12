@@ -41,10 +41,50 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
 
   describe 'POST #create' do
     describe 'with valid params' do
+      before do
+        Stripe::Checkout::Session.stubs(:create).returns(
+          Data.define(:id, :object, :url).new(
+            id: 'cs_test_a1b2c3d4e5f6g7h8i9j0',
+            object: 'checkout.session',
+            url: 'https://checkout.stripe.com/pay/cs_test_a1b2c3d4e5f6g7h8i9j0'
+          )
+        )
+
+        stub_request(:post, %r{/checkout/sessions}).to_return(
+          status: 201,
+          body: {
+            id: 'cs_test_a1b2c3d4e5f6g7h8i9j0',
+            object: 'checkout.session',
+            url: 'https://checkout.stripe.com/pay/cs_test_a1b2c3d4e5f6g7h8i9j0'
+          }.to_json,
+          headers: { 'Content-Type' => 'application/json' }
+        )
+
+        stub_request(:get, 'https://checkout.stripe.com/pay/cs_test_a1b2c3d4e5f6g7h8i9j0').to_return(
+          status: 200,
+          body: '',
+          headers: { 'Content-Type' => 'text/html' }
+        )
+      end
+
       test 'redirects to the orders page' do
         post(orders_url(format: :turbo_stream), params:)
 
-        assert_redirected_to orders_url
+        assert_redirected_to 'https://checkout.stripe.com/pay/cs_test_a1b2c3d4e5f6g7h8i9j0'
+      end
+    end
+
+    describe 'stripe raises an error' do
+      before do
+        Payment::Stripe::Checkout::Session.stubs(:create).raises(Stripe::StripeError.new('Stripe error'))
+      end
+
+      test 'redirects to the order page with an alert message' do
+        post(orders_url(format: :html), params:)
+
+        error_message = 'Try again, there was an error with the payment processor: Stripe error'
+        assert_redirected_to order_url(Order.last)
+        assert_equal error_message, flash[:alert]
       end
     end
 
