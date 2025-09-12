@@ -42,7 +42,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   describe 'POST #create' do
     describe 'with valid params' do
       before do
-        stub_request(:post, 'https://api.stripe.com/v1/checkout/sessions').to_return(
+        stub_request(:post, %r{/checkout/sessions}).to_return(
           status: 201,
           body: {
             id: 'cs_test_a1b2c3d4e5f6g7h8i9j0',
