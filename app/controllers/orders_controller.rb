@@ -2,7 +2,9 @@
 
 class OrdersController < ApplicationController
   def index
-    @orders = current_user.orders.order(created_at: :desc)
+    @orders = current_user.orders
+                          .where.not(workflow_status: :draft)
+                          .order(created_at: :desc)
   end
 
   def new
@@ -11,10 +13,17 @@ class OrdersController < ApplicationController
   end
 
   def show
-    request.variant = :drawer if turbo_frame_request?
     @order = current_user.orders
                          .includes(items: [product: [:translations, { cover_attachment: :blob }]])
                          .find(params[:id])
+
+    begin
+      handle_redirect_from_stripe if params[:token].present?
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      # do nothing, just render the page as usual
+    end
+
+    request.variant = :drawer if turbo_frame_request?
 
     respond_to do |format|
       format.html
@@ -47,10 +56,14 @@ class OrdersController < ApplicationController
   end
 
   def create_stripe_checkout_session(order)
+    token = Rails.application
+                 .message_verifier(:from_stripe)
+                 .generate({ order_id: order.id, user_id: current_user.id })
+
     Payment::Stripe::Checkout::Session.create(
       order:,
-      success_url: order_url(order),
-      cancel_url: order_url(order)
+      success_url: order_url(order, token:),
+      cancel_url: new_order_url(address_id: order.address.id)
     )
   end
 
@@ -61,6 +74,16 @@ class OrdersController < ApplicationController
     end
   end
 
+  def handle_redirect_from_stripe
+    data = Rails.application.message_verifier(:from_stripe).verify(params[:token])
+
+    return unless data['order_id'] == params[:id]
+    return unless @order.workflow_status_draft?
+
+    @order.workflow_status_pending!
+    current_cart.clear
+  end
+
   def find_cart
     Cart
       .includes(items: [product: [:translations, { cover_attachment: :blob }]])
@@ -68,7 +91,8 @@ class OrdersController < ApplicationController
   end
 
   def find_address
-    current_user.default_address || current_user.addresses.first
+    current_user.addresses.find_by(id: params.dig(:address_id)) ||
+      current_user.default_address || current_user.addresses.first
   end
 
   def order_params

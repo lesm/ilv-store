@@ -2,6 +2,7 @@
 
 class Order < ApplicationRecord
   enum :workflow_status, {
+    draft: 'draft',
     pending: 'pending',
     created: 'created',
     in_transit: 'in_transit',

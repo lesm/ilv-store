@@ -58,11 +58,29 @@ class OrderFormTest < ActiveSupport::TestCase
   end
 
   describe '#save' do
-    describe 'clears the cart' do
-      test 'after submitting the form' do
-        form.save
+    describe 'creates an order' do
+      test 'with the correct attributes' do
+        assert_difference 'Order.count', 1 do
+          form.save
+        end
 
-        assert_empty current_cart.items
+        order = form.order
+
+        assert_equal current_user, order.user
+        assert_equal 'draft', order.workflow_status
+        assert_equal current_cart.total_price, order.subtotal
+        assert_equal current_cart.total_price, order.total
+        # TODO: fix type issue
+        # assert_equal address_attributes, order.address.attributes.except('id', 'created_at', 'updated_at', 'type')
+        assert_equal current_cart.items.count, order.items.count
+
+        current_cart.items.each_with_index do |item, index|
+          order_item = order.items[index]
+
+          assert_equal item.product_id, order_item.product_id
+          assert_equal item.quantity, order_item.quantity
+          assert_equal item.price, order_item.price
+        end
       end
     end
   end

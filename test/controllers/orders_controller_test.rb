@@ -37,6 +37,15 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
       get order_url(id: create(:order, :order_created, user:).id, turbo_frame: 'drawer')
       assert_response :success
     end
+
+    test 'clears cart items when request can from stripe' do
+      order = create(:order, :draft, user:)
+      token = Rails.application.message_verifier(:from_stripe).generate({ order_id: order.id, user_id: user.id })
+
+      assert_difference 'user.cart.items.count', -user.cart.items.count do
+        get order_url(id: order.id, token:)
+      end
+    end
   end
 
   describe 'POST #create' do
