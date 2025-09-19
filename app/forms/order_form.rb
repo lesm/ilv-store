@@ -12,7 +12,7 @@ class OrderForm < ApplicationForm
 
   def submit
     @order = Order.new(
-      workflow_status: 'pending',
+      workflow_status: 'draft',
       subtotal: current_cart.total_price,
       total: current_cart.total_price,
       address_attributes: address_attributes,
@@ -21,7 +21,6 @@ class OrderForm < ApplicationForm
     )
 
     @order.save!
-    current_cart.clear
   end
 
   def address_attributes

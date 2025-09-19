@@ -40,6 +40,7 @@ module Webhooks
 
       order.update!(
         payment_status: :paid,
+        workflow_status: :created,
         stripe_payment_intent_id: session['payment_intent']
       )
 

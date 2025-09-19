@@ -11,10 +11,17 @@ class OrdersController < ApplicationController
   end
 
   def show
-    request.variant = :drawer if turbo_frame_request?
     @order = current_user.orders
                          .includes(items: [product: [:translations, { cover_attachment: :blob }]])
                          .find(params[:id])
+
+    begin
+      handle_redirect_from_stripe if params[:token].present?
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      # do nothing, just render the page as usual
+    end
+
+    request.variant = :drawer if turbo_frame_request?
 
     respond_to do |format|
       format.html
@@ -47,10 +54,14 @@ class OrdersController < ApplicationController
   end
 
   def create_stripe_checkout_session(order)
+    token = Rails.application
+                 .message_verifier(:from_stripe)
+                 .generate({ order_id: order.id, user_id: current_user.id })
+
     Payment::Stripe::Checkout::Session.create(
       order:,
-      success_url: order_url(order),
-      cancel_url: order_url(order)
+      success_url: order_url(order, token:),
+      cancel_url: new_order_url
     )
   end
 
@@ -59,6 +70,16 @@ class OrdersController < ApplicationController
       form.current_cart = current_cart
       form.current_user = current_user
     end
+  end
+
+  def handle_redirect_from_stripe
+    data = Rails.application.message_verifier(:from_stripe).verify(params[:token])
+
+    return unless data['order_id'] == params[:id]
+    return unless @order.workflow_status_draft?
+
+    @order.workflow_status_pending!
+    current_cart.clear
   end
 
   def find_cart
