@@ -2,7 +2,9 @@
 
 class OrdersController < ApplicationController
   def index
-    @orders = current_user.orders.order(created_at: :desc)
+    @orders = current_user.orders
+                          .where.not(workflow_status: :draft)
+                          .order(created_at: :desc)
   end
 
   def new
@@ -61,7 +63,7 @@ class OrdersController < ApplicationController
     Payment::Stripe::Checkout::Session.create(
       order:,
       success_url: order_url(order, token:),
-      cancel_url: new_order_url
+      cancel_url: new_order_url(address_id: order.address.id)
     )
   end
 
@@ -89,7 +91,8 @@ class OrdersController < ApplicationController
   end
 
   def find_address
-    current_user.default_address || current_user.addresses.first
+    current_user.addresses.find_by(id: params.dig(:address_id)) ||
+      current_user.default_address || current_user.addresses.first
   end
 
   def order_params
