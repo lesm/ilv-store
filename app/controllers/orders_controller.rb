@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  before_action :set_order, only: %i[show]
+
   def index
     @orders = current_user.orders
                           .where.not(workflow_status: :draft)
@@ -13,10 +15,6 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = current_user.orders
-                         .includes(items: [product: [:translations, { cover_attachment: :blob }]])
-                         .find(params[:id])
-
     begin
       handle_redirect_from_stripe if params[:token].present?
     rescue ActiveSupport::MessageVerifier::InvalidSignature
@@ -45,6 +43,12 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def set_order
+    @order = current_user.orders
+                         .includes(items: [product: [:translations, { cover_attachment: :blob }]])
+                         .find(params[:id])
+  end
 
   def handle_successful_form_save
     session = create_stripe_checkout_session(@form.order)
@@ -91,7 +95,7 @@ class OrdersController < ApplicationController
   end
 
   def find_address
-    current_user.addresses.find_by(id: params.dig(:address_id)) ||
+    current_user.addresses.find_by(id: params[:address_id]) ||
       current_user.default_address || current_user.addresses.first
   end
 
