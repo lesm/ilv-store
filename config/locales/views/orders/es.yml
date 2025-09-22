@@ -31,5 +31,6 @@ es:
       date: 'Fecha:'
       total: 'Total:'
       workflow_status: 'Estatus:'
+      quantity: 'Cantidad:'
       product:
         quantity: Cantidad
