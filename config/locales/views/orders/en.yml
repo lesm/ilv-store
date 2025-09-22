@@ -33,5 +33,6 @@ en:
       date: 'Date:'
       total: 'Total:'
       workflow_status: 'Status:'
+      quantity: 'Quantity:'
       product:
         quantity: Quantity
