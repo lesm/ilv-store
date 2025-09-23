@@ -45,9 +45,13 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = current_user.orders
-                         .includes(items: [product: [:translations, { cover_attachment: :blob }]])
-                         .find(params[:id])
+    @order = if params[:token].present?
+               current_user.orders.find(params[:id])
+             else
+               current_user.orders
+                           .includes(items: [product: [:translations, { cover_attachment: :blob }]])
+                           .find(params[:id])
+             end
   end
 
   def handle_successful_form_save
@@ -82,10 +86,9 @@ class OrdersController < ApplicationController
     data = Rails.application.message_verifier(:from_stripe).verify(params[:token])
 
     return unless data['order_id'] == params[:id]
-    return unless @order.workflow_status_draft?
 
-    @order.workflow_status_pending!
     current_cart.clear
+    redirect_to url_for(params.except(:token).permit!)
   end
 
   def find_cart

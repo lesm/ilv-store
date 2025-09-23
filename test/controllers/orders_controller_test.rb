@@ -39,7 +39,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     end
 
     test 'clears cart items when request can from stripe' do
-      order = create(:order, :draft, user:)
+      order = create(:order, :order_draft, user:)
       token = Rails.application.message_verifier(:from_stripe).generate({ order_id: order.id, user_id: user.id })
 
       assert_difference 'user.cart.items.count', -user.cart.items.count do

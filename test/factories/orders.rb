@@ -19,7 +19,7 @@ FactoryBot.define do
     payment_status { 'pending' }
   end
 
-  trait :draft do
+  trait :order_draft do
     before(:create) do |order|
       order.items << build_list(:order_item, 2)
     end
