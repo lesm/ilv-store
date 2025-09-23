@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
       # do nothing, just render the page as usual
     end
 
-    request.variant = :drawer if turbo_frame_request?
+    request.variant = :drawer if drawer_request?
 
     respond_to do |format|
       format.html
