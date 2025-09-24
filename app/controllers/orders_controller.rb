@@ -82,10 +82,12 @@ class OrdersController < ApplicationController
     end
   end
 
-  def handle_redirect_from_stripe
+  def handle_redirect_from_stripe # rubocop:disable Metrics/AbcSize
     data = Rails.application.message_verifier(:from_stripe).verify(params[:token])
 
     return unless data['order_id'] == params[:id]
+
+    @order.workflow_status_pending! if @order.workflow_status_draft?
 
     current_cart.clear
     redirect_to url_for(params.except(:token).permit!)
