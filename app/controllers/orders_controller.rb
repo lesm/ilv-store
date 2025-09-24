@@ -90,7 +90,7 @@ class OrdersController < ApplicationController
     @order.workflow_status_pending! if @order.workflow_status_draft?
 
     current_cart.clear
-    redirect_to url_for(params.except(:token).permit!)
+    redirect_to url_for(params.except(:token).permit(:controller, :action, :locale, :id))
   end
 
   def find_cart
