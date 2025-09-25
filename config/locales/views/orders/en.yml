@@ -12,7 +12,7 @@ en:
       date: 'Date:'
       total: 'Total:'
       payment_status: 'Payment status:'
-      workflow_status: 'Status:'
+      workflow_status: 'Shipping status:'
       actions:
         view_order: View order
     new:
@@ -32,7 +32,8 @@ en:
       order_id: 'Order ID:'
       date: 'Date:'
       total: 'Total:'
-      workflow_status: 'Status:'
+      payment_status: 'Payment status:'
+      workflow_status: 'Shipping status:'
       quantity: 'Quantity:'
       product:
         quantity: Quantity

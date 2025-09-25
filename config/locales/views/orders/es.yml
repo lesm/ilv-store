@@ -10,7 +10,7 @@ es:
       date: 'Fecha:'
       total: 'Total:'
       payment_status: 'Estatus de pago:'
-      workflow_status: 'Estatus:'
+      workflow_status: 'Estatus de envío:'
       actions:
         view_order: Ver pedido
     new:
@@ -30,7 +30,8 @@ es:
       order_id: 'Orden ID:'
       date: 'Fecha:'
       total: 'Total:'
-      workflow_status: 'Estatus:'
+      payment_status: 'Estatus de pago:'
+      workflow_status: 'Estatus de envío:'
       quantity: 'Cantidad:'
       product:
         quantity: Cantidad

@@ -8,7 +8,7 @@
     </div>
 
     <!-- Order Summary Card -->
-    <div class="hover:border-primary-600 rounded-lg shadow-sm p-4 sm:p-6 border border-primary-200">
+    <div class="hover:border-primary-600 rounded-lg shadow-sm p-4 sm:p-6 border border-primary-200 gap-2 flex flex-col">
       <div class="flex flex-col gap-2 mb-2">
         <p class="sm:text-base text-sm font-medium text-black"><%= t('order_id', scope: 'orders.show') %></p>
         <p class="sm:text-sm text-xs font-mono text-primary-600"><%= @order.id %></p>
@@ -18,6 +18,18 @@
           <p class="sm:text-base text-sm font-medium text-black"><%= t('date', scope: 'orders.show') %></p>
           <p class="sm:text-sm text-xs text-primary-600 "><%= l(@order.created_at, format: :short_with_year) %></p>
         </div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <div class="space-y-1">
+          <p class="sm:text-base text-sm font-medium text-black"><%= t('payment_status', scope: 'orders.show') %></p>
+        </div>
+        <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium bg-primary-100 text-primary-800/30 ring-1 ring-inset ring-primary-600/20/30">
+          <svg class="h-3 w-3 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 4h-13m13 16h-13M8 20v-3.333a2 2 0 0 1 .4-1.2L10 12.6a1 1 0 0 0 0-1.2L8.4 8.533a2 2 0 0 1-.4-1.2V4h8v3.333a2 2 0 0 1-.4 1.2L13.957 11.4a1 1 0 0 0 0 1.2l1.643 2.867a2 2 0 0 1 .4 1.2V20H8Z" />
+          </svg>
+          <span><%= @order.class.human_attribute_name("payment_status.#{@order.workflow_status}") %></span>
+        </span>
       </div>
 
       <div class="flex justify-between items-center">
