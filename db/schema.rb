@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_04_160123) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_184352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -124,6 +124,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_04_160123) do
     t.index ["code", "country_id"], name: "index_country_states_on_code_and_country_id", unique: true
     t.index ["country_id"], name: "index_country_states_on_country_id"
     t.index ["name", "country_id"], name: "index_country_states_on_name_and_country_id", unique: true
+  end
+
+  create_table "label_prices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "product_type", null: false
+    t.decimal "range_start", precision: 5, scale: 2, null: false
+    t.decimal "range_end", precision: 5, scale: 2, null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.string "unit", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
