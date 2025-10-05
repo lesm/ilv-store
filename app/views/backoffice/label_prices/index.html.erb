@@ -1,8 +1,55 @@
+<% content_for :turbo_frame_content do %>
+  <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate turbo:before-frame-render->drawer#hideSidebar' } %>
+<% end %>
+
 <section>
   <div class="mx-auto max-w-screen-xl 2xl:px-0">
     <div class="mx-auto">
       <div class="pt-4 gap-4 sm:flex sm:items-center sm:justify-between">
         <h2 class="text-xl font-semibold text-primary-900 sm:text-2xl"><%= t('.title') %></h2>
+        <%= link_to new_backoffice_label_price_path, class: 'inline-flex items-center justify-center rounded-lg text-lg font-medium text-primary-700 hover:underline', data: { turbo_frame: :drawer } do %>
+          <%= t('.actions.new') %>
+          <svg class="ml-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+          </svg>
+        <% end %>
+      </div>
+
+      <div class="mt-6 flow-root">
+        <div class="grid gap-4">
+          <% @label_prices.each do |label_price| %>
+            <div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-all duration-200">
+              <div class="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-primary-50/50">
+                <div class="flex-1 space-y-1">
+                  <div class="flex items-baseline gap-3 flex-wrap">
+                    <span class="text-base sm:text-lg font-bold text-primary-900">
+                      <%= t(".#{label_price.product_type.downcase}") %>
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-xs sm:text-sm font-medium">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                      </svg>
+                      <%= label_price.range_start %> - <%= label_price.range_end %> <%= label_price.unit %>
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl sm:text-2xl font-bold text-primary-600">
+                      <%= number_to_currency(label_price.price) %>
+                    </span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                  <%= link_to edit_backoffice_label_price_path(label_price), class: 'w-full sm:w-auto text-sm inline-flex items-center justify-center rounded-lg bg-primary-600 px-4 py-2.5 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors', data: { turbo_frame: :drawer } do %>
+                    <%= t('.actions.edit') %>
+                    <svg class="ml-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7" />
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

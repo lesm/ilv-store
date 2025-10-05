@@ -1,0 +1,26 @@
+<%= fields_for label_price do |f| %>
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.select :product_type, options_for_select([%w[Libros Book]], label_price.product_type), {}, class: 'drawer--form-field peer', required: true %>
+    <%= f.label :product_type, t('product_type', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.number_field :range_start, value: label_price.range_start, class: 'drawer--form-field peer', required: true, placeholder: ' ', step: 1, min: 0 %>
+    <%= f.label :range_start, t('range_start', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.number_field :range_end, value: label_price.range_end, class: 'drawer--form-field peer', required: true, placeholder: ' ', step: 1, min: 0 %>
+    <%= f.label :range_end, t('range_end', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :price, value: label_price.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :price, t('price', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :unit, value: label_price.unit, class: 'drawer--form-field peer', required: true, placeholder: ' ', readonly: true %>
+    <%= f.label :unit, t('unit', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<%= render 'application/drawer' do %>
+  <div class="relative mt-6 flex-1 px-4 flex flex-col gap-6 m-2 sm:m-10">
+    <%= form_with(model: @label_price, url: backoffice_label_price_path(@label_price), method: :patch) do |form| %>
+      <h2 class="text-2xl font-bold text-primary-900 mb-4">
+        <%= t('title', scope: 'backoffice.label_prices.edit') %>
+      </h2>
+
+      <%= render 'form_fields', label_price: @label_price %>
+
+      <%= form.submit t('text_submit_button', scope: 'backoffice.label_prices.edit'), class: 'drawer--form-submit' %>
+    <% end %>
+  </div>
+<% end %>

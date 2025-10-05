@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :label_price do
-    product_type { 'book' }
+    product_type { 'Book' }
     range_start { '1' }
     range_end { '5' }
     price { '150' }
