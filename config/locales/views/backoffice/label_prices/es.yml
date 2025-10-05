@@ -1,0 +1,5 @@
+es:
+  backoffice:
+    label_prices:
+      index:
+        title: Precios de guías

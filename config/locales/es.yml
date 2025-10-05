@@ -4,6 +4,7 @@ es:
       title: Instituto Lingüístico de Verano
       link_to_books: Libros
       link_to_orders: Ordenes
+      link_to_label_prices: Precios de guías
       link_to_signout: Cerrar sesión
     navbar:
       title: Instituto Lingüístico de Verano
