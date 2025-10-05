@@ -1,0 +1,24 @@
+es:
+  backoffice:
+    label_prices:
+      product_type: Tipo de producto
+      range_start: Rango inicio
+      range_end: Rango fin
+      price: Precio
+      unit: Unidad
+      index:
+        title: Precios de guías
+        book: Libros
+        actions:
+          new: Nuevo precio de guía
+          edit: Editar
+      new:
+        title: Nuevo precio de guía
+        text_submit_button: Crear precio de guía
+      edit:
+        title: Editar precio de guía
+        text_submit_button: Actualizar precio de guía
+      create:
+        success: Precio de guía creado exitosamente
+      update:
+        success: Precio de guía actualizado exitosamente

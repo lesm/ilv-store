@@ -40,6 +40,11 @@ export default class extends Controller {
       return;
     }
 
+    // Ignore clicks on select dropdowns and their options
+    if (e.target.tagName === 'SELECT' || e.target.tagName === 'OPTION') {
+      return;
+    }
+
     const drawer = this.panelTarget.getBoundingClientRect();
     if (
       e.clientX < drawer.left ||
