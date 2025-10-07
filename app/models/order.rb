@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  self.ignored_columns = %w[label_price_snapshot]
+
   enum :workflow_status, {
     draft: 'draft',
     pending: 'pending',

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_07_021647) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_025015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -94,6 +94,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_021647) do
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "label_price_id"
+    t.index ["label_price_id"], name: "index_carts_on_label_price_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
@@ -226,6 +228,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_021647) do
   add_foreign_key "addresses", "country_states", column: "state_id"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
+  add_foreign_key "carts", "label_prices"
   add_foreign_key "carts", "users"
   add_foreign_key "country_state_cities", "country_states", column: "state_id"
   add_foreign_key "country_states", "countries"

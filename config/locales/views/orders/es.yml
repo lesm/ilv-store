@@ -17,6 +17,8 @@ es:
       product: Producto
       products: Productos
       quantity: Cantidad
+      guia: Guía
+      productos: Productos
       price: Precio
       subtotal: Subtotal
       total: Total

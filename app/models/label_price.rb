@@ -12,13 +12,13 @@ class LabelPrice < ApplicationRecord
   validates :range_end, numericality: { greater_than: :range_start }, if: -> { range_start && range_end }
 
   def self.find_price(product_type = 'Book', weight)
-    label_price = where(product_type: product_type, unit: unit)
+    label_price = where(product_type:)
                   .where('range_start <= ? AND range_end >= ?', weight, weight)
                   .order(price: :asc)
                   .first
 
     raise ActiveRecord::RecordNotFound, 'No LabelPrice found for the given weight' unless label_price
 
-    label_price.price
+    label_price
   end
 end

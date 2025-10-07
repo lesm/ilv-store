@@ -11,16 +11,22 @@ class OrderForm < ApplicationForm
   private
 
   def submit
-    @order = Order.new(
+    @order = Order.new(order_attributes)
+
+    @order.save!
+    Order.where(id: @order.id).update_all(label_price_snapshot: label_price_snapshot.to_json) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def order_attributes
+    {
       workflow_status: 'draft',
       subtotal: current_cart.total_price,
       total: current_cart.total_price,
       address_attributes: address_attributes,
       items_attributes: items_attributes,
-      user: current_user
-    )
-
-    @order.save!
+      user: current_user,
+      label_price: label_price.price
+    }
   end
 
   def address_attributes
@@ -39,5 +45,19 @@ class OrderForm < ApplicationForm
         price: item.price
       }
     end
+  end
+
+  def label_price_snapshot
+    {
+      label_price_id: label_price.id,
+      captured_at: Time.current,
+      weight_applied: current_cart.total_weight
+    }.merge(
+      label_price.attributes.slice('product_type', 'range_start', 'range_end', 'price', 'unit')
+    )
+  end
+
+  def label_price
+    @label_price ||= LabelPrice.find_price('Book', current_cart.total_weight)
   end
 end
