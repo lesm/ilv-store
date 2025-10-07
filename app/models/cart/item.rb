@@ -12,12 +12,19 @@ class Cart
 
     delegate :title, :subtitle, :cover, to: :product
 
+    after_save :update_cart_label_price
+    after_destroy :update_cart_label_price
+
     private
 
     def stock_availability
       return if product.stock >= quantity
 
       errors.add(:quantity, :not_enough_stock, count: product.stock)
+    end
+
+    def update_cart_label_price
+      cart.update_label_price
     end
   end
 end

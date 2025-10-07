@@ -7,6 +7,7 @@ FactoryBot.define do
     subtotal { 100.00 }
     total { 100.00 }
     workflow_status { 'created' }
+    label_price { 150 }
   end
 
   # :created for some reason can not be used as a trait name

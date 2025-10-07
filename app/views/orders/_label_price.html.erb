@@ -1,0 +1,5 @@
+<% if current_cart.label_price %>
+  <%= number_to_currency(current_cart.label_price_price) %>
+<% else %>
+  <span class="text-xs text-gray-400"><%= t('.without_label_price') %></span>
+<% end %>

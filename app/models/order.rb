@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  self.ignored_columns = %w[label_price_snapshot]
+
   enum :workflow_status, {
     draft: 'draft',
     pending: 'pending',
@@ -22,7 +24,7 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :items
   accepts_nested_attributes_for :address
 
-  validates :subtotal, :total, presence: true
+  validates :subtotal, :total, :label_price, presence: true
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
   validates :payment_status, inclusion: { in: payment_statuses.keys }
 

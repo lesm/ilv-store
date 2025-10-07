@@ -32,9 +32,20 @@
         <div class="flow-root">
           <div class="-my-3 divide-y divide-primary-200">
             <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-normal text-black"><%= t('.subtotal') %></dt>
-              <dd id="<%= dom_id(current_cart, :subtotal_order) %>" class="text-base font-medium text-magenta-500">
-                <%= render 'total' %>
+              <dt class="text-base font-bold text-black"><%= t('.subtotal') %></dt>
+            </dl>
+
+            <dl class="flex items-center justify-between gap-4 py-3">
+              <dt class="text-xs text-black"><%= t('.guia') %></dt>
+              <dd id="<%= dom_id(current_cart, :label_price_order) %>" class="text-base font-medium text-magenta-500">
+                <%= render 'label_price' %>
+              </dd>
+            </dl>
+
+            <dl class="flex items-center justify-between gap-4 py-3">
+              <dt class="text-xs text-black"><%= t('.productos') %></dt>
+              <dd id="<%= dom_id(current_cart, :products_price_order) %>" class="text-base font-bold text-magenta-500">
+                <%= render 'products_price' %>
               </dd>
             </dl>
 
