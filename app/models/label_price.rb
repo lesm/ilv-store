@@ -17,7 +17,11 @@ class LabelPrice < ApplicationRecord
                   .order(price: :asc)
                   .first
 
-    raise ActiveRecord::RecordNotFound, 'No LabelPrice found for the given weight' unless label_price
+    if label_price.nil?
+      Sentry.capture_message("No LabelPrice found for product_type: #{product_type}, weight: #{weight}")
+
+      raise ActiveRecord::RecordNotFound, 'No LabelPrice found for the given weight'
+    end
 
     label_price
   end

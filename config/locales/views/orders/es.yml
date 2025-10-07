@@ -1,5 +1,7 @@
 es:
   orders:
+    label_price:
+      without_label_price: No se pudo calcular el precio de la guía (contacte a soporte)
     address:
       address_to: Enviar a
       no_addresses: No hay direcciones de envío

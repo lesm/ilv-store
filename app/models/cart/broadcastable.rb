@@ -27,7 +27,8 @@ class Cart
     end
 
     def broadcast_subtotal_order
-      broadcast_update_to(self, target: "subtotal_order_cart_#{id}", partial: 'orders/total')
+      broadcast_update_to(self, target: "label_price_order_cart_#{id}", partial: 'orders/label_price')
+      broadcast_update_to(self, target: "products_price_order_cart_#{id}", partial: 'orders/products_price')
     end
 
     def broadcast_total_order

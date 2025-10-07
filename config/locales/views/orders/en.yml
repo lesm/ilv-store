@@ -1,5 +1,7 @@
 en:
   orders:
+    label_price:
+      without_label_price: Could not calculate the label price (contact support)
     item:
       delete_item: Delete
     address:
@@ -19,6 +21,8 @@ en:
       product: Product
       products: Products
       quantity: Quantity
+      guia: Label
+      productos: Products
       price: Price
       subtotal: Subtotal
       total: Total

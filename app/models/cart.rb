@@ -18,7 +18,7 @@ class Cart < ApplicationRecord
   def total_price
     return 0 if items.empty?
 
-    products_price + label_price_price
+    products_price + (label_price_price || 0)
   end
 
   def total_weight

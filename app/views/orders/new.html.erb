@@ -37,14 +37,14 @@
 
             <dl class="flex items-center justify-between gap-4 py-3">
               <dt class="text-xs text-black"><%= t('.guia') %></dt>
-              <dd id="<%= dom_id(current_cart, :subtotal_order) %>" class="text-base font-medium text-magenta-500">
+              <dd id="<%= dom_id(current_cart, :label_price_order) %>" class="text-base font-medium text-magenta-500">
                 <%= render 'label_price' %>
               </dd>
             </dl>
 
             <dl class="flex items-center justify-between gap-4 py-3">
               <dt class="text-xs text-black"><%= t('.productos') %></dt>
-              <dd id="<%= dom_id(current_cart, :total_order) %>" class="text-base font-bold text-magenta-500">
+              <dd id="<%= dom_id(current_cart, :products_price_order) %>" class="text-base font-bold text-magenta-500">
                 <%= render 'products_price' %>
               </dd>
             </dl>
