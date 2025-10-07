@@ -11,7 +11,7 @@ class LabelPrice < ApplicationRecord
   validates :price, numericality: { greater_than: 0 }
   validates :range_end, numericality: { greater_than: :range_start }, if: -> { range_start && range_end }
 
-  def self.find_price(product_type = 'Book', weight)
+  def self.find_price(weight, product_type = 'Book')
     label_price = where(product_type:)
                   .where('range_start <= ? AND range_end >= ?', weight, weight)
                   .order(price: :asc)

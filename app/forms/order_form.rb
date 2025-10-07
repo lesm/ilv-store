@@ -58,6 +58,6 @@ class OrderForm < ApplicationForm
   end
 
   def label_price
-    @label_price ||= LabelPrice.find_price('Book', current_cart.total_weight)
+    @label_price ||= LabelPrice.find_price(current_cart.total_weight, 'Book')
   end
 end

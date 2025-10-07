@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddLabelPriceDetailtsToOrders < ActiveRecord::Migration[8.0]
+class AddLabelPriceDetailsToOrders < ActiveRecord::Migration[8.0]
   def up
     change_table :orders, bulk: true do |t|
       t.decimal :label_price, precision: 10, scale: 2, default: 0.0, null: false

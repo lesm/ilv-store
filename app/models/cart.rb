@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
   include Broadcastable
 
   belongs_to :user
-  belongs_to :label_price, optional: true, dependent: :destroy
+  belongs_to :label_price, optional: true
 
   has_many :items, class_name: 'Cart::Item', dependent: :destroy
   has_many :products, through: :items
@@ -35,7 +35,7 @@ class Cart < ApplicationRecord
   end
 
   def update_label_price
-    price = LabelPrice.find_price('Book', total_weight)
+    price = LabelPrice.find_price(total_weight, 'Book')
     update(label_price_id: price.id)
   rescue ActiveRecord::RecordNotFound
     update(label_price_id: nil)
