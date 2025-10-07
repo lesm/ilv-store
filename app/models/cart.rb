@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
   include Broadcastable
 
   belongs_to :user
-  belongs_to :label_price, dependent: :destroy
+  belongs_to :label_price, optional: true, dependent: :destroy
 
   has_many :items, class_name: 'Cart::Item', dependent: :destroy
   has_many :products, through: :items
@@ -22,7 +22,7 @@ class Cart < ApplicationRecord
   end
 
   def total_weight
-    items.sum { it.product.productable.weight_grams / 1000.0 * it.quantity }
+    items.includes(product: :productable).sum { it.product.productable.weight_grams / 1000.0 * it.quantity }
   end
 
   def number_of_items

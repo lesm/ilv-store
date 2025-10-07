@@ -10,13 +10,17 @@ class CartTest < ActiveSupport::TestCase
   end
 
   describe '#total_price' do
+    before do
+      create(:label_price, :cero_to_five_kg, price: 150)
+    end
+
     test 'calculates the total price of the cart' do
       translation = build(:product_translation, locale: :es, price: 10)
       cart.items << build(:cart_item, product: build(:product, translations: [translation]), quantity: 2)
       translation = build(:product_translation, locale: :es, price: 5)
       cart.items << build(:cart_item, product: build(:product, translations: [translation]), quantity: 1)
 
-      assert_equal 25, cart.total_price
+      assert_equal 25 + 150, cart.total_price
     end
   end
 end

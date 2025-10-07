@@ -10,6 +10,7 @@ Rails.application.configure do
     Bullet.enable        = true
     Bullet.bullet_logger = true
     Bullet.raise         = true # raise an error if n+1 query occurs
+    Bullet.unused_eager_loading_enable = false # Disable unused eager loading detection
   end
 
   # Settings specified here will take precedence over those in config/application.rb.

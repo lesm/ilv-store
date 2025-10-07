@@ -8,4 +8,11 @@ FactoryBot.define do
     price { '150' }
     unit { 'kg' }
   end
+
+  trait :cero_to_five_kg do
+    product_type { 'Book' }
+    range_start { '0' }
+    range_end { '5' }
+    price { '150' }
+  end
 end

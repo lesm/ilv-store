@@ -7,6 +7,7 @@ FactoryBot.define do
 
   trait :with_items do
     after(:create) do |cart|
+      create(:label_price, :cero_to_five_kg)
       create_list(:cart_item, 2, cart:)
     end
   end
