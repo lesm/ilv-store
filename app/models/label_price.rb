@@ -10,4 +10,15 @@ class LabelPrice < ApplicationRecord
   validates :range_start, :range_end, numericality: { greater_than_or_equal_to: 0 }
   validates :price, numericality: { greater_than: 0 }
   validates :range_end, numericality: { greater_than: :range_start }, if: -> { range_start && range_end }
+
+  def self.find_price(product_type = 'Book', weight)
+    label_price = where(product_type: product_type, unit: unit)
+                  .where('range_start <= ? AND range_end >= ?', weight, weight)
+                  .order(price: :asc)
+                  .first
+
+    raise ActiveRecord::RecordNotFound, 'No LabelPrice found for the given weight' unless label_price
+
+    label_price.price
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_01_184352) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_021647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -169,6 +169,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_184352) do
     t.string "stripe_session_id"
     t.string "payment_status", default: "pending", null: false
     t.string "stripe_payment_intent_id"
+    t.decimal "label_price", precision: 10, scale: 2, default: "0.0", null: false
+    t.jsonb "label_price_snapshot", default: {}, null: false
     t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["user_id"], name: "index_orders_on_user_id"
     t.index ["workflow_status"], name: "index_orders_on_workflow_status"

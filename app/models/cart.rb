@@ -12,6 +12,10 @@ class Cart < ApplicationRecord
     items.sum { it.price * it.quantity }
   end
 
+  def total_weight
+    items.sum { it.product.weight * it.quantity }
+  end
+
   def number_of_items
     items.map(&:quantity).sum
   end
