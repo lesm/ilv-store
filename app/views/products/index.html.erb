@@ -2,43 +2,24 @@
   <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
 <% end %>
 
-<section>
+<section data-controller="infinite-scroll">
   <div class="mx-auto max-w-screen-xl">
     <div class="gap-4 sm:flex sm:items-center sm:justify-between">
       <h2 class="text-xl font-semibold text-black sm:text-2xl"><%= t('.title') %></h2>
     </div>
 
-    <div class="mt-6 mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-      <% @products.each do |product| %>
-        <div class="flex flex-col h-full rounded-lg border border-primary-200 hover:border-primary-600 bg-white p-6 shadow-lg">
-          <div class="h-56 w-full">
-            <%= link_to product_path(product), class: 'hover:underline active:underline', data: { turbo_frame: :drawer } do %>
-              <%= image_tag(cover_image(product.cover, variant: :medium), class: 'mx-auto h-full object-contain block', alt: product.title) %>
-            <% end %>
-          </div>
-
-          <div class="pt-6 flex flex-col flex-grow gap-4">
-            <div class="grid flex-grow justify-between">
-              <%= link_to product_path(product), class: 'hover:underline active:underline', data: { turbo_frame: :drawer } do %>
-                <p class="text-lg font-semibold leading-tight text-black"><%= product.title %>
-                  <span class="text-sm text-primary-600">(<%= product.subtitle %>)</span>
-                </p>
-              <% end %>
-            </div>
-
-            <div class="mt-auto space-y-4">
-              <p class="text-2xl font-extrabold leading-tight text-magenta-500">
-                <%= number_to_currency(product.price) %>
-              </p>
-
-              <%= render 'form_quantity', product: %>
-            </div>
-          </div>
-        </div>
-      <% end %>
+    <div id="products-list" class="mt-6 mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+      <%= render @products %>
     </div>
-    <div class="w-full text-center">
-      <button type="button" class="rounded-lg border border-primary-200 bg-white px-5 py-2.5 text-sm font-medium text-primary-900 hover:bg-primary-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-2 focus:ring-primary-100">Show more</button>
+
+    <div id="pagination" data-infinite-scroll-target="pagination" class="hidden">
+      <%= pagy_next_link(@pagy) %>
     </div>
+
+    <% if @pagy.next %>
+      <div id="scroll-sentinel" data-infinite-scroll-target="scrollSentinel" class="w-full text-center py-8">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+      </div>
+    <% end %>
   </div>
 </section>

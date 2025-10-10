@@ -1,0 +1,19 @@
+<%= turbo_stream.append "products-list" do %>
+  <%= render @products %>
+<% end %>
+
+<%= turbo_stream.replace "pagination" do %>
+  <div id="pagination" data-infinite-scroll-target="pagination" class="hidden">
+    <%= pagy_next_link(@pagy) %>
+  </div>
+<% end %>
+
+<% if @pagy.next %>
+  <%= turbo_stream.replace "scroll-sentinel" do %>
+    <div id="scroll-sentinel" data-infinite-scroll-target="scrollSentinel" class="w-full text-center py-8">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+    </div>
+  <% end %>
+<% else %>
+  <%= turbo_stream.remove "scroll-sentinel" %>
+<% end %>
