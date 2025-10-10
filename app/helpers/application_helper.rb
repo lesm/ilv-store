@@ -11,7 +11,6 @@ module ApplicationHelper
     cover.variant(variant) || 'default-cover.svg'
   end
 
-  # Custom Pagy helper for infinite scroll next link
   def pagy_next_link(pagy)
     return unless pagy.next
 
