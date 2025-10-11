@@ -1,5 +1,6 @@
 es:
   sessions:
+    rate_limited: Try again later.
     create:
       success: Bienvenido de nuevo.
       failure: No se pudo iniciar sesión. Por favor, verifica tus credenciales.

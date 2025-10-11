@@ -9,11 +9,6 @@ class OrdersController < ApplicationController
                           .order(created_at: :desc)
   end
 
-  def new
-    @cart = find_cart
-    @address = find_address
-  end
-
   def show
     begin
       handle_redirect_from_stripe if params[:token].present?
@@ -27,6 +22,11 @@ class OrdersController < ApplicationController
       format.html
       format.turbo_stream
     end
+  end
+
+  def new
+    @cart = find_cart
+    @address = find_address
   end
 
   def create

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  self.ignored_columns = %w[label_price_snapshot]
+  self.ignored_columns += %w[label_price_snapshot]
 
   enum :workflow_status, {
     draft: 'draft',
@@ -33,8 +33,8 @@ class Order < ApplicationRecord
   private
 
   def process_inventory_changes
-    items.each do
-      Product.decrement_counter(:stock, it.product_id, by: it.quantity) # rubocop:disable Rails/SkipsModelValidations
+    items.each do |item|
+      Product.decrement_counter(:stock, item.product_id, by: item.quantity) # rubocop:disable Rails/SkipsModelValidations
     end
   end
 end

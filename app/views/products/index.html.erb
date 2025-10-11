@@ -2,24 +2,16 @@
   <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
 <% end %>
 
-<section data-controller="infinite-scroll">
+<section data-controller="<%= @is_search ? 'search infinite-scroll' : 'infinite-scroll' %>" data-search-query-value="<%= @query %>">
   <div class="mx-auto max-w-screen-xl">
-    <div class="gap-4 sm:flex sm:items-center sm:justify-between">
-      <h2 class="text-xl font-semibold text-black sm:text-2xl"><%= t('.title') %></h2>
+    <%= render 'products/header', query: @query %>
+    <%= render 'products/search_form', query: @query if @is_search %>
+
+    <div data-search-target="results" class="min-h-screen">
+      <%= render 'products/results_count', query: @query, products: @products, total_results: @total_results %>
+      <%= render 'products/results_list', query: @query, products: @products, pagy: @pagy, is_search: @is_search %>
     </div>
 
-    <div id="products-list" class="mt-6 mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-      <%= render @products %>
-    </div>
-
-    <div id="pagination" data-infinite-scroll-target="pagination" class="hidden">
-      <%= pagy_next_link(@pagy) %>
-    </div>
-
-    <% if @pagy.next %>
-      <div id="scroll-sentinel" data-infinite-scroll-target="scrollSentinel" class="w-full text-center py-8">
-        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-      </div>
-    <% end %>
+    <%= render 'products/search_loading' if @is_search %>
   </div>
 </section>

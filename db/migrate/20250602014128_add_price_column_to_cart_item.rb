@@ -14,7 +14,7 @@ class AddPriceColumnToCartItem < ActiveRecord::Migration[8.0]
         SQL
       end
 
-      dir.down {}
+      dir.down {} # rubocop:disable Lint/EmptyBlock
     end
   end
 end

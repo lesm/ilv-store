@@ -6,9 +6,7 @@ module Email
   module Providers
     class BaseProviderTest < ActiveSupport::TestCase
       class TestProvider < Email::Providers::BaseProvider
-        def send_email(*)
-          true
-        end
+        def send_email(*); end
       end
 
       let(:provider) { TestProvider.new }

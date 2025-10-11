@@ -2,7 +2,10 @@
 
 require 'test_helper'
 
-class ErrorsControllerTest < ActionController::TestCase
+# NOTE: ErrorsController uses ActionController::Base directly (not ApplicationController)
+# and handles routes that are invoked by Rails exception handling.
+# ActionController::TestCase is still appropriate for testing these error controllers.
+class ErrorsControllerTest < ActionController::TestCase # rubocop:disable Rails/ActionControllerTestCase
   describe '#not_found' do
     test 'returns 404 status' do
       get :not_found

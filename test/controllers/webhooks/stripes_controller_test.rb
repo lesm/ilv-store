@@ -12,7 +12,7 @@ module Webwooks
     let(:headers) do
       {
         'Content-Type': 'application/json',
-        'HTTP_STRIPE_SIGNATURE': 't=1757649011,v1=d67ccc5ac7a1525c1d298295bdb53e4ce26b773c2aeba7aec21ddb3b105eccad,v0=84ee30fd13455ccca4037ca2e4fe2b75c4db9ad1e3407c471d34161e50a0ad1e' # rubocop:disable Layout/LineLength
+        HTTP_STRIPE_SIGNATURE: 't=1757649011,v1=d67ccc5ac7a1525c1d298295bdb53e4ce26b773c2aeba7aec21ddb3b105eccad,v0=84ee30fd13455ccca4037ca2e4fe2b75c4db9ad1e3407c471d34161e50a0ad1e' # rubocop:disable Layout/LineLength
       }
     end
 
@@ -47,7 +47,7 @@ module Webwooks
     end
 
     def event_type(type)
-      File.read(Rails.root.join("test/fixtures/webwooks/stripe/event-#{type}.json"))
+      Rails.root.join("test/fixtures/webwooks/stripe/event-#{type}.json").read
     end
   end
 end

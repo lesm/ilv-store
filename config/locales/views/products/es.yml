@@ -1,9 +1,21 @@
 es:
   products:
+    header:
+      title: Productos
+      search_title: Resultados de búsqueda para
+    search_form:
+      placeholder: Buscar productos...
+    results_list:
+      no_results: No se encontraron productos
+      try_different_keywords: Intenta con diferentes palabras clave
+    search_loading:
+      searching: Buscando...
     form_quantity:
       choose_quantity: Elegir cantidad
       add_to_cart: Agregar al carrito
     index:
-      title: Productos
       edition_number: Edición
       pages_number: Páginas
+      results_found:
+        one: "%{count} resultado encontrado"
+        other: "%{count} resultados encontrados"

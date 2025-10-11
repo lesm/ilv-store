@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Where the I18n library should search for translation file
-I18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
+I18n.load_path += Rails.root.glob('config/locales/**/*.yml')
 
 # Permitted locales available for the application
 I18n.available_locales = %i[es en]

@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
+  include Searchable
+  include TypesenseConfig
+
   belongs_to :productable, polymorphic: true
 
   has_many :translations, class_name: 'Product::Translation', inverse_of: :product, dependent: :destroy do
     def for_locale(locale = I18n.locale)
-      find { it.locale == locale.to_s }
+      find { |t| t.locale == locale.to_s }
     end
   end
 

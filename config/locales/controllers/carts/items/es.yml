@@ -3,3 +3,5 @@ es:
     items:
       create:
         item_added: Agregado al carrito
+      destroy:
+        item_removed: Eliminado del carrito

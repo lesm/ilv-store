@@ -3,11 +3,9 @@
 module Webhooks
   class StripesController < ActionController::API
     def create
-      event = begin
-        construct_event
-      rescue JSON::ParserError, Stripe::SignatureVerificationError
-        return render json: { error: 'Invalid request' }, status: :bad_request
-      end
+      event = construct_event
+
+      return render json: { error: 'Invalid request' }, status: :bad_request unless event
 
       process_event(event)
 
@@ -19,8 +17,10 @@ module Webhooks
     def construct_event
       payload = request.body.read
       sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-      endpoint_secret = ENV['STRIPE_WEBHOOK_SECRET']
+      endpoint_secret = ENV.fetch('STRIPE_WEBHOOK_SECRET', nil)
       Stripe::Webhook.construct_event(payload, sig_header, endpoint_secret)
+    rescue JSON::ParserError, Stripe::SignatureVerificationError
+      nil
     end
 
     def process_event(event)

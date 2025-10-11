@@ -8,9 +8,12 @@ require 'minitest/spec'
 require 'mocha/minitest'
 require 'webmock/minitest'
 
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  # Exclude test infrastructure/mocks from coverage
+  add_filter 'lib/typesense_mock_client.rb'
+end
 
-Dir[Rails.root.join('test/support/**/*.rb')].each { |file| require file }
+Rails.root.glob('test/support/**/*.rb').each { |file| require file }
 
 module ActionDispatch
   class IntegrationTest
@@ -22,6 +25,7 @@ module ActiveSupport
   class TestCase
     extend Minitest::Spec::DSL
     include FactoryBot::Syntax::Methods
+
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 

@@ -16,7 +16,7 @@ class Book < ApplicationRecord
     return if product.blank? || product.valid?
 
     product.errors.each do |error|
-      errors.add("product_#{error.attribute}".to_sym, error.message)
+      errors.add(:"product_#{error.attribute}", error.message)
     end
   end
 end
