@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Kamal post-deploy hook
+# This script runs after a successful deployment
+
+set -e
+
+echo "🔍 Running post-deploy tasks..."
+
+# Wait for the application to be fully ready
+echo "⏳ Waiting for application to be ready..."
+sleep 5
+
+# Reindex Typesense with all products
+echo "📦 Reindexing Typesense products..."
+kamal app exec "bin/rails typesense:recreate"
+
+echo "✅ Post-deploy tasks completed successfully!"

@@ -46,6 +46,7 @@ env:
     - STRIPE_PUBLISH_KEY
     - STRIPE_SECRET_KEY
     - STRIPE_WEBHOOK_SECRET
+    - TYPESENSE_API_KEY
   clear:
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
@@ -61,6 +62,11 @@ env:
     # Use ilv_store-db for a db accessory server on same machine via local kamal docker network.
     DB_HOST: ilv_store-db
 
+    # Typesense configuration
+    TYPESENSE_HOST: ilv_store-typesense
+    TYPESENSE_PORT: 8108
+    TYPESENSE_PROTOCOL: http
+
     # Log everything from Rails
     RAILS_LOG_LEVEL: debug
 
@@ -71,6 +77,7 @@ aliases:
   shell: app exec --interactive --reuse "bash"
   logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole"
+  typesense-reindex: app exec "bin/rails typesense:recreate"
 
 
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
@@ -118,6 +125,25 @@ accessories:
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
       - data:/var/lib/postgresql/data
+
+  typesense:
+    image: typesense/typesense:26.0
+    host: <%= ENV.fetch("SERVER_IP", "192.168.0.1") %>
+    port: "127.0.0.1:8108:8108"
+    env:
+      clear:
+        TYPESENSE_DATA_DIR: /data
+      secret:
+        - TYPESENSE_API_KEY
+    directories:
+      - typesense-data:/data
+    cmd: --enable-cors
+    options:
+      health-cmd: "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8108' || exit 1"
+      health-interval: "10s"
+      health-timeout: "5s"
+      health-retries: "6"
+      health-start-period: "60s"
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:
 #   db:
