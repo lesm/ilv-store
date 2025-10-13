@@ -7,7 +7,7 @@ module Carts
       @item.save
 
       respond_to do |format|
-        format.html { redirect_to cart_path, notice: 'Item added to cart' }
+        format.html { redirect_to cart_path, notice: t('.item_added') }
         format.turbo_stream do
           flash.now[:notice] = t('.item_added')
           render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
@@ -31,7 +31,7 @@ module Carts
       @item.destroy
 
       respond_to do |format|
-        format.html { redirect_to cart_path, notice: 'Item removed from cart' }
+        format.html { redirect_to cart_path, notice: t('.item_removed') }
         format.turbo_stream
       end
     end

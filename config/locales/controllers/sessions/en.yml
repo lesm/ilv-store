@@ -1,5 +1,6 @@
 en:
   sessions:
+    rate_limited: Try again later.
     create:
       success: Welcome back.
       failure: Try another email address or password.

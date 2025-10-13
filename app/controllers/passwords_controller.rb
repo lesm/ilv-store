@@ -8,6 +8,8 @@ class PasswordsController < ApplicationController
 
   def new; end
 
+  def edit; end
+
   def create
     if (user = User.find_by(email: params[:email]))
       AccountMailerJob.perform_later(user.id, :send_reset_password)
@@ -15,8 +17,6 @@ class PasswordsController < ApplicationController
 
     redirect_to new_session_path, notice: t('.success')
   end
-
-  def edit; end
 
   def update
     if @user.update(params.permit(:password, :password_confirmation))

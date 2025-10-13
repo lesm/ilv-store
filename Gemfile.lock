@@ -198,6 +198,8 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
+    ethon (0.15.0)
+      ffi (>= 1.15.0)
     factory_bot (6.5.5)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
@@ -335,6 +337,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
+    oj (3.16.11)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     ordinare (0.4.0)
     ostruct (0.6.3)
     pagy (9.4.0)
@@ -569,6 +574,11 @@ GEM
     turbo-rails (2.0.17)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
+    typesense (2.1.0)
+      oj (~> 3.16)
+      typhoeus (~> 1.4)
+    typhoeus (1.5.0)
+      ethon (>= 0.9.0, < 0.16.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -666,6 +676,7 @@ DEPENDENCIES
   thruster
   trace_location
   turbo-rails
+  typesense
   tzinfo-data
   web-console
   webmock

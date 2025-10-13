@@ -84,7 +84,7 @@ module Backoffice
 
     describe '#PATCH update' do
       describe 'with valid params' do
-        let(:es_translation) { product.translations.find { it.locale == 'es' } }
+        let(:es_translation) { product.translations.find { |t| t.locale == 'es' } }
 
         before do
           params[:book][:product_attributes][:id] = product.id

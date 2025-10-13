@@ -22,7 +22,7 @@ class AddressesController < ApplicationController
 
     begin
       if create_address(@address, address_params)
-        flash[:notice] = t('.success')
+        flash.now[:notice] = t('.success')
         render turbo_stream: turbo_stream.action(:redirect, url_redirect)
       end
     rescue ActiveRecord::RecordInvalid
@@ -35,7 +35,7 @@ class AddressesController < ApplicationController
     @address = current_user.addresses.find(params[:id])
 
     if update_address(@address, address_params)
-      flash[:notice] = t('.success')
+      flash.now[:notice] = t('.success')
       render turbo_stream: turbo_stream.action(:redirect, addresses_path)
     end
   rescue ActiveRecord::RecordInvalid

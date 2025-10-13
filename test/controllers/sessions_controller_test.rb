@@ -30,6 +30,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
         post session_url, params: valid_params
         assert_redirected_to new_session_url
+        assert_equal('Inténtalo de nuevo más tarde.', flash[:alert])
       end
     end
 

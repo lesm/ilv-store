@@ -1,5 +1,9 @@
 <%= turbo_stream.append "products-list" do %>
-  <%= render @products %>
+  <% if @query.present? %>
+    <%= render partial: 'product_search', collection: @products, as: :product %>
+  <% else %>
+    <%= render @products %>
+  <% end %>
 <% end %>
 
 <%= turbo_stream.replace "pagination" do %>

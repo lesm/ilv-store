@@ -6,6 +6,15 @@ plugins:
   - rubocop-packaging
   - rubocop-factory_bot
 
+AllCops:
+  NewCops: enable
+  Exclude:
+    - lib/typesense_mock_client.rb
+
+inherit_mode:
+  merge:
+    - Exclude
+
 Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
@@ -15,12 +24,14 @@ Metrics/BlockLength:
     - test/factories/*.rb
     - test/controllers/**/*.rb
     - test/models/**/*.rb
+    - test/helpers/search_helper_test.rb
 Metrics/MethodLength:
   Exclude:
     - db/migrate/*.rb
 Metrics/ClassLength:
   Exclude:
    - test/controllers/**/*.rb
+   - test/models/concerns/searchable_test.rb
 
 # Rails rubocop configuration
 Rails/DynamicFindBy:

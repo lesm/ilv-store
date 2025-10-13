@@ -23,7 +23,7 @@ class ProductTest < ActiveSupport::TestCase
     end
 
     test 'validates cover image type' do
-      product.cover.attach(io: File.open(Rails.root.join('test/fixtures/files/cover.webp')),
+      product.cover.attach(io: Rails.root.join('test/fixtures/files/cover.webp').open,
                            filename: 'cover.webp', content_type: 'image/webp')
 
       assert product.invalid?

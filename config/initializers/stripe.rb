@@ -3,7 +3,7 @@
 require 'stripe'
 
 Rails.configuration.stripe = {
-  publishable_key: ENV['STRIPE_PUBLISH_KEY'],
-  secret_key: ENV['STRIPE_SECRET_KEY']
+  publishable_key: ENV.fetch('STRIPE_PUBLISH_KEY', nil),
+  secret_key: ENV.fetch('STRIPE_SECRET_KEY', nil)
 }
-Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+Stripe.api_key = ENV.fetch('STRIPE_SECRET_KEY', nil)

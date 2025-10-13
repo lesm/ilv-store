@@ -12,7 +12,7 @@ class Cart < ApplicationRecord
   delegate :price, to: :label_price, prefix: true, allow_nil: true
 
   def products_price
-    items.sum { it.price * it.quantity }
+    items.sum { |item| item.price * item.quantity }
   end
 
   def total_price
@@ -22,11 +22,11 @@ class Cart < ApplicationRecord
   end
 
   def total_weight
-    items.includes(product: :productable).sum { it.product.productable.weight_grams / 1000.0 * it.quantity }
+    items.includes(product: :productable).sum { |item| item.product.productable.weight_grams / 1000.0 * item.quantity }
   end
 
   def number_of_items
-    items.map(&:quantity).sum
+    items.sum(&:quantity)
   end
 
   def clear

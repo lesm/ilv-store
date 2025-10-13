@@ -24,6 +24,7 @@ en:
       link_to_label_prices: Label prices
       link_to_addresses: Addresses
       link_to_signout: Sign out
+      search: Search
     footer:
       link_to_about: About
       link_to_terms: Privacy Policy

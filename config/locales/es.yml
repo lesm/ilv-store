@@ -18,6 +18,7 @@ es:
       link_to_orders: Mis pedidos
       link_to_addresses: Direcciónes
       link_to_signout: Cerrar sesión
+      search: Buscar
     footer:
       link_to_about: Acerca de
       link_to_terms: Aviso de privacidad

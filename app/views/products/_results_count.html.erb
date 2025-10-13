@@ -1,0 +1,7 @@
+<% if query.present? && products.any? %>
+  <div class="flex justify-start mb-4">
+    <p class="text-sm text-primary-700">
+      <%= t('products.index.results_found', count: total_results) %>
+    </p>
+  </div>
+<% end %>
