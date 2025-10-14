@@ -19,7 +19,7 @@ module Payment
           private
 
           def line_items(order) # rubocop:disable Metrics/MethodLength
-            order.items.map do |item|
+            items = order.items.map do |item|
               {
                 price_data: {
                   currency: 'mxn',
@@ -32,6 +32,23 @@ module Payment
                 quantity: item.quantity
               }
             end
+
+            # Add shipping label cost
+            if order.label_price.positive?
+              items << {
+                price_data: {
+                  currency: 'mxn',
+                  product_data: {
+                    name: 'Envío',
+                    description: 'Costo de guía de envío'
+                  },
+                  unit_amount: (order.label_price * 100).to_i
+                },
+                quantity: 1
+              }
+            end
+
+            items
           end
         end
       end
