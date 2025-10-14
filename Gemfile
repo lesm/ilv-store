@@ -23,7 +23,7 @@ gem 'turbo-rails'
 gem 'csv'
 gem 'roo'
 gem 'roo-xls'
-gem 'typesense'
+gem 'typesense', '~> 4.1'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[windows jruby]
