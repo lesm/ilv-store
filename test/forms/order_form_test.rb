@@ -43,16 +43,15 @@ class OrderFormTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'updates product stock' do
+  describe 'updates product reserved_stock' do
     test 'after submitting the form' do
       quantities = current_cart.items.pluck(:product_id, :quantity).to_h
-      initial_stocks = Product.where(id: quantities.keys).pluck(:id, :stock).to_h
+      reserved_stocks = Product.where(id: quantities.keys).pluck(:id, :reserved_stock).to_h
 
-      # The save method clears the cart items
       form.save
 
-      initial_stocks.each do |id, stock|
-        assert_equal stock - quantities[id], Product.find(id).stock
+      reserved_stocks.each do |id, reserved_stock|
+        assert_equal reserved_stock + quantities[id], Product.find(id).reserved_stock
       end
     end
   end

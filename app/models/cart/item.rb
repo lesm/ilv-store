@@ -18,9 +18,9 @@ class Cart
     private
 
     def stock_availability
-      return if product.stock >= quantity
+      return if product.available_stock >= quantity
 
-      errors.add(:quantity, :not_enough_stock, count: product.stock)
+      errors.add(:quantity, :not_enough_stock, count: product.available_stock)
     end
 
     def update_cart_label_price

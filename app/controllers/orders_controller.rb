@@ -10,8 +10,9 @@ class OrdersController < ApplicationController
   end
 
   def show
+    # TODO: Create a controller to handle Stripe redirects
     begin
-      handle_redirect_from_stripe if params[:token].present?
+      handle_success_redirect_from_stripe if params[:token].present?
     rescue ActiveSupport::MessageVerifier::InvalidSignature
       # do nothing, just render the page as usual
     end
@@ -25,6 +26,13 @@ class OrdersController < ApplicationController
   end
 
   def new
+    # TODO: Create a controller to handle Stripe redirects
+    begin
+      handle_cancel_redirect_from_stripe if params[:token].present?
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      # do nothing, just render the page as usual
+    end
+
     @cart = find_cart
     @address = find_address
   end
@@ -71,7 +79,7 @@ class OrdersController < ApplicationController
     Payment::Stripe::Checkout::Session.create(
       order:,
       success_url: order_url(order, token:),
-      cancel_url: new_order_url(address_id: order.address.id)
+      cancel_url: new_order_url(address_id: order.address.id, token:)
     )
   end
 
@@ -82,7 +90,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def handle_redirect_from_stripe # rubocop:disable Metrics/AbcSize
+  def handle_success_redirect_from_stripe
     data = Rails.application.message_verifier(:from_stripe).verify(params[:token])
 
     return unless data['order_id'] == params[:id]
@@ -90,7 +98,17 @@ class OrdersController < ApplicationController
     @order.workflow_status_pending! if @order.workflow_status_draft?
 
     current_cart.clear
-    redirect_to url_for(params.except(:token).permit(:controller, :action, :locale, :id))
+    redirect_to order_path(@order), notice: t('.payment_success')
+  end
+
+  def handle_cancel_redirect_from_stripe
+    data = Rails.application.message_verifier(:from_stripe).verify(params[:token])
+    order = current_user.orders.find_by(id: data['order_id'])
+
+    return unless order
+
+    order.cancel_stock_reservations! if order.workflow_status_draft?
+    redirect_to new_order_path(address_id: order.address.id)
   end
 
   def find_cart

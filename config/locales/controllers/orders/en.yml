@@ -3,3 +3,5 @@ en:
     create:
       success: We have created your order
       error: We could not create your order
+    show:
+      payment_success: Payment successful! Your order is being processed.

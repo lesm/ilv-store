@@ -8,3 +8,8 @@
 #     command: "SoftDeletedRecord.due.delete_all"
 #     priority: 2
 #     schedule: at 5am every day
+
+production:
+  release_expired_reservations:
+    class: ReleaseExpiredStockReservationsJob
+    schedule: every 10 minutes

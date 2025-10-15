@@ -32,6 +32,7 @@ Metrics/ClassLength:
   Exclude:
    - test/controllers/**/*.rb
    - test/models/concerns/searchable_test.rb
+   - test/models/stock_reservation_test.rb
 
 # Rails rubocop configuration
 Rails/DynamicFindBy:

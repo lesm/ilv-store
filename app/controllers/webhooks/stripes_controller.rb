@@ -44,6 +44,8 @@ module Webhooks
         stripe_payment_intent_id: session['payment_intent']
       )
 
+      order.commit_stock_reservations!
+
       OrderMailerJob.perform_later(order.id, :send_order_created)
     end
 
@@ -55,6 +57,8 @@ module Webhooks
         payment_status: :failed,
         stripe_payment_intent_id: session['payment_intent']
       )
+
+      order.cancel_stock_reservations!
     end
   end
 end
