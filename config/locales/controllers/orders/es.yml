@@ -3,3 +3,5 @@ es:
     create:
       success: Hemos creado tu pedido
       error: No se pudo crear tu pedido
+    show:
+      payment_success: ¡Pago exitoso! Tu pedido está siendo procesado.

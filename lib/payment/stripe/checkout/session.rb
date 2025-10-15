@@ -12,7 +12,8 @@ module Payment
               line_items: line_items(order),
               mode: 'payment',
               success_url:,
-              cancel_url:
+              cancel_url:,
+              expires_at: 30.minutes.from_now.to_i
             )
           end
 

@@ -30,6 +30,46 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
       get new_order_url
       assert_response :success
     end
+
+    describe 'when redirected from Stripe cancel' do
+      test 'cancels stock reservations for draft order' do
+        order = create(:order, :order_draft, user:)
+        token = Rails.application.message_verifier(:from_stripe).generate({ order_id: order.id, user_id: user.id })
+        # Simulate cancel redirect from Stripe
+        get(new_order_url(address_id: order.address.id, token:))
+
+        # Should cancel stock reservations
+        assert_equal 2, order.stock_reservations.count
+        assert_equal 'cancelled', order.stock_reservations.first.reload.status
+      end
+
+      test 'redirects to new order page with address_id' do
+        order = create(:order, :order_draft, user:)
+        token = Rails.application.message_verifier(:from_stripe).generate({ order_id: order.id, user_id: user.id })
+        get(new_order_url(address_id: order.address.id, token:))
+
+        assert_redirected_to new_order_path(address_id: order.address.id)
+      end
+
+      test 'handles order not found gracefully' do
+        # Generate token with non-existent order_id
+        token = Rails.application.message_verifier(:from_stripe).generate({ order_id: 'non-existent-id',
+                                                                            user_id: user.id })
+
+        get new_order_url(token:)
+
+        # renders the new page without errors
+        assert_response :success
+      end
+
+      test 'handles invalid token gracefully' do
+        # Invalid token
+        get new_order_url(token: 'invalid-token')
+
+        # rescues InvalidSignature and render page normally
+        assert_response :success
+      end
+    end
   end
 
   describe '#GET show' do

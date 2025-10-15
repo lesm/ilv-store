@@ -21,6 +21,7 @@ class Order < ApplicationRecord
   belongs_to :user
   has_one :address, as: :addressable, dependent: :destroy
   has_many :items, class_name: 'Order::Item', dependent: :destroy
+  has_many :stock_reservations, dependent: :destroy
   accepts_nested_attributes_for :items
   accepts_nested_attributes_for :address
 
@@ -28,13 +29,23 @@ class Order < ApplicationRecord
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
   validates :payment_status, inclusion: { in: payment_statuses.keys }
 
-  after_commit :process_inventory_changes, on: :create
+  after_create :reserve_stock!
+
+  def commit_stock_reservations!
+    transaction do
+      stock_reservations.includes(:product).status_active.find_each(&:commit!)
+    end
+  end
+
+  def cancel_stock_reservations!
+    transaction do
+      stock_reservations.includes(:product).status_active.find_each(&:cancel!)
+    end
+  end
 
   private
 
-  def process_inventory_changes
-    items.each do |item|
-      Product.decrement_counter(:stock, item.product_id, by: item.quantity) # rubocop:disable Rails/SkipsModelValidations
-    end
+  def reserve_stock!
+    StockReservation.reserve_for_order(self)
   end
 end

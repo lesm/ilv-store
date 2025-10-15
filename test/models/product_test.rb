@@ -10,12 +10,6 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   describe '#validations' do
-    test 'validates presence of stock' do
-      product.stock = nil
-
-      assert product.invalid?
-    end
-
     test 'validates stock greater than 0' do
       product.stock = -5
 

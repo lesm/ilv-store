@@ -3,6 +3,7 @@
 class Product < ApplicationRecord
   include Searchable
   include TypesenseConfig
+  include InventoryManageable
 
   belongs_to :productable, polymorphic: true
 
@@ -19,7 +20,6 @@ class Product < ApplicationRecord
     attachable.variant :medium, resize_to_limit: [600, 600]
   end
 
-  validates :stock, presence: true, numericality: { greater_than: 0 }
   validates :translations, presence: true
   validate :cover_image_type
 
