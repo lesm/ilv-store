@@ -41,6 +41,15 @@ module Carts
 
         assert_select 'turbo-stream[action="append"]', count: 1
       end
+
+      test 'when product is out of stock' do
+        product.update(stock: 0)
+
+        post(cart_items_url(locale: :en, format: :turbo_stream), params:)
+
+        assert_response :unprocessable_entity
+        assert_includes @response.body, 'The product is out of stock.'
+      end
     end
 
     describe '#update' do

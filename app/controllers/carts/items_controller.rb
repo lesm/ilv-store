@@ -4,17 +4,13 @@ module Carts
   class ItemsController < ApplicationController
     def create
       @item = find_or_initialize_cart_item
-      @item.save
 
-      respond_to do |format|
-        format.html { redirect_to cart_path, notice: t('.item_added') }
-        format.turbo_stream do
-          flash.now[:notice] = t('.item_added')
-          render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
-        end
+      if @item.save
+        broadcast_animate_cart
+        respond_with_success
+      else
+        respond_with_error
       end
-
-      broadcast_animate_cart
     end
 
     def update
@@ -37,6 +33,28 @@ module Carts
     end
 
     private
+
+    def respond_with_success
+      respond_to do |format|
+        format.html { redirect_to cart_path, notice: t('.item_added') }
+        format.turbo_stream do
+          flash.now[:notice] = t('.item_added')
+          render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
+        end
+      end
+    end
+
+    def respond_with_error
+      error_message = @item.errors.full_messages.to_sentence
+
+      respond_to do |format|
+        format.html { redirect_to product_path(product), alert: error_message }
+        format.turbo_stream do
+          flash.now[:alert] = error_message
+          render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash'), status: :unprocessable_entity
+        end
+      end
+    end
 
     def broadcast_animate_cart
       Turbo::StreamsChannel.broadcast_append_to(

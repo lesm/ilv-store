@@ -13,6 +13,7 @@ es:
     form_quantity:
       choose_quantity: Elegir cantidad
       add_to_cart: Agregar al carrito
+      out_of_stock: Agotado
     index:
       edition_number: Edición
       pages_number: Páginas
