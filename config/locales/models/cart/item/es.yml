@@ -7,5 +7,7 @@ es:
       models:
         cart/item:
           attributes:
+            product:
+              out_of_stock: El producto está agotado.
             quantity:
               not_enough_stock: Solo quedan %{count} disponibles.

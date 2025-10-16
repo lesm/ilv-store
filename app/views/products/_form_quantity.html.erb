@@ -5,7 +5,7 @@
     </label>
     <div class="grid gap-4">
       <div class="inline-flex">
-        <button type="button" class="bg-primary-100 hover:bg-primary-200 active:bg-primary-300 border border-primary-300 rounded-s-lg p-3 h-11 focus:ring-primary-100 focus:ring-2 focus:outline-none" data-action="click->products--form-quantity#decrement">
+        <button type="button" class="<%= product.out_of_stock? ? 'bg-primary-100' : 'bg-primary-100 hover:bg-primary-200 active:bg-primary-300' %> border border-primary-300 rounded-s-lg p-3 h-11 focus:ring-primary-100 focus:ring-2 focus:outline-none" data-action="click->products--form-quantity#decrement" <%= 'disabled' if product.out_of_stock? %>>
           <svg class="w-3 h-3 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
           </svg>
@@ -13,15 +13,15 @@
 
         <%= f.hidden_field :product_id, value: product.id %>
 
-        <%= f.text_field :quantity, class: 'w-16 border border-primary-300 h-11 text-center text-primary-900 text-sm focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 block py-2.5', placeholder: '1', required: true, value: 1, data: { action: 'input->products--form-quantity#restrictToNumbers', products__form_quantity_target: 'input' } %>
-        <button type="button" class="bg-primary-100 hover:bg-primary-200 active:bg-primary-300 border border-primary-300 rounded-e-lg p-3 h-11 focus:ring-primary-100 focus:ring-2 focus:outline-none" data-action="click->products--form-quantity#increment">
+        <%= f.text_field :quantity, class: 'w-16 border border-primary-300 h-11 text-center text-primary-900 text-sm focus:outline-none focus:ring-1 focus:ring-primary-600 focus:border-primary-600 block py-2.5', placeholder: '1', required: true, value: 1, disabled: product.out_of_stock?, data: { action: 'input->products--form-quantity#restrictToNumbers', products__form_quantity_target: 'input' } %>
+        <button type="button" class="<%= product.out_of_stock? ? 'bg-primary-100' : 'bg-primary-100 hover:bg-primary-200 active:bg-primary-300' %> border border-primary-300 rounded-e-lg p-3 h-11 focus:ring-primary-100 focus:ring-2 focus:outline-none" data-action="click->products--form-quantity#increment" <%= 'disabled' if product.out_of_stock? %>>
           <svg class="w-3 h-3 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
           </svg>
         </button>
       </div>
 
-      <%= f.button nil, class: 'form--submit' do %>
+      <%= f.button nil, class: 'form--submit', disabled: product.out_of_stock? do %>
         <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
         </svg>

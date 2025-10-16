@@ -7,5 +7,7 @@ en:
       models:
         cart/item:
           attributes:
+            product:
+              out_of_stock: The product is out of stock.
             quantity:
               not_enough_stock: Only %{count} available.

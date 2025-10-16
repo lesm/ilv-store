@@ -23,6 +23,8 @@ class Product
       stock - reserved_stock
     end
 
+    def out_of_stock? = available_stock.zero?
+
     def can_reserve?(quantity)
       available_stock >= quantity
     end

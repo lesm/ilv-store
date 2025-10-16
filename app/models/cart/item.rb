@@ -20,6 +20,11 @@ class Cart
     def stock_availability
       return if product.available_stock >= quantity
 
+      if product.out_of_stock?
+        errors.add(:product, :out_of_stock)
+        return
+      end
+
       errors.add(:quantity, :not_enough_stock, count: product.available_stock)
     end
 
