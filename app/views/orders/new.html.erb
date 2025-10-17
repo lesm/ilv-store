@@ -42,11 +42,11 @@
               <svg class="h-4 w-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <dt class="text-sm font-normal text-primary-600"><%= t('.products_subtotal') %></dt>
+              <div class="text-sm font-normal text-primary-600"><%= t('.products_subtotal') %></div>
             </div>
-            <dd id="<%= dom_id(current_cart, :products_price_order) %>" class="text-sm font-semibold text-black">
+            <div id="<%= dom_id(current_cart, :products_price_order) %>" class="text-sm font-semibold text-black">
               <%= render 'products_price' %>
-            </dd>
+            </div>
           </div>
 
           <!-- Shipping Label -->
@@ -55,11 +55,11 @@
               <svg class="h-4 w-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
-              <dt class="text-sm font-normal text-primary-600"><%= t('.shipping_label') %></dt>
+              <div class="text-sm font-normal text-primary-600"><%= t('.shipping_label') %></div>
             </div>
-            <dd id="<%= dom_id(current_cart, :label_price_order) %>" class="text-sm font-semibold text-black flex-1 min-w-0">
+            <div id="<%= dom_id(current_cart, :label_price_order) %>" class="text-sm font-semibold text-black flex-1 min-w-0">
               <%= render 'label_price' %>
-            </dd>
+            </div>
           </div>
 
           <!-- Divider -->
@@ -67,10 +67,10 @@
 
           <!-- Total -->
           <div class="flex items-center justify-between">
-            <dt class="text-base font-bold text-black"><%= t('.total') %></dt>
-            <dd id="<%= dom_id(current_cart, :total_order) %>" class="text-lg font-bold text-magenta-500">
+            <div class="text-base font-bold text-black"><%= t('.total') %></div>
+            <div id="<%= dom_id(current_cart, :total_order) %>" class="text-lg font-bold text-magenta-500">
               <%= render 'total' %>
-            </dd>
+            </div>
           </div>
         </div>
 
