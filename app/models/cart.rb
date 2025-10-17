@@ -14,6 +14,7 @@ class Cart < ApplicationRecord
   def products_price
     items.sum { |item| item.price * item.quantity }
   end
+  alias_method :subtotal_price, :products_price
 
   def total_price
     return 0 if items.empty?

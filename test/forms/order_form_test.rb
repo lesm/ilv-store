@@ -67,7 +67,7 @@ class OrderFormTest < ActiveSupport::TestCase
 
         assert_equal current_user, order.user
         assert_equal 'draft', order.workflow_status
-        assert_equal current_cart.total_price, order.subtotal
+        assert_equal current_cart.subtotal_price, order.subtotal
         assert_equal current_cart.total_price, order.total
         # TODO: fix type issue
         # assert_equal address_attributes, order.address.attributes.except('id', 'created_at', 'updated_at', 'type')

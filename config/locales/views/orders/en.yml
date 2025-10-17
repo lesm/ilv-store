@@ -12,19 +12,25 @@ en:
       no_orders: No orders
       order_id: 'Order ID:'
       date: 'Date:'
+      subtotal: 'Subtotal'
+      label_price: 'Shipping'
       total: 'Total:'
       payment_status: 'Payment status:'
       workflow_status: 'Shipping status:'
+      delivery_address: 'Delivery Address'
+      products_list: 'Products'
+      quantity: 'Qty:'
       actions:
-        view_order: View order
+        click_to_expand: View details
+        click_to_collapse: Hide details
     new:
       product: Product
       products: Products
       quantity: Quantity
-      guia: Label
-      productos: Products
+      order_summary: Order summary
+      products_subtotal: Products
+      shipping_label: Shipping
       price: Price
-      subtotal: Subtotal
       total: Total
       make_order_and_pay: Make order and pay
       change_address: Change
@@ -35,7 +41,9 @@ en:
       products: Products
       order_id: 'Order ID:'
       date: 'Date:'
-      total: 'Total:'
+      subtotal: 'Subtotal'
+      label_price: 'Shipping label'
+      total: 'Total'
       payment_status: 'Payment status:'
       workflow_status: 'Shipping status:'
       quantity: 'Quantity:'

@@ -5,24 +5,20 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders
+                          .includes(
+                            address: %i[city state],
+                            items: [product: [:translations, { cover_attachment: :blob }]]
+                          )
                           .where.not(workflow_status: :draft)
                           .order(created_at: :desc)
   end
 
   def show
     # TODO: Create a controller to handle Stripe redirects
-    begin
-      handle_success_redirect_from_stripe if params[:token].present?
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      # do nothing, just render the page as usual
-    end
 
-    request.variant = :drawer if drawer_request?
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
+    handle_success_redirect_from_stripe if params[:token].present?
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    # do nothing, just render the page as usual
   end
 
   def new

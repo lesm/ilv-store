@@ -88,11 +88,39 @@
           <div class="border-b-2 border-primary-300"></div>
         <% end %>
       </div>
-      <div class="space-y-3 flex flex-row justify-end">
-        <p class="text-xs sm:text-sm font-medium text-black"><%= t('.total') %>&nbsp;</p>
-        <p class="text-xs sm:text-sm font-semibold text-magenta-500">
-          <%= number_to_currency(@order.total) %>
-        </p>
+      <!-- Order Summary -->
+      <div class="space-y-3">
+        <!-- Subtotal -->
+        <div class="flex flex-row justify-between items-center">
+          <p class="text-xs sm:text-sm font-normal text-primary-600"><%= t('.subtotal') %></p>
+          <p class="text-xs sm:text-sm font-medium text-black">
+            <%= number_to_currency(@order.subtotal) %>
+          </p>
+        </div>
+
+        <!-- Label Price (Shipping) -->
+        <div class="flex flex-row justify-between items-center">
+          <div class="flex items-center gap-2">
+            <svg class="h-4 w-4 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+            </svg>
+            <p class="text-xs sm:text-sm font-normal text-primary-600"><%= t('.label_price') %></p>
+          </div>
+          <p class="text-xs sm:text-sm font-medium text-black">
+            <%= number_to_currency(@order.label_price) %>
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t-2 border-primary-300"></div>
+
+        <!-- Total -->
+        <div class="flex flex-row justify-between items-center">
+          <p class="text-sm sm:text-base font-semibold text-black"><%= t('.total') %></p>
+          <p class="text-sm sm:text-base font-bold text-magenta-500">
+            <%= number_to_currency(@order.total) %>
+          </p>
+        </div>
       </div>
     </div>
   </div>
