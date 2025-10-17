@@ -46,3 +46,6 @@ Rails/NotNullColumn:
     - db/migrate/20250505204053_add_columns_to_addresses.rb
 Rails/ApplicationController:
   Enabled: false
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method

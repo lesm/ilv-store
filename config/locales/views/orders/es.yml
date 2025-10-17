@@ -19,8 +19,6 @@ es:
       products_list: 'Productos'
       quantity: 'Cant:'
       actions:
-        expand: Expandir
-        collapse: Colapsar
         click_to_expand: Ver detalles
         click_to_collapse: Ocultar detalles
     new:

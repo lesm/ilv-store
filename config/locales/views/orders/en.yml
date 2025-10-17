@@ -21,8 +21,6 @@ en:
       products_list: 'Products'
       quantity: 'Qty:'
       actions:
-        expand: Expand
-        collapse: Collapse
         click_to_expand: View details
         click_to_collapse: Hide details
     new:
