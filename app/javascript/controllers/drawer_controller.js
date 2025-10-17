@@ -6,15 +6,61 @@ export default class extends Controller {
 
   #isEntering;
   #isLeaving;
+  #scrollPosition;
+  #originalBodyOverflow;
+  #originalBodyPaddingRight;
 
   connect() {
     this.element.addEventListener('click', this.handleClickOutside);
     this.element.addEventListener('keydown', this.handleEscape);
   }
 
+  // Lock body scroll and prevent layout shift
+  #lockBodyScroll() {
+    this.#scrollPosition = window.scrollY;
+
+    // Calculate scrollbar width to prevent layout shift
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Store original values
+    this.#originalBodyOverflow = document.body.style.overflow;
+    this.#originalBodyPaddingRight = document.body.style.paddingRight;
+
+    // Lock scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${this.#scrollPosition}px`;
+    document.body.style.width = '100%';
+
+    // Compensate for scrollbar width
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+  }
+
+  // Unlock body scroll and restore position
+  #unlockBodyScroll() {
+    // Restore original values
+    document.body.style.overflow = this.#originalBodyOverflow || '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.paddingRight = this.#originalBodyPaddingRight || '';
+
+    // Restore scroll position
+    if (this.#scrollPosition !== undefined) {
+      window.scrollTo(0, this.#scrollPosition);
+    }
+  }
+
   disconnect() {
     this.element.removeEventListener('click', this.handleClickOutside);
     this.element.removeEventListener('keydown', this.handleEscape);
+
+    // Safety: unlock scroll if controller is destroyed while drawer is open
+    if (this.#scrollPosition !== undefined) {
+      this.#unlockBodyScroll();
+    }
   }
 
   backdropTargetConnected(target) {
@@ -26,7 +72,7 @@ export default class extends Controller {
 
     // Make the drawer focus when it's opened (to ESC key works)
     this.element.setAttribute('tabindex', '-1');
-    this.element.focus();
+    this.element.focus({ preventScroll: true });
   }
 
   handleClickOutside = (e) => {
@@ -85,6 +131,11 @@ export default class extends Controller {
     this.#isEntering = currentChildCount == 0 && newChildCount > 0;
     this.#isLeaving = currentChildCount > 0 && newChildCount == 0;
 
+    // Lock body scroll when drawer is opening
+    if (this.#isEntering) {
+      this.#lockBodyScroll();
+    }
+
     if (this.#isLeaving) {
       this._isClosing = false;
       event.preventDefault();
@@ -93,6 +144,9 @@ export default class extends Controller {
         leave(this.backdropTarget).then(() => this.backdropTarget.remove()),
         leave(this.panelTarget).then(() => this.panelTarget.remove()),
       ]);
+
+      // Restore body scroll and position when drawer closes
+      this.#unlockBodyScroll();
 
       event.detail.resume();
     }
