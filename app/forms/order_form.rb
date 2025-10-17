@@ -20,7 +20,7 @@ class OrderForm < ApplicationForm
   def order_attributes
     {
       workflow_status: 'draft',
-      subtotal: current_cart.total_price,
+      subtotal: current_cart.subtotal_price,
       total: current_cart.total_price,
       address_attributes: address_attributes,
       items_attributes: items_attributes,

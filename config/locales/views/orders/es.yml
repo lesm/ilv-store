@@ -10,19 +10,27 @@ es:
       no_orders: No hay pedidos
       order_id: 'Orden ID:'
       date: 'Fecha:'
+      subtotal: 'Subtotal'
+      label_price: 'Envío'
       total: 'Total:'
       payment_status: 'Estatus de pago:'
       workflow_status: 'Estatus de envío:'
+      delivery_address: 'Dirección de Entrega'
+      products_list: 'Productos'
+      quantity: 'Cant:'
       actions:
-        view_order: Ver pedido
+        expand: Expandir
+        collapse: Colapsar
+        click_to_expand: Ver detalles
+        click_to_collapse: Ocultar detalles
     new:
       product: Producto
       products: Productos
       quantity: Cantidad
-      guia: Guía
-      productos: Productos
+      order_summary: Resumen del pedido
+      products_subtotal: Productos
+      shipping_label: Envío
       price: Precio
-      subtotal: Subtotal
       total: Total
       make_order_and_pay: Realizar pedido y pagar
       change_address: Cambiar
@@ -33,7 +41,9 @@ es:
       products: Productos
       order_id: 'Orden ID:'
       date: 'Fecha:'
-      total: 'Total:'
+      subtotal: 'Subtotal'
+      label_price: 'Guía de envío'
+      total: 'Total'
       payment_status: 'Estatus de pago:'
       workflow_status: 'Estatus de envío:'
       quantity: 'Cantidad:'

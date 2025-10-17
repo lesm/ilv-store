@@ -5,6 +5,10 @@ class OrdersController < ApplicationController
 
   def index
     @orders = current_user.orders
+                          .includes(
+                            address: %i[city state],
+                            items: [product: [:translations, { cover_attachment: :blob }]]
+                          )
                           .where.not(workflow_status: :draft)
                           .order(created_at: :desc)
   end
