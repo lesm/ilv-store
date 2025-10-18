@@ -6,7 +6,8 @@ es:
       header_content: "¡Hola <strong>%{name}</strong>!, hemos recibido tu pedido <strong>%{order_id}</strong> y lo estamos procesando."
       order_summary: 'Resumen del pedido:'
       quantity: 'Cantidad:'
-      subtotal: Subtotal
+      products_subtotal: Productos
+      label_price: Envío
       total: Total
       status: 'Estado:'
       status_message: 'Tu pedido está siendo procesado y será enviado en breve.'
