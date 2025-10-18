@@ -28,6 +28,7 @@ class Order < ApplicationRecord
   validates :subtotal, :total, :label_price, presence: true
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
   validates :payment_status, inclusion: { in: payment_statuses.keys }
+  validates :stripe_session_id, uniqueness: true, allow_nil: true
 
   after_create :reserve_stock!
 
