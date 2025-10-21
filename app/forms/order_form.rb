@@ -55,7 +55,7 @@ class OrderForm < ApplicationForm
       captured_at: Time.current,
       weight_applied: current_cart.total_weight
     }.merge(
-      label_price.attributes.slice('product_type', 'range_start', 'range_end', 'price', 'unit')
+      label_price.attributes.slice('product_type', 'range_start', 'range_end', 'price_mxn', 'price_usd', 'unit')
     )
   end
 

@@ -11,13 +11,15 @@ class Order
 
     delegate :title, :subtitle, :cover, to: :product
 
-    def price_for_locale(locale = I18n.locale)
-      currency = Order::CURRENCIES[locale.to_sym]
-      send("price_#{currency.downcase}")
-    end
-
     def price
       price_for_locale
+    end
+
+    private
+
+    def price_for_locale(locale = I18n.locale)
+      currency = Order::CURRENCIES[locale.to_sym]
+      public_send("price_#{currency.downcase}")
     end
   end
 end

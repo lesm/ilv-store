@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_21_045035) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_190919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -132,10 +132,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_21_045035) do
     t.string "product_type", null: false
     t.decimal "range_start", precision: 5, scale: 2, null: false
     t.decimal "range_end", precision: 5, scale: 2, null: false
-    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "price_mxn", precision: 10, scale: 2, null: false
     t.string "unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price_usd", precision: 10, scale: 2, null: false
   end
 
   create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

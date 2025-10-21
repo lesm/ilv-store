@@ -3,7 +3,7 @@
 module Backoffice
   class LabelPricesController < BaseController
     def index
-      @label_prices = LabelPrice.all
+      @label_prices = LabelPrice.order(:product_type, :range_start)
     end
 
     def new
@@ -44,7 +44,7 @@ module Backoffice
     end
 
     def label_price_params
-      params.expect(label_price: %i[product_type range_start range_end price unit])
+      params.expect(label_price: %i[product_type range_start range_end price_mxn price_usd unit])
     end
   end
 end

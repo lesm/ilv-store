@@ -15,8 +15,13 @@
   </div>
 
   <div class="relative z-0 w-full mb-5 group">
-    <%= f.text_field :price, value: label_price.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
-    <%= f.label :price, t('price', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+    <%= f.text_field :price_mxn, value: label_price.price_mxn, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :price_mxn, t('price_mxn', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
+  </div>
+
+  <div class="relative z-0 w-full mb-5 group">
+    <%= f.text_field :price_usd, value: label_price.price_usd, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
+    <%= f.label :price_usd, t('price_usd', scope: 'backoffice.label_prices'), class: 'drawer--form-label' %>
   </div>
 
   <div class="relative z-0 w-full mb-5 group">

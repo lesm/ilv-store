@@ -4,7 +4,8 @@ es:
       product_type: Tipo de producto
       range_start: Rango inicio
       range_end: Rango fin
-      price: Precio
+      price_mxn: Precio MXN
+      price_usd: Precio USD
       unit: Unidad
       index:
         title: Precios de guías
