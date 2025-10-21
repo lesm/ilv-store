@@ -12,7 +12,7 @@ class SignInTest < ApplicationSystemTestCase
   test 'signs in successfully' do
     visit root_path
 
-    click_on 'Iniciar sesión'
+    click_on 'Entrar'
 
     fill_in 'Correo electrónico', with: 'mail@mail.com'
     fill_in 'Contraseña', with: password
@@ -25,7 +25,7 @@ class SignInTest < ApplicationSystemTestCase
   test 'signs in unsuccessfully' do
     visit root_path
 
-    click_on 'Iniciar sesión'
+    click_on 'Entrar'
 
     fill_in 'Correo electrónico', with: 'mail@mail.com'
     fill_in 'Contraseña', with: 'invalid password'

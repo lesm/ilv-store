@@ -4,7 +4,7 @@ module System
   module SessionHelper
     def sign_in(user, password)
       visit root_path
-      click_on 'Iniciar sesión'
+      click_on 'Entrar'
       fill_in 'Correo electrónico', with: user.email
       fill_in 'Contraseña', with: password
       click_on 'Iniciar sesión'
