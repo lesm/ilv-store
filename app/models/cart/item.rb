@@ -10,7 +10,7 @@ class Cart
     validates :quantity, numericality: { greater_than: 0 }
     validate :stock_availability
 
-    delegate :title, :subtitle, :cover, to: :product
+    delegate :title, :subtitle, :cover, :price, to: :product
 
     after_destroy :update_cart_label_price
     after_save :update_cart_label_price

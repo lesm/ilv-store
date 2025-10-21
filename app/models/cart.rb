@@ -12,7 +12,7 @@ class Cart < ApplicationRecord
   delegate :price, to: :label_price, prefix: true, allow_nil: true
 
   def products_price
-    items.sum { |item| item.price * item.quantity }
+    items.includes(product: :translations).sum { |item| item.price * item.quantity }
   end
   alias_method :subtotal_price, :products_price
 

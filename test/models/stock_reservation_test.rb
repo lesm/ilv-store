@@ -67,8 +67,8 @@ class StockReservationTest < ActiveSupport::TestCase
 
       order = create(:order, workflow_status: 'draft')
       order.items.destroy_all # Clear default items
-      order.items.create!(product: product1, quantity: 2, price: 10)
-      order.items.create!(product: product2, quantity: 3, price: 15)
+      order.items.create!(product: product1, quantity: 2, price_mxn: 10, price_usd: 0.50)
+      order.items.create!(product: product2, quantity: 3, price_mxn: 15, price_usd: 0.75)
 
       assert_difference 'StockReservation.count', 2 do
         StockReservation.reserve_for_order(order)
@@ -84,7 +84,7 @@ class StockReservationTest < ActiveSupport::TestCase
     test 'sets correct reservation attributes' do
       order.update!(workflow_status: 'draft')
       order.items.destroy_all
-      order.items.create!(product:, quantity: 2, price: 10)
+      order.items.create!(product:, quantity: 2, price_mxn: 10, price_usd: 0.50)
 
       reservations = StockReservation.reserve_for_order(order)
       reservation = reservations.first
@@ -102,8 +102,8 @@ class StockReservationTest < ActiveSupport::TestCase
 
       order = create(:order, workflow_status: 'draft')
       order.items.destroy_all
-      order.items.create!(product:, quantity: 2, price: 10)
-      order.items.create!(product: product2, quantity: 10, price: 15) # Not enough stock
+      order.items.create!(product:, quantity: 2, price_mxn: 10, price_usd: 0.50)
+      order.items.create!(product: product2, quantity: 10, price_mxn: 15, price_usd: 0.75) # Not enough stock
 
       assert_no_difference 'StockReservation.count' do
         assert_raises(ActiveRecord::RecordInvalid) do
@@ -232,7 +232,7 @@ class StockReservationTest < ActiveSupport::TestCase
     test 'full reservation lifecycle: create, commit on payment' do
       order.update!(workflow_status: 'draft')
       order.items.destroy_all
-      order.items.create!(product:, quantity: 3, price: 10)
+      order.items.create!(product:, quantity: 3, price_mxn: 10, price_usd: 0.50)
 
       # Create reservation
       reservations = StockReservation.reserve_for_order(order)
@@ -255,7 +255,7 @@ class StockReservationTest < ActiveSupport::TestCase
     test 'full reservation lifecycle: create, cancel on payment failure' do
       order.update!(workflow_status: 'draft')
       order.items.destroy_all
-      order.items.create!(product: product, quantity: 3, price: 10)
+      order.items.create!(product: product, quantity: 3, price_mxn: 10, price_usd: 0.50)
 
       # Create reservation
       reservations = StockReservation.reserve_for_order(order)
@@ -276,7 +276,7 @@ class StockReservationTest < ActiveSupport::TestCase
     test 'full reservation lifecycle: create, expire on timeout' do
       order.update!(workflow_status: 'draft')
       order.items.destroy_all
-      order.items.create!(product: product, quantity: 3, price: 10)
+      order.items.create!(product: product, quantity: 3, price_mxn: 10, price_usd: 0.50)
 
       # Create reservation
       reservations = StockReservation.reserve_for_order(order)

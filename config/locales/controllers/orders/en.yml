@@ -1,5 +1,8 @@
 en:
   orders:
+    payment_checkout:
+      shipping_label: Shipping
+      shipping_label_description: Shipping label cost
     create:
       success: We have created your order
       error: We could not create your order

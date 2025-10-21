@@ -1,5 +1,8 @@
 es:
   orders:
+    payment_checkout:
+    shipping_label: Envío
+    shipping_label_description: Costo de guía de envío
     create:
       success: Hemos creado tu pedido
       error: No se pudo crear tu pedido
