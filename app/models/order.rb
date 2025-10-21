@@ -3,6 +3,8 @@
 class Order < ApplicationRecord
   self.ignored_columns += %w[label_price_snapshot]
 
+  CURRENCIES = { es: 'MXN', en: 'USD' }.freeze
+
   enum :workflow_status, {
     draft: 'draft',
     pending: 'pending',
@@ -42,6 +44,10 @@ class Order < ApplicationRecord
     transaction do
       stock_reservations.includes(:product).status_active.find_each(&:cancel!)
     end
+  end
+
+  def currency
+    CURRENCIES[locale.to_sym]
   end
 
   private

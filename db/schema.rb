@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_17_234852) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_21_190919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -85,7 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_234852) do
     t.boolean "out_of_stock", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "price_snapshot", precision: 10, scale: 2
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
@@ -132,10 +132,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_234852) do
     t.string "product_type", null: false
     t.decimal "range_start", precision: 5, scale: 2, null: false
     t.decimal "range_end", precision: 5, scale: 2, null: false
-    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "price_mxn", precision: 10, scale: 2, null: false
     t.string "unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price_usd", precision: 10, scale: 2, null: false
   end
 
   create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -154,9 +155,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_234852) do
     t.uuid "order_id", null: false
     t.uuid "product_id", null: false
     t.integer "quantity", default: 1, null: false
-    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "price_mxn", precision: 10, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price_usd", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
@@ -173,6 +175,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_17_234852) do
     t.string "stripe_payment_intent_id"
     t.decimal "label_price", precision: 10, scale: 2, default: "0.0", null: false
     t.jsonb "label_price_snapshot", default: {}, null: false
+    t.string "locale", default: "es", null: false
     t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["user_id"], name: "index_orders_on_user_id"
     t.index ["workflow_status"], name: "index_orders_on_workflow_status"

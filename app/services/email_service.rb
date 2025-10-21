@@ -11,7 +11,9 @@ class EmailService
     end
 
     def send_order_created(order:)
-      provider.send_email(message_delivery: OrderMailer.with(order:).created)
+      I18n.with_locale(order.locale) do
+        provider.send_email(message_delivery: OrderMailer.with(order:).created)
+      end
     end
 
     def provider

@@ -13,7 +13,8 @@ module Backoffice
           product_type: 'Book',
           range_start: 1,
           range_end: 10,
-          price: 100.0,
+          price_mxn: 100.0,
+          price_usd: 7.0,
           unit: 'kg'
         }
       }
@@ -25,7 +26,8 @@ module Backoffice
           product_type: 'Book',
           range_start: 10,
           range_end: 1,
-          price: 100.0,
+          price_mxn: 100.0,
+          price_usd: 7.0,
           unit: 'kg'
         }
       }
@@ -75,7 +77,8 @@ module Backoffice
           assert_equal 'Book', label_price.product_type
           assert_equal 1, label_price.range_start
           assert_equal 10, label_price.range_end
-          assert_equal 100.0, label_price.price
+          assert_equal 100.0, label_price.price_mxn
+          assert_equal 7.0, label_price.price_usd
           assert_equal 'kg', label_price.unit
         end
       end
@@ -110,7 +113,8 @@ module Backoffice
           assert_equal 'Book', label_price.product_type
           assert_equal 1, label_price.range_start
           assert_equal 10, label_price.range_end
-          assert_equal 100.0, label_price.price
+          assert_equal 100.0, label_price.price_mxn
+          assert_equal 7.0, label_price.price_usd
           assert_equal 'kg', label_price.unit
         end
       end

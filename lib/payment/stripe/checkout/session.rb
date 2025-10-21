@@ -10,6 +10,7 @@ module Payment
               customer_email: order.user.email,
               payment_method_types: ['card'],
               line_items: line_items(order),
+              currency: order.currency,
               mode: 'payment',
               success_url:,
               cancel_url:,
@@ -19,11 +20,11 @@ module Payment
 
           private
 
-          def line_items(order) # rubocop:disable Metrics/MethodLength
+          def line_items(order) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
             items = order.items.map do |item|
               {
                 price_data: {
-                  currency: 'mxn',
+                  currency: order.currency,
                   product_data: {
                     name: item.product.title,
                     description: item.product.subtitle
@@ -38,10 +39,10 @@ module Payment
             if order.label_price.positive?
               items << {
                 price_data: {
-                  currency: 'mxn',
+                  currency: order.currency,
                   product_data: {
-                    name: 'Envío',
-                    description: 'Costo de guía de envío'
+                    name: I18n.t('orders.payment_checkout.shipping_label'),
+                    description: I18n.t('orders.payment_checkout.shipping_label_description')
                   },
                   unit_amount: (order.label_price * 100).to_i
                 },

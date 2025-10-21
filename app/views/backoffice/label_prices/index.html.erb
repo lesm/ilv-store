@@ -32,10 +32,19 @@
                       <%= label_price.range_start %> - <%= label_price.range_end %> <%= label_price.unit %>
                     </span>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xl sm:text-2xl font-bold text-primary-600">
-                      <%= number_to_currency(label_price.price) %>
-                    </span>
+                  <div class="flex items-center gap-4">
+                    <div class="text-center">
+                      <span class="text-xs text-primary-500 block">MXN</span>
+                      <span class="text-xl sm:text-2xl font-bold text-primary-600">
+                        <%= number_to_currency(label_price.price_mxn) %>
+                      </span>
+                    </div>
+                    <div class="text-center">
+                      <span class="text-xs text-primary-500 block">USD</span>
+                      <span class="text-xl sm:text-2xl font-bold text-primary-600">
+                        <%= number_to_currency(label_price.price_usd) %>
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div class="flex items-center gap-2 w-full sm:w-auto">

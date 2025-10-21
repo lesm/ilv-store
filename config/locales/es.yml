@@ -12,13 +12,15 @@ es:
       link_to_physical: Físicos
       link_to_digital: Digitales
       link_to_free: Gratuitos
-      link_to_signin: Iniciar sesión
+      link_to_signin: Entrar
       link_to_signup: Registrarse
       link_to_account: Cuenta
       link_to_orders: Mis pedidos
       link_to_addresses: Direcciónes
       link_to_signout: Cerrar sesión
       search: Buscar
+    locale_switcher:
+      label: Cambiar idioma
     footer:
       link_to_about: Acerca de
       link_to_terms: Aviso de privacidad

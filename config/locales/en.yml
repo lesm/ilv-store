@@ -25,6 +25,8 @@ en:
       link_to_addresses: Addresses
       link_to_signout: Sign out
       search: Search
+    locale_switcher:
+      label: Change language
     footer:
       link_to_about: About
       link_to_terms: Privacy Policy

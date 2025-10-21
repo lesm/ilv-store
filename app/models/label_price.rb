@@ -6,15 +6,15 @@ class LabelPrice < ApplicationRecord
 
   validates :product_type, inclusion: { in: PRODUCT_TYPES }
   validates :unit, inclusion: { in: UNITS }
-  validates :product_type, :range_start, :range_end, :price, :unit, presence: true
+  validates :product_type, :range_start, :range_end, :price_mxn, :price_usd, :unit, presence: true
   validates :range_start, :range_end, numericality: { greater_than_or_equal_to: 0 }
-  validates :price, numericality: { greater_than: 0 }
+  validates :price_mxn, :price_usd, numericality: { greater_than: 0 }
   validates :range_end, numericality: { greater_than: :range_start }, if: -> { range_start && range_end }
 
   def self.find_price(weight, product_type = 'Book')
     label_price = where(product_type:)
                   .where('range_start <= ? AND range_end >= ?', weight, weight)
-                  .order(price: :asc)
+                  .order(price_mxn: :asc)
                   .first
 
     if label_price.nil?
@@ -24,5 +24,16 @@ class LabelPrice < ApplicationRecord
     end
 
     label_price
+  end
+
+  def price
+    price_for_locale
+  end
+
+  private
+
+  def price_for_locale(locale = I18n.locale)
+    currency = Order::CURRENCIES[locale.to_sym]
+    public_send("price_#{currency.downcase}")
   end
 end

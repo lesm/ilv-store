@@ -14,7 +14,8 @@ class LabelPriceTest < ActiveSupport::TestCase
       assert_includes label_price.errors[:product_type], "can't be blank"
       assert_includes label_price.errors[:range_start], "can't be blank"
       assert_includes label_price.errors[:range_end], "can't be blank"
-      assert_includes label_price.errors[:price], "can't be blank"
+      assert_includes label_price.errors[:price_mxn], "can't be blank"
+      assert_includes label_price.errors[:price_usd], "can't be blank"
       assert_includes label_price.errors[:unit], "can't be blank"
     end
   end

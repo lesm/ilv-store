@@ -17,10 +17,13 @@ class Order
         assert item.invalid?
       end
 
-      test 'validates presence of price' do
-        item.price = nil
+      test 'validates presence of price_mxn and price_usd' do
+        item.price_mxn = nil
+        item.price_usd = nil
 
         assert item.invalid?
+        assert item.errors[:price_mxn].present?
+        assert item.errors[:price_usd].present?
       end
     end
   end

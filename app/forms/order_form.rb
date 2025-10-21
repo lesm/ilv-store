@@ -25,7 +25,8 @@ class OrderForm < ApplicationForm
       address_attributes: address_attributes,
       items_attributes: items_attributes,
       user: current_user,
-      label_price: label_price.price
+      label_price: label_price.price,
+      locale: I18n.locale.to_s
     }
   end
 
@@ -42,7 +43,8 @@ class OrderForm < ApplicationForm
       {
         product_id: item.product_id,
         quantity: item.quantity,
-        price: item.price
+        price_mxn: item.product.translations.for_locale(:es).price,
+        price_usd: item.product.translations.for_locale(:en).price
       }
     end
   end
@@ -53,7 +55,7 @@ class OrderForm < ApplicationForm
       captured_at: Time.current,
       weight_applied: current_cart.total_weight
     }.merge(
-      label_price.attributes.slice('product_type', 'range_start', 'range_end', 'price', 'unit')
+      label_price.attributes.slice('product_type', 'range_start', 'range_end', 'price_mxn', 'price_usd', 'unit')
     )
   end
 

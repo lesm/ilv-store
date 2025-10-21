@@ -11,7 +11,7 @@ class CartTest < ActiveSupport::TestCase
 
   describe '#total_price' do
     test 'calculates the total price of the cart' do
-      create(:label_price, :zero_to_five_kg, price: 150)
+      create(:label_price, :zero_to_five_kg, price_mxn: 150)
 
       translation = build(:product_translation, locale: :es, price: 10)
       cart.items << build(:cart_item, product: build(:product, translations: [translation]), quantity: 2)

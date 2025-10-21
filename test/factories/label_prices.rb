@@ -5,7 +5,8 @@ FactoryBot.define do
     product_type { 'Book' }
     range_start { '1' }
     range_end { '5' }
-    price { '150' }
+    price_mxn { '150' }
+    price_usd { '10' }
     unit { 'kg' }
   end
 
@@ -13,6 +14,7 @@ FactoryBot.define do
     product_type { 'Book' }
     range_start { '0' }
     range_end { '5' }
-    price { '150' }
+    price_mxn { '150' }
+    price_usd { '10' }
   end
 end
