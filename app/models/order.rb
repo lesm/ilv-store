@@ -34,6 +34,8 @@ class Order < ApplicationRecord
 
   after_create :reserve_stock!
 
+  delegate :email, to: :user, prefix: true, allow_nil: true
+
   def commit_stock_reservations!
     transaction do
       stock_reservations.includes(:product).status_active.find_each(&:commit!)
