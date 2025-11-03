@@ -1,0 +1,21 @@
+<%= render 'application/drawer' do %>
+  <div class="relative mt-6 flex-1 px-4 flex flex-col gap-6 m-2 sm:m-10" data-controller="addresses--form">
+    <%= form_with(model: [:backoffice, @order], data: { turbo_frame: '_top' }) do |form| %>
+      <h2 class="text-2xl font-bold text-black mb-4">
+        <%= t('title', scope: 'backoffice.orders.edit') %>
+      </h2>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :tracking_number, class: 'drawer--form-field peer', placeholder: ' ', required: true %>
+        <%= form.label :tracking_number, t('tracking_number', scope: 'backoffice.orders.edit'), class: 'drawer--form-label' %>
+      </div>
+
+      <div class="relative z-0 w-full mb-5 group">
+        <%= form.text_field :carrier_name, class: 'drawer--form-field peer', placeholder: ' ', required: true %>
+        <%= form.label :carrier_name, t('carrier_name', scope: 'backoffice.orders.edit'), class: 'drawer--form-label' %>
+      </div>
+
+      <%= form.submit t('text_submit_button', scope: 'backoffice.orders.edit'), class: 'drawer--form-submit' %>
+    <% end %>
+  </div>
+<% end %>

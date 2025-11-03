@@ -11,5 +11,28 @@ module Backoffice
                             .where.not(workflow_status: :draft)
                             .order(created_at: :desc)
     end
+
+    def edit
+      request.variant = :drawer
+      @order = current_user.orders.find(params[:id])
+    end
+
+    def update # rubocop:disable Metrics/AbcSize
+      @order = current_user.orders.find(params[:id])
+
+      if @order.update(order_params)
+        flash[:notice] = t('.success')
+        redirect_to backoffice_orders_path, status: :see_other
+      else
+        flash.now[:alert] = @order.errors.full_messages.to_sentence
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
+    private
+
+    def order_params
+      params.expect(order: %i[tracking_number carrier_name])
+    end
   end
 end
