@@ -40,7 +40,7 @@ module Backoffice
 
       if @product.update(product_params)
         flash[:notice] = t('.success')
-        render turbo_stream: turbo_stream.action(:redirect, backoffice_products_path)
+        redirect_to backoffice_products_path, status: :see_other
       else
         flash.now[:alert] = @product.errors.full_messages.to_sentence
         render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash')
