@@ -117,5 +117,27 @@ module Backoffice
         end
       end
     end
+
+    describe '#POST send_in_transit_email' do
+      test 'sends in transit email if order is eligible' do
+        order.update(tracking_number: 'TRACK123', carrier_name: 'FedEx', payment_status: :paid)
+
+        post send_in_transit_email_backoffice_order_url(order)
+
+        assert_redirected_to backoffice_orders_path
+        assert_equal I18n.t('backoffice.orders.send_in_transit_email.success'), flash[:notice]
+        assert_not_nil order.reload.in_transit_email_sent_at
+      end
+
+      test 'does not send in transit email if order is not eligible' do
+        order.update(payment_status: :pending)
+
+        post send_in_transit_email_backoffice_order_url(order)
+
+        assert_redirected_to backoffice_orders_path
+        assert_equal I18n.t('backoffice.orders.send_in_transit_email.error'), flash[:alert]
+        assert_nil order.reload.in_transit_email_sent_at
+      end
+    end
   end
 end

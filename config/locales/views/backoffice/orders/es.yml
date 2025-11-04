@@ -16,6 +16,9 @@ es:
         quantity: 'Cant:'
         carrier_name: 'Paquetería:'
         tracking_number: 'Número de guía:'
+        send_in_transit_email: Enviar email
+        resend_in_transit_email: Reenviar email
+        email_sent_at: "Enviado %{date}"
         actions:
           edit: Editar
           click_to_expand: Ver detalles
@@ -27,3 +30,6 @@ es:
         carrier_name: 'Paquetería:'
       update:
         success: El pedido se ha actualizado correctamente.
+      send_in_transit_email:
+        success: El email ha sido enviado correctamente.
+        error: No se puede enviar el email. Verifica que el pedido esté pagado y tenga número de guía y paquetería.

@@ -54,6 +54,10 @@ class Order < ApplicationRecord
     CURRENCIES[locale.to_sym]
   end
 
+  def for_in_transit_email?
+    payment_status_paid? && tracking_number.present? && carrier_name.present?
+  end
+
   private
 
   def reserve_stock!

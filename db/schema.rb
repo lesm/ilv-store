@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_02_152141) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_04_141821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -178,6 +178,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_02_152141) do
     t.string "locale", default: "es", null: false
     t.string "tracking_number"
     t.string "carrier_name"
+    t.datetime "in_transit_email_sent_at"
     t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["tracking_number"], name: "index_orders_on_tracking_number"
     t.index ["user_id"], name: "index_orders_on_user_id"

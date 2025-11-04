@@ -12,3 +12,17 @@ en:
       status: 'Status:'
       status_message: 'Your order is being processed and will be shipped shortly.'
       see_order: View Order
+    in_transit:
+      subject: Your order is on its way
+      title: 'Your order is on its way!'
+      header_content: "Hello <strong>%{name}</strong>! Your order <strong>%{order_id}</strong> has been shipped and is on its way."
+      tracking_label: 'Tracking Number'
+      carrier: 'Carrier:'
+      order_summary: 'Order Summary:'
+      quantity: 'Quantity:'
+      products_subtotal: Products
+      label_price: Shipping
+      total: Total
+      status: 'Status:'
+      status_message: 'Your order is in transit and will arrive soon.'
+      see_order: View Order
