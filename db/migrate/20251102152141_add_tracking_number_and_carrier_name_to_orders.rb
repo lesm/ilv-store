@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddTrankingNumberAndCarrierNameToOrders < ActiveRecord::Migration[8.0]
+class AddTrackingNumberAndCarrierNameToOrders < ActiveRecord::Migration[8.0]
   def change
     change_table :orders, bulk: true do |t|
       t.string :tracking_number

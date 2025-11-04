@@ -22,8 +22,6 @@ module Backoffice
 
     describe '#GET edit' do
       test 'returns success response' do
-        order = create(:order, :order_created, user: user)
-
         get edit_backoffice_order_url(order)
         assert_response :success
       end
@@ -67,8 +65,6 @@ module Backoffice
         end
 
         test 'sets flash notice on success' do
-          order = create(:order, :order_created, user: user)
-
           patch backoffice_order_url(order), params: {
             order: {
               tracking_number: 'TRACK123',
