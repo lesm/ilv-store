@@ -2,6 +2,8 @@
 
 module Backoffice
   class OrdersController < BaseController
+    before_action :set_order, only: %i[edit update send_in_transit_email]
+
     def index
       @orders = current_user.orders
                             .includes(
@@ -14,12 +16,9 @@ module Backoffice
 
     def edit
       request.variant = :drawer
-      @order = current_user.orders.find(params[:id])
     end
 
-    def update # rubocop:disable Metrics/AbcSize
-      @order = current_user.orders.find(params[:id])
-
+    def update
       if @order.update(order_params)
         flash[:notice] = t('.success')
         redirect_to backoffice_orders_path, status: :see_other
@@ -29,7 +28,23 @@ module Backoffice
       end
     end
 
+    def send_in_transit_email
+      if @order.for_in_transit_email?
+        OrderMailer.with(order: @order).in_transit.deliver_later
+        @order.update(in_transit_email_sent_at: Time.current)
+        flash[:notice] = t('.success')
+      else
+        flash[:alert] = t('.error')
+      end
+
+      redirect_to backoffice_orders_path, status: :see_other
+    end
+
     private
+
+    def set_order
+      @order = current_user.orders.find(params[:id])
+    end
 
     def order_params
       params.expect(order: %i[tracking_number carrier_name])

@@ -28,4 +28,13 @@ FactoryBot.define do
     workflow_status { 'draft' }
     payment_status { 'pending' }
   end
+
+  trait :order_paid do
+    before(:create) do |order|
+      order.items << build_list(:order_item, 2)
+    end
+
+    workflow_status { 'created' }
+    payment_status { 'paid' }
+  end
 end
