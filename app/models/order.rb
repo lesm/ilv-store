@@ -31,6 +31,8 @@ class Order < ApplicationRecord
   validates :workflow_status, inclusion: { in: workflow_statuses.keys }
   validates :payment_status, inclusion: { in: payment_statuses.keys }
   validates :stripe_session_id, uniqueness: true, allow_nil: true
+  validates :tracking_number, exclusion: { in: [''], message: :blank }, allow_nil: true
+  validates :carrier_name, exclusion: { in: [''], message: :blank }, allow_nil: true
 
   after_create :reserve_stock!
 
