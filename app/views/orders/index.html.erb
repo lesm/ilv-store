@@ -1,3 +1,7 @@
+<% content_for :turbo_frame_content do %>
+  <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
+<% end %>
+
 <section>
   <div class="mx-auto max-w-screen-xl 2xl:px-0">
     <div class="gap-4 sm:flex sm:items-center sm:justify-between">

@@ -6,7 +6,24 @@ es:
         order_id: 'Orden ID:'
         date: 'Fecha:'
         email: 'Email:'
+        subtotal: 'Subtotal:'
         total: 'Total:'
+        label_price: 'Precio de la guía:'
         workflow_status: 'Estatus:'
+        payment_status: 'Estatus de pago:'
+        delivery_address: 'Dirección de entrega:'
+        products_list: 'Productos:'
+        quantity: 'Cant:'
+        carrier_name: 'Paquetería:'
+        tracking_number: 'Número de guía:'
         actions:
           edit: Editar
+          click_to_expand: Ver detalles
+          click_to_collapse: Ocultar detalles
+      edit:
+        title: Editar pedido
+        text_submit_button: Guardar cambios
+        tracking_number: 'Número de guía:'
+        carrier_name: 'Paquetería:'
+      update:
+        success: El pedido se ha actualizado correctamente.

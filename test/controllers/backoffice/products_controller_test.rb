@@ -102,7 +102,7 @@ module Backoffice
         test 'redirects to the backoffice products page' do
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
-          assert_turbo_stream action: :redirect
+          assert_redirected_to backoffice_products_path
         end
 
         test 'updates the product' do
@@ -125,11 +125,11 @@ module Backoffice
       end
 
       describe 'with invalid params' do
-        test 'redirects to the edit backoffice product page' do
+        test 'returns unprocessable entity status' do
           params[:book][:product_attributes][:translations_attributes][0][:price] = nil
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
-          assert_turbo_stream action: :append, target: 'flash'
+          assert_response :unprocessable_entity
         end
 
         test 'does not update the product' do
