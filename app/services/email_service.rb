@@ -16,6 +16,12 @@ class EmailService
       end
     end
 
+    def send_order_in_transit(order:)
+      I18n.with_locale(order.locale) do
+        provider.send_email(message_delivery: OrderMailer.with(order:).in_transit)
+      end
+    end
+
     def provider
       Email::Providers::UniOneProvider.new
     end

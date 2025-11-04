@@ -30,7 +30,7 @@ module Backoffice
 
     def send_in_transit_email
       if @order.for_in_transit_email?
-        OrderMailer.with(order: @order).in_transit.deliver_later
+        OrderMailerJob.perform_later(@order.id, :send_order_in_transit)
         @order.update(in_transit_email_sent_at: Time.current)
         flash[:notice] = t('.success')
       else

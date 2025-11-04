@@ -37,5 +37,9 @@ class EmailServiceTest < ActiveSupport::TestCase
     test 'sends an email for a created order' do
       assert_email_sent { EmailService.send_order_created(order:) }
     end
+
+    test 'sends an email for an in transit order' do
+      assert_email_sent { EmailService.send_order_in_transit(order:) }
+    end
   end
 end
