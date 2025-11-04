@@ -12,3 +12,17 @@ es:
       status: 'Estado:'
       status_message: 'Tu pedido está siendo procesado y será enviado en breve.'
       see_order: Ver pedido
+    in_transit:
+      subject: Tu pedido está en camino
+      title: '¡Tu pedido está en camino!'
+      header_content: "¡Hola <strong>%{name}</strong>! Tu pedido <strong>%{order_id}</strong> ha sido enviado y está en camino."
+      tracking_label: 'Número de rastreo'
+      carrier: 'Paquetería:'
+      order_summary: 'Resumen del pedido:'
+      quantity: 'Cantidad:'
+      products_subtotal: Productos
+      label_price: Envío
+      total: Total
+      status: 'Estado:'
+      status_message: 'Tu pedido está en tránsito y llegará pronto.'
+      see_order: Ver pedido

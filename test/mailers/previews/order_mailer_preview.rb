@@ -6,6 +6,10 @@ class OrderMailerPreview < ActionMailer::Preview
     OrderMailer.with(order:).created if order.present?
   end
 
+  def in_transit
+    OrderMailer.with(order:).in_transit if order.present?
+  end
+
   private
 
   def order

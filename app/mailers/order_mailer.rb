@@ -7,4 +7,9 @@ class OrderMailer < ApplicationMailer
     @order = params[:order]
     mail subject: t('.subject'), to: email_address_with_name(@order.user.email, @order.user.name)
   end
+
+  def in_transit
+    @order = params[:order]
+    mail subject: t('.subject'), to: email_address_with_name(@order.user.email, @order.user.name)
+  end
 end
