@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
     @form = build_form
 
     if @form.save
-      handle_successful_form_save
+      handle_successful_form_save(@form)
     else
       flash.now[:alert] = @form.errors.full_messages.to_sentence
       @cart = find_cart
@@ -58,13 +58,13 @@ class OrdersController < ApplicationController
              end
   end
 
-  def handle_successful_form_save
-    session = create_stripe_checkout_session(@form.order)
-    @form.order.update(stripe_session_id: session.id)
+  def handle_successful_form_save(form)
+    session = create_stripe_checkout_session(form.order)
+    form.order.update(stripe_session_id: session.id)
     redirect_to session.url, allow_other_host: true, status: :see_other
   rescue Stripe::StripeError => e
     flash[:alert] = "Try again, there was an error with the payment processor: #{e.message}"
-    redirect_to @form.order
+    redirect_to form.order
   end
 
   def create_stripe_checkout_session(order)
@@ -120,7 +120,7 @@ class OrdersController < ApplicationController
 
   def order_params
     params.expect(
-      order: [:address_id]
+      order: %i[address_id requires_invoice]
     )
   end
 end

@@ -2,6 +2,7 @@
 
 class OrderForm < ApplicationForm
   attribute :address_id, :string
+  attribute :requires_invoice, :string
 
   attr_accessor :current_cart, :current_user
   attr_reader :order
@@ -17,7 +18,7 @@ class OrderForm < ApplicationForm
     Order.where(id: @order.id).update_all(label_price_snapshot: label_price_snapshot.to_json) # rubocop:disable Rails/SkipsModelValidations
   end
 
-  def order_attributes
+  def order_attributes # rubocop:disable Metrics/MethodLength
     {
       workflow_status: 'draft',
       subtotal: current_cart.subtotal_price,
@@ -26,7 +27,8 @@ class OrderForm < ApplicationForm
       items_attributes: items_attributes,
       user: current_user,
       label_price: label_price.price,
-      locale: I18n.locale.to_s
+      locale: I18n.locale.to_s,
+      requires_invoice: parse_requires_invoice
     }
   end
 
@@ -61,5 +63,11 @@ class OrderForm < ApplicationForm
 
   def label_price
     @label_price ||= LabelPrice.find_price(current_cart.total_weight, 'Book')
+  end
+
+  def parse_requires_invoice
+    return false if requires_invoice.blank?
+
+    ActiveModel::Type::Boolean.new.cast(requires_invoice)
   end
 end
