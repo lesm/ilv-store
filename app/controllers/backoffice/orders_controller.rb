@@ -5,13 +5,14 @@ module Backoffice
     before_action :set_order, only: %i[edit update send_in_transit_email]
 
     def index
-      @orders = current_user.orders
-                            .includes(
-                              address: %i[city state],
-                              items: [product: [:translations, { cover_attachment: :blob }]]
-                            )
-                            .where.not(workflow_status: :draft)
-                            .order(created_at: :desc)
+      @orders = Order
+                .includes(
+                  :user,
+                  address: %i[city state],
+                  items: [product: [:translations, { cover_attachment: :blob }]]
+                )
+                .where.not(workflow_status: :draft)
+                .order(created_at: :desc)
     end
 
     def edit
