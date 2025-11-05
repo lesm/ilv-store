@@ -26,7 +26,7 @@
                             data-controller="copy"
                             data-copy-text-value="<%= order.id %>"
                             data-action="click->copy#copy"
-                      class="shrink-0 p-1.5 text-primary-600 hover:text-primary-800 hover:bg-primary-50 rounded transition-colors"
+                      class="shrink-0 p-2.5 sm:p-1.5 text-primary-600 hover:text-primary-800 hover:bg-primary-50 rounded transition-colors touch-manipulation"
                       title="<%= t('.copy_order_id') %>">
                       <!-- Copy icon -->
                       <svg data-copy-target="copyIcon" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -230,8 +230,8 @@
                     <%= t('.delivery_address') %>
                   </h3>
                   <div class="ml-4 sm:ml-6 pl-3 sm:pl-4 border-l-2 border-primary-200">
-                    <p class="text-xs sm:text-sm font-medium text-black break-words"><%= order.address.full_name %></p>
-                    <p class="text-xs text-primary-600 mt-1 break-words"><%= order.address.short_summary %></p>
+                    <p class="text-xs sm:text-sm font-medium text-black wrap-break-words"><%= order.address.full_name %></p>
+                    <p class="text-xs text-primary-600 mt-1 wrap-break-words"><%= order.address.short_summary %></p>
                   </div>
                 </div>
 
@@ -253,8 +253,8 @@
 
                         <!-- Product Details -->
                         <div class="flex-1 min-w-0">
-                          <h4 class="text-xs sm:text-sm font-medium text-black line-clamp-2"><%= item.title %></h4>
-                          <p class="text-xs text-primary-600 mt-0.5 truncate"><%= item.subtitle %></p>
+                          <h4 class="text-xs sm:text-sm font-medium text-black line-clamp-2 wrap-break-words"><%= item.title %></h4>
+                          <p class="text-xs text-primary-600 mt-0.5 line-clamp-1 wrap-break-words"><%= item.subtitle %></p>
                           <div class="flex items-center justify-between mt-1 sm:mt-2 gap-2">
                             <span class="text-xs text-primary-600 shrink-0"><%= t('.quantity') %> <%= item.quantity %></span>
                             <span class="text-xs sm:text-sm font-semibold text-magenta-500 shrink-0"><%= number_to_currency(item.price * item.quantity) %></span>

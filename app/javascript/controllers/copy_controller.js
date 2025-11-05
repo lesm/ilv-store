@@ -12,15 +12,45 @@ export default class extends Controller {
     event.preventDefault()
 
     // Get text from value or from source target
-    const textToCopy = this.textValue || this.sourceTarget.textContent.trim()
+    const textToCopy = this.textValue || (this.hasSourceTarget ? this.sourceTarget.textContent.trim() : "")
 
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => {
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          this.showSuccess()
+        })
+        .catch((error) => {
+          console.error("Failed to copy text:", error)
+          // Fallback for iOS
+          this.fallbackCopy(textToCopy)
+        })
+    } else {
+      // Fallback for older browsers/iOS
+      this.fallbackCopy(textToCopy)
+    }
+  }
+
+  fallbackCopy(text) {
+    const textArea = document.createElement("textarea")
+    textArea.value = text
+    textArea.style.position = "fixed"
+    textArea.style.left = "-999999px"
+    textArea.style.top = "-999999px"
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+
+    try {
+      const successful = document.execCommand('copy')
+      if (successful) {
         this.showSuccess()
-      })
-      .catch((error) => {
-        console.error("Failed to copy text:", error)
-      })
+      }
+    } catch (error) {
+      console.error('Fallback copy failed:', error)
+    }
+
+    document.body.removeChild(textArea)
   }
 
   showSuccess() {
