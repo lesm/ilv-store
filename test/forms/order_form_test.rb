@@ -6,8 +6,10 @@ class OrderFormTest < ActiveSupport::TestCase
   let(:current_user) { create(:user, :with_cart) }
   let(:current_cart) { current_user.cart }
   let(:address) { create(:address, :oxxo_bustamante, addressable: current_user) }
-
-  let(:form) { OrderForm.new(address_id: address.id, current_cart:, current_user:) }
+  let(:requires_invoice) { '0' }
+  let(:form) do
+    OrderForm.new(address_id: address.id, current_cart:, current_user:, requires_invoice:)
+  end
 
   let(:address_attributes) do
     {
@@ -58,6 +60,8 @@ class OrderFormTest < ActiveSupport::TestCase
 
   describe '#save' do
     describe 'creates an order' do
+      let(:requires_invoice) { '1' }
+
       test 'with the correct attributes' do
         assert_difference 'Order.count', 1 do
           form.save
@@ -72,6 +76,7 @@ class OrderFormTest < ActiveSupport::TestCase
         # TODO: fix type issue
         # assert_equal address_attributes, order.address.attributes.except('id', 'created_at', 'updated_at', 'type')
         assert_equal current_cart.items.count, order.items.count
+        assert_equal true, order.requires_invoice
 
         current_cart.items.each_with_index do |item, index|
           order_item = order.items[index]

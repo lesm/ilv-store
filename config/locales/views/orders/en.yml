@@ -35,6 +35,8 @@ en:
       make_order_and_pay: Make order and pay
       change_address: Change
       add_address: Add address
+      requires_invoice: Invoice required?
+      invoice_details: Tax details will be requested by email after placing the order (Mexico only).
     show:
       title: Order details
       delivery_address: 'Shipping address:'
