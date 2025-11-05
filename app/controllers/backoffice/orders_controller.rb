@@ -44,7 +44,7 @@ module Backoffice
     private
 
     def set_order
-      @order = current_user.orders.find(params[:id])
+      @order = Order.find(params[:id])
     end
 
     def order_params
