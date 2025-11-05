@@ -2,8 +2,9 @@
 
 class OrderForm < ApplicationForm
   attribute :address_id, :string
+  attribute :requires_invoice, :string
 
-  attr_accessor :current_cart, :current_user, :requires_invoice
+  attr_accessor :current_cart, :current_user
   attr_reader :order
 
   validates :address_id, presence: true
@@ -65,7 +66,7 @@ class OrderForm < ApplicationForm
   end
 
   def parse_requires_invoice
-    return false if requires_invoice.nil?
+    return false if requires_invoice.blank?
 
     ActiveModel::Type::Boolean.new.cast(requires_invoice)
   end

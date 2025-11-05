@@ -33,7 +33,7 @@ es:
       make_order_and_pay: Realizar pedido y pagar
       change_address: Cambiar
       add_address: Agregar dirección
-      requires_invoice: ¿Require factura?
+      requires_invoice: ¿Requiere factura?
       invoice_details: Se solicitarán los datos fiscales por correo electrónico después de realizar el pedido (solo México).
     show:
       title: Detalles del pedido
