@@ -143,7 +143,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    database_consistency (2.0.6)
+    database_consistency (2.0.7)
       activerecord (>= 3.2)
     date (3.5.0)
     debug (1.11.0)
@@ -288,7 +288,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (5.26.0)
+    minitest (5.26.1)
     minitest-spec-rails (7.4.1)
       minitest (>= 5.0)
       railties (>= 4.1)
@@ -580,7 +580,7 @@ GEM
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
     uniform_notifier (1.18.0)
-    uri (1.1.0)
+    uri (1.1.1)
     useragent (0.16.11)
     virtus (2.0.0)
       axiom-types (~> 0.1)
