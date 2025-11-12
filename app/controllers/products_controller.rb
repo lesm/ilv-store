@@ -38,6 +38,7 @@ class ProductsController < ApplicationController
     products_query = Product.joins(:translations)
                             .where(translations: { locale: I18n.locale })
                             .includes(:translations, cover_attachment: :blob)
+                            .order(created_at: :desc)
 
     pagy(products_query, limit: products_per_page)
   end
