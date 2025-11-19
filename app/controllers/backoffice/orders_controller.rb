@@ -25,7 +25,7 @@ module Backoffice
         redirect_to backoffice_orders_path, status: :see_other
       else
         flash.now[:alert] = @order.errors.full_messages.to_sentence
-        render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash'), status: :unprocessable_entity
+        render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash'), status: :unprocessable_content
       end
     end
 

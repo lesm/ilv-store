@@ -47,7 +47,7 @@ module Carts
 
         post(cart_items_url(locale: :en, format: :turbo_stream), params:)
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
         assert_includes @response.body, 'The product is out of stock.'
       end
     end

@@ -129,7 +129,7 @@ module Backoffice
           params[:book][:product_attributes][:translations_attributes][0][:price] = nil
           put(backoffice_product_url(id: book.id, format: :turbo_stream), params:)
 
-          assert_response :unprocessable_entity
+          assert_response :unprocessable_content
         end
 
         test 'does not update the product' do
