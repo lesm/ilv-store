@@ -12,8 +12,8 @@
     <% end %>
   </div>
 
-  <div class="pt-6 flex flex-col flex-grow gap-4">
-    <div class="grid flex-grow justify-between">
+  <div class="pt-6 flex flex-col grow gap-4">
+    <div class="grid grow justify-between">
       <%= link_to product_path(product), class: 'hover:underline active:underline', data: { turbo_frame: :drawer } do %>
         <p class="text-lg font-semibold leading-tight text-black">
           <%= highlighted_text(product, :title).presence || product.title %>
