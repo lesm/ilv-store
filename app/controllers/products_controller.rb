@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
       product
     end
 
-    pagy = Pagy.new(count: result['found'], page: current_page, limit: products_per_page)
+    pagy, = pagy(:offset, products, page: current_page, limit: products_per_page, count: result['found'])
     [pagy, products]
   end
 
