@@ -3,7 +3,7 @@
 <% end %>
 
 <section data-controller="<%= @is_search ? 'search infinite-scroll' : 'infinite-scroll' %>" data-search-query-value="<%= @query %>">
-  <div class="mx-auto max-w-screen-xl">
+  <div class="mx-auto max-w-7xl">
     <%= render 'products/header', query: @query %>
     <%= render 'products/search_form', query: @query if @is_search %>
 

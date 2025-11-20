@@ -51,7 +51,7 @@ module Carts
         format.html { redirect_to product_path(product), alert: error_message }
         format.turbo_stream do
           flash.now[:alert] = error_message
-          render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash'), status: :unprocessable_entity
+          render turbo_stream: turbo_stream.append(:flash, partial: 'shared/flash'), status: :unprocessable_content
         end
       end
     end

@@ -97,7 +97,7 @@ module Backoffice
               }
             }
 
-            assert_response :unprocessable_entity
+            assert_response :unprocessable_content
             assert_equal "Tracking number can't be blank", flash[:alert]
           end
         end
@@ -111,7 +111,7 @@ module Backoffice
               }
             }
 
-            assert_response :unprocessable_entity
+            assert_response :unprocessable_content
             assert_equal "Carrier name can't be blank", flash[:alert]
           end
         end
