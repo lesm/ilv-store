@@ -15,6 +15,7 @@ class OrderMailerTest < ActionMailer::TestCase
 
     assert_equal ['mail@mail.com'], email.from
     assert_equal ['test@mail.com'], email.to
+    assert_equal ['mail@mail.com'], email.cc
     assert_equal 'Hemos recibido tu pedido', email.subject
     assert_match(/Gracias por tu compra/, email.body.to_s)
   end
