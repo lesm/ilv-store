@@ -7,7 +7,7 @@ class OrderMailer < ApplicationMailer
     @order = params[:order]
     mail subject: t('.subject'),
          to: email_address_with_name(@order.user.email, @order.user.name),
-         cc: ENV.fetch('SALES_EMAIL_ADDRESS', '')
+         cc: ENV.fetch('SALES_EMAIL_ADDRESS', 'mail@mail.com')
   end
 
   def in_transit
