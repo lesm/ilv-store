@@ -22,10 +22,19 @@ module Email
         )
       end
 
-      def body(message_delivery) # rubocop:disable Metrics/MethodLength
+      def body(message_delivery) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+        recipients = [{ 'email' => message_delivery.to.first }]
+        headers = { 'To' => message_delivery.to.first }
+
+        if message_delivery.cc.present?
+          recipients << { 'email' => message_delivery.cc.first }
+          headers['CC'] = message_delivery.cc.first
+        end
+
         {
           'message' => {
-            'recipients' => [{ 'email' => message_delivery.to.first }],
+            'recipients' => recipients,
+            'headers' => headers,
             'global_language' => 'es',
             'body' => { 'html' => message_delivery.decode_body },
             'subject' => message_delivery.subject,
@@ -35,6 +44,14 @@ module Email
             'reply_to_name' => 'ILV Tienda México'
           }
         }
+      end
+
+      def format_email_with_name(address)
+        # If already formatted with name, return as-is
+        return address if address.to_s.include?('<')
+
+        # Otherwise, format as "Email <email@example.com>"
+        "Sales <#{address}>"
       end
 
       def connection
