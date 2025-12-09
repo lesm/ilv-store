@@ -38,3 +38,6 @@
 
 # Ignore simplecov result files
 /coverage/*
+
+# Ignore backup folder
+db/backups/*
