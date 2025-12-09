@@ -107,7 +107,8 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
+ssh:
+  port: 20202
 #   user: app
 
 accessories:
