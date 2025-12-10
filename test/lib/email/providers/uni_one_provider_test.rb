@@ -8,23 +8,40 @@ module Email
       let(:provider) { Email::Providers::UniOneProvider.new }
       let(:user) { create(:user) }
 
+      module EmailSendingBehavior
+        extend ActiveSupport::Concern
+
+        included do
+          test 'sends email successfully' do
+            stub_request(:post, 'https://us1.unione.io/en/transactional/api/v1/email/send.json')
+              .to_return(status: 200, body: '', headers: {})
+
+            assert provider.send_email(message_delivery:)
+          end
+
+          test 'raises an error when the response is not successful' do
+            stub_request(:post, 'https://us1.unione.io/en/transactional/api/v1/email/send.json')
+              .to_return(status: 500, body: 'Internal Server Error', headers: {})
+
+            assert_raises(RuntimeError, /Failed to send email/) do
+              provider.send_email(message_delivery:)
+            end
+          end
+        end
+      end
+
       describe '#send_email' do
-        let(:message_delivery) { AccountMailer.with(user:).verify_email }
+        describe 'without CC' do
+          let(:message_delivery) { AccountMailer.with(user:).verify_email }
 
-        test 'sends email successfully' do
-          stub_request(:post, 'https://us1.unione.io/en/transactional/api/v1/email/send.json')
-            .to_return(status: 200, body: '', headers: {})
-
-          assert provider.send_email(message_delivery:)
+          include EmailSendingBehavior
         end
 
-        test 'raises an error when the response is not successful' do
-          stub_request(:post, 'https://us1.unione.io/en/transactional/api/v1/email/send.json')
-            .to_return(status: 500, body: 'Internal Server Error', headers: {})
+        describe 'with CC' do
+          let(:order) { create(:order, user:) }
+          let(:message_delivery) { OrderMailer.with(order:).created }
 
-          assert_raises(RuntimeError, /Failed to send email/) do
-            provider.send_email(message_delivery:)
-          end
+          include EmailSendingBehavior
         end
       end
     end
