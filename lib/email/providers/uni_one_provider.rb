@@ -46,14 +46,6 @@ module Email
         }
       end
 
-      def format_email_with_name(address)
-        # If already formatted with name, return as-is
-        return address if address.to_s.include?('<')
-
-        # Otherwise, format as "Email <email@example.com>"
-        "Sales <#{address}>"
-      end
-
       def connection
         Faraday.new(url: 'https://us1.unione.io/') do |conn|
           conn.headers = headers
