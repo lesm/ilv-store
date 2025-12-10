@@ -10,29 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_05_034834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.uuid "record_id", null: false
     t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.uuid "record_id", null: false
+    t.string "record_type", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
-    t.string "content_type"
-    t.text "metadata"
-    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
+    t.string "content_type"
     t.datetime "created_at", null: false
+    t.string "filename", null: false
+    t.string "key", null: false
+    t.text "metadata"
+    t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -43,20 +43,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
   end
 
   create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "addressable_id", null: false
+    t.string "addressable_type", null: false
+    t.uuid "city_id", null: false
     t.uuid "country_id", null: false
-    t.string "street_and_number", null: false
+    t.datetime "created_at", null: false
+    t.boolean "default", default: false, null: false
+    t.string "full_name", null: false
+    t.string "neighborhood"
+    t.string "phone_number"
     t.string "postal_code", null: false
     t.string "reference"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.uuid "state_id", null: false
-    t.uuid "city_id", null: false
-    t.string "neighborhood"
-    t.string "full_name", null: false
-    t.string "phone_number"
-    t.boolean "default", default: false, null: false
-    t.string "addressable_type", null: false
-    t.uuid "addressable_id", null: false
+    t.string "street_and_number", null: false
+    t.datetime "updated_at", null: false
     t.index ["addressable_id", "default"], name: "index_addresses_on_addressable_id_and_default", unique: true, where: "(\"default\" = true)"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
     t.index ["city_id"], name: "index_addresses_on_city_id"
@@ -65,63 +65,63 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
   end
 
   create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "cover_color", null: false
+    t.datetime "created_at", null: false
+    t.string "dimensions", null: false
+    t.string "edition_number", null: false
+    t.string "internal_code", null: false
     t.string "language", null: false
     t.string "language_zone", null: false
-    t.string "edition_number", null: false
     t.string "pages_number", null: false
-    t.string "internal_code", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "cover_color", null: false
-    t.string "dimensions", null: false
     t.integer "weight_grams", null: false
     t.index ["internal_code"], name: "index_books_on_internal_code", unique: true
   end
 
   create_table "cart_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "product_id", null: false
     t.uuid "cart_id", null: false
-    t.integer "quantity", default: 1, null: false
-    t.boolean "out_of_stock", default: false, null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean "out_of_stock", default: false, null: false
     t.decimal "price_snapshot", precision: 10, scale: 2
+    t.uuid "product_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
 
   create_table "carts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.uuid "label_price_id"
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
     t.index ["label_price_id"], name: "index_carts_on_label_price_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
     t.string "code", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_countries_on_code", unique: true
     t.index ["name"], name: "index_countries_on_name", unique: true
   end
 
   create_table "country_state_cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.string "name", null: false
     t.uuid "state_id", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "state_id"], name: "index_country_state_cities_on_name_and_state_id", unique: true
     t.index ["state_id"], name: "index_country_state_cities_on_state_id"
   end
 
   create_table "country_states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
     t.string "code", null: false
     t.uuid "country_id", null: false
     t.datetime "created_at", null: false
+    t.string "name", null: false
     t.datetime "updated_at", null: false
     t.index ["code", "country_id"], name: "index_country_states_on_code_and_country_id", unique: true
     t.index ["country_id"], name: "index_country_states_on_country_id"
@@ -129,22 +129,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
   end
 
   create_table "label_prices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "product_type", null: false
-    t.decimal "range_start", precision: 5, scale: 2, null: false
-    t.decimal "range_end", precision: 5, scale: 2, null: false
-    t.decimal "price_mxn", precision: 10, scale: 2, null: false
-    t.string "unit", null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal "price_mxn", precision: 10, scale: 2, null: false
     t.decimal "price_usd", precision: 10, scale: 2, null: false
+    t.string "product_type", null: false
+    t.decimal "range_end", precision: 5, scale: 2, null: false
+    t.decimal "range_start", precision: 5, scale: 2, null: false
+    t.string "unit", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "state_id", null: false
     t.uuid "city_id", null: false
-    t.string "postal_code", null: false
-    t.string "neighborhood", null: false
     t.datetime "created_at", null: false
+    t.string "neighborhood", null: false
+    t.string "postal_code", null: false
+    t.uuid "state_id", null: false
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_mx_postal_codes_on_city_id"
     t.index ["postal_code", "neighborhood"], name: "index_mx_postal_codes_on_postal_code_and_neighborhood", unique: true
@@ -152,34 +152,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
   end
 
   create_table "order_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.uuid "order_id", null: false
+    t.decimal "price_mxn", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "price_usd", precision: 10, scale: 2, default: "0.0", null: false
     t.uuid "product_id", null: false
     t.integer "quantity", default: 1, null: false
-    t.decimal "price_mxn", precision: 10, scale: 2, default: "0.0", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "price_usd", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
 
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.decimal "subtotal", precision: 10, scale: 2, default: "0.0", null: false
-    t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "carrier_name"
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "workflow_status", default: "pending", null: false
-    t.string "stripe_session_id"
-    t.string "payment_status", default: "pending", null: false
-    t.string "stripe_payment_intent_id"
+    t.datetime "in_transit_email_sent_at"
     t.decimal "label_price", precision: 10, scale: 2, default: "0.0", null: false
     t.jsonb "label_price_snapshot", default: {}, null: false
     t.string "locale", default: "es", null: false
-    t.string "tracking_number"
-    t.string "carrier_name"
-    t.datetime "in_transit_email_sent_at"
+    t.string "payment_status", default: "pending", null: false
     t.boolean "requires_invoice", default: false, null: false
+    t.string "stripe_payment_intent_id"
+    t.string "stripe_session_id"
+    t.decimal "subtotal", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "total", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "tracking_number"
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.string "workflow_status", default: "pending", null: false
     t.index ["stripe_session_id"], name: "index_orders_on_stripe_session_id", unique: true
     t.index ["tracking_number"], name: "index_orders_on_tracking_number"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -187,42 +187,42 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
   end
 
   create_table "product_translations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "product_id", null: false
-    t.string "locale", null: false
-    t.string "title", null: false
-    t.string "subtitle", null: false
-    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
     t.datetime "created_at", null: false
+    t.string "locale", null: false
+    t.decimal "price", precision: 10, scale: 2, default: "0.0", null: false
+    t.uuid "product_id", null: false
+    t.string "subtitle", null: false
+    t.string "title", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id", "locale"], name: "index_product_translations_on_product_id_and_locale", unique: true
   end
 
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "stock", default: 0, null: false
     t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "productable_type", null: false
     t.uuid "productable_id", null: false
+    t.string "productable_type", null: false
     t.integer "reserved_stock", default: 0, null: false
+    t.integer "stock", default: 0, null: false
+    t.datetime "updated_at", null: false
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
   end
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.string "ip_address"
-    t.string "user_agent"
     t.datetime "created_at", null: false
+    t.string "ip_address"
     t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.uuid "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "stock_reservations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.uuid "order_id", null: false
     t.uuid "product_id", null: false
     t.integer "quantity", null: false
     t.datetime "reserved_until", null: false
     t.string "status", default: "active", null: false
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_stock_reservations_on_order_id"
     t.index ["product_id", "status"], name: "index_stock_reservations_on_product_id_and_status"
@@ -231,15 +231,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_05_034834) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "email", null: false
-    t.string "password_digest", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "theme_preference", default: "light", null: false
-    t.boolean "verified", default: false, null: false
-    t.string "name", null: false
     t.uuid "country_id", null: false
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "name", null: false
+    t.string "password_digest", null: false
     t.string "role", default: "customer", null: false
+    t.string "theme_preference", default: "light", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "verified", default: false, null: false
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
