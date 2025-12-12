@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -e
+
+# Track current step for error reporting
+CURRENT_STEP=""
+
+# Error handler
+handle_error() {
+  echo ""
+  echo "❌ FAILED: $CURRENT_STEP"
+  echo ""
+  echo "💡 Fix the issues above and run 'bin/pre-push' again."
+  exit 1
+}
+
+# Set trap to catch errors
+trap 'handle_error' ERR
+
+echo "🔍 Running pre-push checks..."
+echo ""
+
+CURRENT_STEP="ERB formatting (herb formatter)"
+echo "💅 1/9 Formatting ERB files..."
+npx @herb-tools/formatter "app/views/**/*.erb"
+echo "✅ ERB formatting completed"
+echo ""
+
+
+CURRENT_STEP="ERB linter (erb_lint --lint-all)"
+echo "📋 2/9 Running ERB linter..."
+bundle exec erb_lint --lint-all
+echo "✅ ERB linting passed"
+echo ""
+
+CURRENT_STEP="RuboCop (rubocop)"
+echo "🔍 3/9 Running RuboCop..."
+bundle exec rubocop
+echo "✅ RuboCop passed"
+echo ""
+
+CURRENT_STEP="Database consistency checks (database_consistency)"
+echo "🗄️  4/9 Running database consistency checks..."
+bundle exec database_consistency
+echo "✅ Database consistency passed"
+echo ""
+
+CURRENT_STEP="ERB linting with herb (herb linter)"
+echo "🔍 5/9 Linting ERB files with herb..."
+npx @herb-tools/linter "app/views/**/*.erb"
+echo "✅ Herb linting passed"
+echo ""
+
+CURRENT_STEP="Bundle audit (bundle audit)"
+echo "🔒 6/9 Running bundle audit..."
+bundle audit
+echo "✅ Bundle audit passed"
+echo ""
+
+CURRENT_STEP="Brakeman security scan (brakeman)"
+echo "🛡️  7/9 Running Brakeman security scan..."
+bundle exec brakeman
+echo "✅ Brakeman passed"
+echo ""
+
+CURRENT_STEP="Importmap audit (bin/importmap audit)"
+echo "📦 8/9 Running importmap audit..."
+bin/importmap audit
+echo "✅ Importmap audit passed"
+echo ""
+
+CURRENT_STEP="All tests (rails test:all)"
+echo "🧪 9/9 Running all tests..."
+bundle exec rails test:all
+echo "✅ All tests passed"
+echo ""
+
+echo "✨ All pre-push checks passed! Ready to create PR."
