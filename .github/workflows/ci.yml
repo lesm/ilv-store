@@ -20,7 +20,7 @@ jobs:
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in Ruby dependencies
-        run: bundle audit
+        run: bundle exec bundle-audit
 
       - name: Run Brakeman security scan
         run: bin/brakeman --no-pager
