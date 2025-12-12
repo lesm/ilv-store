@@ -1,9 +1,16 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <title><%= content_for(:title) || 'Error | ILV Store' %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
+    >
+
     <meta charset="utf-8">
+
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -27,15 +34,16 @@
       </div>
     </nav>
 
-    <main class="flex flex-col grow items-center bg-blue-50 p-8 antialiased">
-      <%= yield %>
-    </main>
+    <main class="flex flex-col grow items-center bg-blue-50 p-8 antialiased"><%= yield %></main>
 
     <footer class="bg-white antialiased">
       <div class="mx-auto w-full max-w-7xl p-4 py-6 lg:py-8">
         <hr class="my-6 border-primary-200 sm:mx-auto lg:my-8">
+
         <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm text-primary-700 sm:text-center">© <%= Time.current.year %> ILV Store. Todos los derechos reservados.</span>
+          <span class="text-sm text-primary-700 sm:text-center">
+            © <%= Time.current.year %> ILV Store. Todos los derechos reservados.
+          </span>
         </div>
       </div>
     </footer>

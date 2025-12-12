@@ -2,9 +2,12 @@
   <button
     data-action="click->navbar--locale-switcher#toggle click@window->navbar--locale-switcher#outsideClick"
     type="button"
-    class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 text-xs font-medium leading-none text-primary-900"
-    aria-label="<%= t('.label') %>">
-
+    class="
+      inline-flex items-center rounded-lg justify-center p-2 hover:bg-primary-100 text-xs font-medium leading-none
+      text-primary-900
+    "
+    aria-label="<%= t('.label') %>"
+  >
     <% if I18n.locale == :es %>
       <span class="text-base">🇲🇽</span>
       <span class="ml-1 hidden sm:inline">ES</span>
@@ -13,14 +16,32 @@
       <span class="ml-1 hidden sm:inline">EN</span>
     <% end %>
 
-    <svg class="w-3.5 h-3.5 text-primary-900 ms-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
+    <svg
+      class="w-3.5 h-3.5 text-primary-900 ms-0.5"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="m19 9-7 7-7-7"
+      />
     </svg>
   </button>
 
   <div
-    class="absolute hidden right-0 z-10 w-36 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg bg-white antialiased shadow"
-    data-navbar--locale-switcher-target="dropdown">
+    class="
+      absolute hidden right-0 z-10 w-36 divide-y divide-primary-100 overflow-hidden overflow-y-auto rounded-lg
+      bg-white antialiased shadow
+    "
+    data-navbar--locale-switcher-target="dropdown"
+  >
     <ul class="p-1.5 text-start text-xs font-medium text-primary-900">
       <li>
         <%= link_to '#',
@@ -31,13 +52,19 @@
                     } do %>
           <span class="text-base">🇲🇽</span>
           <span>Español</span>
+
           <% if I18n.locale == :es %>
             <svg class="w-3.5 h-3.5 ml-auto text-primary-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
             </svg>
           <% end %>
         <% end %>
       </li>
+
       <li>
         <%= link_to '#',
                     class: "inline-flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs hover:bg-primary-100 #{'bg-primary-50' if I18n.locale == :en}",
@@ -47,9 +74,14 @@
                     } do %>
           <span class="text-base">🇺🇸</span>
           <span>English</span>
+
           <% if I18n.locale == :en %>
             <svg class="w-3.5 h-3.5 ml-auto text-primary-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              <path
+                fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd"
+              />
             </svg>
           <% end %>
         <% end %>

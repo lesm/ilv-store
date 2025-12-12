@@ -1,10 +1,6 @@
 <!DOCTYPE html>
+
 <html>
-  <head>
-    <%= yield :head %>
-  </head>
-  <body>
-    <%= yield :turbo_frame_content %>
-    <%= yield %>
-  </body>
+  <head><%= yield :head %></head>
+  <body><%= yield :turbo_frame_content %><%= yield %></body>
 </html>

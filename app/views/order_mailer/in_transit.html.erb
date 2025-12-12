@@ -1,7 +1,21 @@
-<table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#f3f4f6" style="padding: 24px 0;">
+<table
+  width="100%"
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+  align="center"
+  bgcolor="#f3f4f6"
+  style="padding: 24px 0;"
+>
   <tr>
     <td align="center">
-      <table width="700" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 700px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+      <table
+        width="700"
+        cellpadding="0"
+        cellspacing="0"
+        border="0"
+        style="width: 100%; max-width: 700px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"
+      >
         <!-- Header -->
         <tr>
           <td align="center" bgcolor="#3f6900" style="padding: 24px;">
@@ -19,18 +33,29 @@
 
             <!-- Tracking Info -->
             <% if @order.tracking_number.present? %>
-              <table width="60%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px; background-color: #e8f5e9; border-radius: 8px; overflow: hidden; border: 2px solid #3f6900;">
+              <table
+                width="60%"
+                cellpadding="0"
+                cellspacing="0"
+                border="0"
+                style="margin-bottom: 24px; background-color: #e8f5e9; border-radius: 8px; overflow: hidden; border: 2px solid #3f6900;"
+              >
                 <tr>
                   <td style="padding: 20px; text-align: center;">
                     <p style="font-size: 14px; color: #3f6900; font-weight: 600; margin: 0 0 8px 0;">
                       <%= t('.tracking_label') %>
                     </p>
-                    <p style="font-size: 20px; color: #2e5200; font-weight: 700; margin: 0 0 8px 0; letter-spacing: 1px;">
+
+                    <p
+                      style="font-size: 20px; color: #2e5200; font-weight: 700; margin: 0 0 8px 0; letter-spacing: 1px;"
+                    >
                       <%= @order.tracking_number %>
                     </p>
+
                     <% if @order.carrier_name.present? %>
                       <p style="font-size: 14px; color: #6b7280; margin: 0;">
-                        <%= t('.carrier') %> <strong><%= @order.carrier_name %></strong>
+                        <%= t('.carrier') %>
+                        <strong><%= @order.carrier_name %></strong>
                       </p>
                     <% end %>
                   </td>
@@ -39,17 +64,30 @@
             <% end %>
 
             <!-- Order summary heading -->
-            <h2 style="font-size: 18px; font-weight: 600; color: #3f6900; margin-bottom: 16px; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">
+            <h2
+              style="font-size: 18px; font-weight: 600; color: #3f6900; margin-bottom: 16px; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;"
+            >
               <%= t('.order_summary') %>
             </h2>
 
             <!-- Items -->
 
-            <table width="60%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+            <table
+              width="60%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="border-collapse: collapse;"
+            >
               <% @order.items.each do |item| %>
                 <tr>
                   <td style="padding: 16px 0; border-bottom: 1px solid #e5e7eb;">
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <table
+                      width="100%"
+                      cellpadding="0"
+                      cellspacing="0"
+                      border="0"
+                    >
                       <tr>
                         <!-- Product image -->
                         <td width="80" valign="top" style="padding-right: 16px;">
@@ -64,17 +102,27 @@
 
                         <!-- Product details -->
                         <td valign="top" width="100%" style="text-align: right;">
-                          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                          <table
+                            width="100%"
+                            cellpadding="0"
+                            cellspacing="0"
+                            border="0"
+                          >
                             <tr>
-                              <td style="font-size: 16px; font-weight: 600; color: #3f6900; padding-bottom: 4px; text-align: right;">
+                              <td
+                                style="font-size: 16px; font-weight: 600; color: #3f6900; padding-bottom: 4px; text-align: right;"
+                              >
                                 <%= item.title %>
                               </td>
                             </tr>
+
                             <tr>
                               <td style="font-size: 14px; color: #6b7280; padding-bottom: 4px; text-align: right;">
-                                <%= t('.quantity') %> <%= item.quantity %>
+                                <%= t('.quantity') %>
+                                <%= item.quantity %>
                               </td>
                             </tr>
+
                             <tr>
                               <td style="font-size: 16px; font-weight: 600; color: #111827; text-align: right;">
                                 <%= number_to_currency(item.price) %>
@@ -90,56 +138,97 @@
             </table>
 
             <!-- Subtotal/Total -->
-            <table width="60%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 24px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+            <table
+              width="60%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="margin-top: 24px; background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;"
+            >
               <!-- Subtotal Row -->
               <tr>
                 <td style="font-size: 14px; color: #6b7280; padding: 12px 16px; width: 50%; background-color: #f9fafb;">
-                  <span style="display: inline-block; margin-right: 6px; font-size: 16px; vertical-align: middle;">🛍️</span>
+                  <span style="display: inline-block; margin-right: 6px; font-size: 16px; vertical-align: middle;">
+                    🛍️
+                  </span>
+
                   <span style="vertical-align: middle;"><%= t('.products_subtotal') %></span>
                 </td>
-                <td style="font-size: 14px; font-weight: 600; color: #111827; text-align: right; padding: 12px 16px; width: 50%; background-color: #f9fafb;">
+
+                <td
+                  style="font-size: 14px; font-weight: 600; color: #111827; text-align: right; padding: 12px 16px; width: 50%; background-color: #f9fafb;"
+                >
                   <%= number_to_currency(@order.subtotal) %>
                 </td>
               </tr>
 
               <!-- Label Price Row -->
               <tr>
-                <td style="font-size: 14px; color: #6b7280; padding: 12px 16px; width: 50%; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
-                  <span style="display: inline-block; margin-right: 6px; font-size: 16px; vertical-align: middle;">📦</span>
+                <td
+                  style="font-size: 14px; color: #6b7280; padding: 12px 16px; width: 50%; background-color: #f9fafb; border-top: 1px solid #e5e7eb;"
+                >
+                  <span style="display: inline-block; margin-right: 6px; font-size: 16px; vertical-align: middle;">
+                    📦
+                  </span>
+
                   <span style="vertical-align: middle;"><%= t('.label_price') %></span>
                 </td>
-                <td style="font-size: 14px; font-weight: 600; color: #111827; text-align: right; padding: 12px 16px; width: 50%; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
+
+                <td
+                  style="font-size: 14px; font-weight: 600; color: #111827; text-align: right; padding: 12px 16px; width: 50%; background-color: #f9fafb; border-top: 1px solid #e5e7eb;"
+                >
                   <%= number_to_currency(@order.label_price) %>
                 </td>
               </tr>
 
               <!-- Total Row -->
               <tr>
-                <td style="font-size: 16px; font-weight: 700; color: #3f6900; padding: 16px; width: 50%; background-color: #f0f7e6; border-top: 2px solid #3f6900;">
+                <td
+                  style="font-size: 16px; font-weight: 700; color: #3f6900; padding: 16px; width: 50%; background-color: #f0f7e6; border-top: 2px solid #3f6900;"
+                >
                   <%= t('.total') %>
                 </td>
-                <td style="font-size: 18px; font-weight: 700; color: #3f6900; text-align: right; padding: 16px; width: 50%; background-color: #f0f7e6; border-top: 2px solid #3f6900;">
+
+                <td
+                  style="font-size: 18px; font-weight: 700; color: #3f6900; text-align: right; padding: 16px; width: 50%; background-color: #f0f7e6; border-top: 2px solid #3f6900;"
+                >
                   <%= number_to_currency(@order.total) %>
                 </td>
               </tr>
             </table>
 
             <!-- Status message -->
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 24px; background-color: #e8f5e9; border-radius: 4px; text-align: center;">
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="margin-top: 24px; background-color: #e8f5e9; border-radius: 4px; text-align: center;"
+            >
               <tr>
                 <td style="padding: 16px;">
                   <p style="font-size: 16px; color: #2e5200; margin: 0;">
-                    <strong><%= t('.status') %></strong> <%= t('.status_message') %>
+                    <strong><%= t('.status') %></strong>
+                    <%= t('.status_message') %>
                   </p>
                 </td>
               </tr>
             </table>
 
             <!-- CTA Button -->
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 32px;">
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="margin-top: 32px;"
+            >
               <tr>
                 <td align="center">
-                  <a href="<%= orders_url %>" style="display: inline-block; background-color: #3f6900; color: #ffffff; font-size: 16px; font-weight: 600; padding: 12px 24px; border-radius: 4px; text-decoration: none;">
+                  <a
+                    href="<%= orders_url %>"
+                    style="display: inline-block; background-color: #3f6900; color: #ffffff; font-size: 16px; font-weight: 600; padding: 12px 24px; border-radius: 4px; text-decoration: none;"
+                  >
                     <%= t('.see_order') %>
                   </a>
                 </td>

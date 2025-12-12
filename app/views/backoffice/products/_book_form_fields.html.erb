@@ -5,14 +5,17 @@
         <legend class="text-lg font-semibold text-primary-900 mb-4">
           <%= t('translation_for', scope: 'backoffice.products.book', locale: tf.object.locale) %>
         </legend>
+
         <div class="relative z-0 w-full mb-5 group">
           <%= tf.text_field :title, value: tf.object.title, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
           <%= tf.label :title, t('title', scope: 'backoffice.products.book', locale: tf.object.locale), class: 'drawer--form-label' %>
         </div>
+
         <div class="relative z-0 w-full mb-5 group">
           <%= tf.text_field :subtitle, value: tf.object.subtitle, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
           <%= tf.label :subtitle, t('subtitle', scope: 'backoffice.products.book', locale: tf.object.locale), class: 'drawer--form-label' %>
         </div>
+
         <div class="relative z-0 w-full mb-5 group">
           <%= tf.text_field :price, value: tf.object.price, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
           <%= tf.label :price, t('price', scope: 'backoffice.products.book', locale: tf.object.locale), class: 'drawer--form-label' %>
@@ -29,7 +32,12 @@
 
         <div>
           <%= image_tag(cover_image(product.cover), class: 'w-25 h-20', alt: t('cover_preview', scope: 'backoffice.products.book'), data: { image_preview_target: 'image' }) %>
-          <span class="block h-1 bg-gray-500 transition-all duration-300 w-0" style="width: 0%" data-direct-upload-target="progressBar"></span>
+
+          <span
+            class="block h-1 bg-gray-500 transition-all duration-300 w-0"
+            style="width: 0%"
+            data-direct-upload-target="progressBar"
+          ></span>
         </div>
       </div>
     </div>
@@ -44,30 +52,37 @@
     <%= bf.text_field :internal_code, value: book.internal_code, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :internal_code, t('internal_code', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.text_field :language, value: book.language, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :language, t('language', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.text_field :language_zone, value: book.language_zone, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :language_zone, t('language_zone', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.text_field :edition_number, value: book.edition_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :edition_number, t('edition_number', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.text_field :pages_number, value: book.pages_number, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :pages_number, t('pages_number', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.text_field :cover_color, value: book.cover_color, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :cover_color, t('cover_color', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.text_field :dimensions, value: book.dimensions, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :dimensions, t('dimensions', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>
   </div>
+
   <div class="relative z-0 w-full mb-5 group">
     <%= bf.number_field :weight_grams, value: book.weight_grams, class: 'drawer--form-field peer', required: true, placeholder: ' ' %>
     <%= bf.label :weight_grams, t('weight_grams', scope: 'backoffice.products.book'), class: 'drawer--form-label' %>

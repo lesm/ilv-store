@@ -1,18 +1,25 @@
 <!DOCTYPE html>
+
 <html class="<%= theme_preference %>">
   <head>
     <title><%= content_for(:title) || 'Ilv Store' %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
+    >
+
     <meta name="view-transition" content="same-origin">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%# = tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -27,14 +34,13 @@
   <body class="min-h-screen flex flex-col">
     <div class="flex flex-1">
       <%= render 'shared/sidebar' %>
-      <div id="flash"> <%= render 'shared/flash' %> </div>
+
+      <div id="flash"><%= render 'shared/flash' %></div>
 
       <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate turbo:before-frame-render->drawer#hideSidebar' } %>
 
       <div class="flex-1 flex flex-col">
-        <main class="flex-1 py-4 pr-4 md:pl-4 md:ml-64">
-          <%= yield %>
-        </main>
+        <main class="flex-1 py-4 pr-4 md:pl-4 md:ml-64"><%= yield %></main>
 
         <%= render 'shared/footer' %>
       </div>

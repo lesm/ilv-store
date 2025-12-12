@@ -1,7 +1,10 @@
 <div class="gap-4 sm:flex sm:items-center sm:justify-between mb-6">
   <h2 class="text-xl font-semibold text-black sm:text-2xl">
     <% if query.present? %>
-      <%= t('.search_title') %> "<%= query %>"
+      <%= t('.search_title') %>
+      "
+      <%= query %>
+      "
     <% else %>
       <%= t('.title') %>
     <% end %>

@@ -1,7 +1,5 @@
 <turbo-stream action="animate_cart" target="<%= dom_id(current_cart, :subtotal_drawer) %>"></turbo-stream>
 
 <turbo-stream action="update" target="cart-item-<%= @item.id %>">
-  <template>
-    <%= render partial: 'carts/item', locals: { item: @item }, formats: :html %>
-  </template>
+  <template><%= render partial: 'carts/item', locals: { item: @item }, formats: :html %></template>
 </turbo-stream>

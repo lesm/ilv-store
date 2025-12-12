@@ -7,9 +7,7 @@
 <% end %>
 
 <%= turbo_stream.replace "pagination" do %>
-  <div id="pagination" data-infinite-scroll-target="pagination" class="hidden">
-    <%= pagy_next_link(@pagy) %>
-  </div>
+  <div id="pagination" data-infinite-scroll-target="pagination" class="hidden"><%= pagy_next_link(@pagy) %></div>
 <% end %>
 
 <% if @pagy.next %>

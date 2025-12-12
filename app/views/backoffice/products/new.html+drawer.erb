@@ -1,9 +1,7 @@
 <%= render 'application/drawer' do %>
   <div class="relative mt-6 flex-1 px-4 flex flex-col gap-6 m-2 sm:m-10">
     <%= form_with(url: backoffice_products_path, multipart: true, data: { controller: 'file-input' }) do |form| %>
-      <h2 class="text-2xl font-bold text-primary-900 mb-4">
-        <%= t('title', scope: 'backoffice.products.new') %>
-      </h2>
+      <h2 class="text-2xl font-bold text-primary-900 mb-4"><%= t('title', scope: 'backoffice.products.new') %></h2>
 
       <% product_type = @product.model_name.param_key %>
 

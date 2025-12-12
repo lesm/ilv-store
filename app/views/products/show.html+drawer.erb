@@ -4,24 +4,28 @@
       <div class="h-96 relative overflow-hidden">
         <% if @product.out_of_stock? %>
           <div class="absolute top-6 -right-8 z-10">
-            <div class="bg-red-600 text-white text-xs font-bold px-12 py-2 transform rotate-45 shadow-lg flex items-center justify-center leading-none">
+            <div
+              class="
+                bg-red-600 text-white text-xs font-bold px-12 py-2 transform rotate-45 shadow-lg flex items-center
+                justify-center leading-none
+              "
+            >
               <%= t('products.form_quantity.out_of_stock').upcase %>
             </div>
           </div>
         <% end %>
+
         <a href="#">
           <%= image_tag(cover_image(@product.cover, variant: :medium), class: 'mx-auto h-full object-contain block', alt: @product.title) %>
         </a>
       </div>
 
       <div>
-        <h1 class="text-2xl font-bold text-black mb-2"><%= @product.title %> </h1>
-        <p class="text-primary-600 italic mb-4"><%= @product.subtitle %> </p>
+        <h1 class="text-2xl font-bold text-black mb-2"><%= @product.title %></h1>
+        <p class="text-primary-600 italic mb-4"><%= @product.subtitle %></p>
 
         <div class="flex items-center mb-6">
-          <span class="text-3xl font-bold text-magenta-500">
-            <%= number_to_currency(@product.price) %>
-          </span>
+          <span class="text-3xl font-bold text-magenta-500"><%= number_to_currency(@product.price) %></span>
         </div>
       </div>
     </div>
@@ -29,24 +33,29 @@
     <div class="grid grid-cols-2 gap-4 mb-8">
       <div>
         <h3 class="text-sm font-medium text-black">Idioma</h3>
-        <p class="text-primary-600"><%= @product.productable.language %> (<%= @product.productable.language_zone %>) </p>
+        <p class="text-primary-600"><%= @product.productable.language %> (<%= @product.productable.language_zone %>)</p>
       </div>
+
       <div>
         <h3 class="text-sm font-medium text-black">Edición</h3>
         <p class="text-primary-600"><%= @product.productable.edition_number %></p>
       </div>
+
       <div>
         <h3 class="text-sm font-medium text-black">Páginas</h3>
         <p class="text-primary-600"><%= @product.productable.pages_number %></p>
       </div>
+
       <div>
         <h3 class="text-sm font-medium text-black">Portada</h3>
         <p class="text-primary-600"><%= @product.productable.cover_color %></p>
       </div>
+
       <div>
         <h3 class="text-sm font-medium text-black">Peso</h3>
         <p class="text-primary-600"><%= @product.productable.weight_grams %></p>
       </div>
+
       <div>
         <h3 class="text-sm font-medium text-black">Medidas</h3>
         <p class="text-primary-600"><%= @product.productable.dimensions %> cm</p>

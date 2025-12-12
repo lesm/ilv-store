@@ -1,11 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="<%= I18n.locale %>">
   <head>
     <title><%= content_for(:title) || 'ILV Store' %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no"
+    >
+
     <meta name="view-transition" content="same-origin">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -30,7 +37,7 @@
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <%# = tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
     <link rel="icon" href="/icon.ico" sizes="any">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -43,14 +50,13 @@
 
   <body class="min-h-screen flex flex-col">
     <%= render 'shared/navbar' %>
-    <div id="flash"> <%= render 'shared/flash' %> </div>
+
+    <div id="flash"><%= render 'shared/flash' %></div>
     <%= turbo_stream_from(current_cart) if current_user %>
     <%= turbo_frame_tag :drawer, data: { controller: 'drawer', action: 'turbo:before-frame-render->drawer#animate' } %>
     <%= turbo_frame_tag :remote_modal %>
 
-    <main class="flex flex-col grow bg-blue-50 p-8 antialiased">
-      <%= yield %>
-    </main>
+    <main class="flex flex-col grow bg-blue-50 p-8 antialiased"><%= yield %></main>
   </body>
 
   <%= render 'shared/footer' %>
