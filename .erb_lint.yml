@@ -1,5 +1,6 @@
 ---
 EnableDefaultLinters: true
+
 exclude:
   - 'vendor/**/*'
   - 'tmp/**/*'
@@ -8,7 +9,27 @@ exclude:
   - 'test/**/*'
   - '.git/**/*'
   - '.github/**/*'
+
 linters:
+  # ============================================
+  # SECURITY LINTERS (Keep these!)
+  # ============================================
+
+  # Detects unsafe Ruby interpolation in JavaScript contexts (XSS prevention)
+  # Note: Specific files excluded below due to herb formatter incompatibility
+  ErbSafety:
+    enabled: true
+    exclude:
+      - 'app/views/layouts/application.html.erb'
+      - 'app/views/layouts/backoffice.html.erb'
+      - 'app/views/layouts/session.html.erb'
+      - 'app/views/order_mailer/created.html.erb'
+      - 'app/views/order_mailer/in_transit.html.erb'
+
+  # ============================================
+  # RUBY CODE QUALITY (RuboCop integration)
+  # ============================================
+
   Rubocop:
     enabled: true
     rubocop_config:
@@ -30,3 +51,11 @@ linters:
         Enabled: false
       Rails/OutputSafety:
         Enabled: false
+
+  # ============================================
+  # FORMATTING LINTERS (DISABLED - herb handles this)
+  # ============================================
+
+  # Disabled because herb formatter handles this
+  SpaceInHtmlTag:
+    enabled: false
