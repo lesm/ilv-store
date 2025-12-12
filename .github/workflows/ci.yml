@@ -19,6 +19,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Scan for security vulnerabilities in Ruby dependencies
+        run: bundle audit
+
       - name: Run Brakeman security scan
         run: bin/brakeman --no-pager
 
@@ -50,7 +53,18 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Lint code for consistent style
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Lint ERB files with erb_lint
+        run: bundle exec erb_lint --lint-all
+
+      - name: Lint ERB files with herb
+        run: npx @herb-tools/linter "app/views/**/*.erb"
+
+      - name: Lint Ruby code with RuboCop
         run: bin/rubocop -f github
 
   database_consistency:
