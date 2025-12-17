@@ -26,6 +26,7 @@ es:
       link_to_terms: Aviso de privacidad
       link_to_contact: Contacto
       copyright: © 2025 Todos los derechos reservados
+      version: v%{version}
   date:
     abbr_day_names:
       - dom

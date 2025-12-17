@@ -32,6 +32,7 @@ en:
       link_to_terms: Privacy Policy
       link_to_contact: Contact
       copyright: © 2025 All rights reserved
+      version: v%{version}
   date:
     abbr_day_names:
       - Sun
