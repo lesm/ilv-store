@@ -28,8 +28,9 @@ export default class extends Controller {
 
     // Lock scroll
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${this.#scrollPosition}px`;
+    // Causes issues with the sidebar not getting full height after closing the drawer
+    // document.body.style.position = 'fixed';
+    // document.body.style.top = `-${this.#scrollPosition}px`;
     document.body.style.width = '100%';
 
     // Compensate for scrollbar width
@@ -94,9 +95,9 @@ export default class extends Controller {
     const drawer = this.panelTarget.getBoundingClientRect();
     if (
       e.clientX < drawer.left ||
-        e.clientX > drawer.right ||
-        e.clientY < drawer.top ||
-        e.clientY > drawer.bottom
+      e.clientX > drawer.right ||
+      e.clientY < drawer.top ||
+      e.clientY > drawer.bottom
     ) {
       this._closeDrawer();
     }
