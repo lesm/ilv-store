@@ -12,6 +12,8 @@ class Product < ApplicationRecord
       find { |t| t.locale == locale.to_s }
     end
   end
+  has_many :order_items, class_name: 'Order::Item', dependent: :restrict_with_error
+  has_many :cart_items, class_name: 'Cart::Item', dependent: :restrict_with_error
 
   accepts_nested_attributes_for :translations
 

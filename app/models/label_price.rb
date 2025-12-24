@@ -4,6 +4,8 @@ class LabelPrice < ApplicationRecord
   PRODUCT_TYPES = %w[Book].freeze
   UNITS = %w[kg].freeze
 
+  has_many :carts, dependent: :restrict_with_error
+
   validates :product_type, inclusion: { in: PRODUCT_TYPES }
   validates :unit, inclusion: { in: UNITS }
   validates :product_type, :range_start, :range_end, :price_mxn, :price_usd, :unit, presence: true
