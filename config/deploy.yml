@@ -35,6 +35,7 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
+    - POSTGRES_USER
     - POSTGRES_PASSWORD
     - UNI_ONE_API_KEY
     - SENTRY_DSN
@@ -61,7 +62,7 @@ env:
 
     # Match this to any external database server to configure Active Record correctly
     # Use ilv_store-db for a db accessory server on same machine via local kamal docker network.
-    DB_HOST: ilv_store-db
+    POSTGRES_HOST: ilv_store-db
 
     # Typesense configuration
     TYPESENSE_HOST: ilv_store-typesense
