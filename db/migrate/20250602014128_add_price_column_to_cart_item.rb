@@ -6,7 +6,7 @@ class AddPriceColumnToCartItem < ActiveRecord::Migration[8.0]
 
     reversible do |dir|
       dir.up do
-        execute <<-SQL.squish
+        execute <<~SQL.squish
           UPDATE cart_items
           SET price = products.price
           FROM products

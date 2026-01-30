@@ -8,14 +8,14 @@ class MakeAddressAsPolymorphic < ActiveRecord::Migration[8.0]
       t.index %i[addressable_id default], unique: true, where: '("default" = true)'
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE addresses
       SET addressable_id = users.id, addressable_type = 'User'
       FROM users
       WHERE addresses.user_id = users.id;
     SQL
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE addresses
       SET addressable_id = orders.id, addressable_type = 'Order'
       FROM orders
@@ -44,21 +44,21 @@ class MakeAddressAsPolymorphic < ActiveRecord::Migration[8.0]
       t.index :user_id
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE addresses
       SET user_id = users.id
       FROM users
       WHERE addresses.addressable_id = users.id;
     SQL
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE addresses
       SET user_id = orders.user_id
       FROM orders
       WHERE addresses.addressable_id = orders.id;
     SQL
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE orders
       SET address_id = addresses.id
       FROM addresses

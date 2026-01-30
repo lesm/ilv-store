@@ -13,7 +13,7 @@ class CreateProductTranslations < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       INSERT INTO product_translations (product_id, locale, title, subtitle, price, created_at, updated_at)
       SELECT id, 'es', title_mx, original_title, price_mx, created_at, updated_at
       FROM products
@@ -34,7 +34,7 @@ class CreateProductTranslations < ActiveRecord::Migration[8.0]
       t.decimal :price_mx, precision: 10, scale: 2, default: 0.0
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE products
         SET title_mx = pt.title,
             original_title = pt.subtitle,
