@@ -8,7 +8,7 @@ class AddCurrencyPricesToLabelPrices < ActiveRecord::Migration[8.0]
 
     reversible do |dir|
       dir.up do
-        execute <<-SQL.squish
+        execute <<~SQL.squish
           UPDATE label_prices SET price_usd = 0;
         SQL
       end

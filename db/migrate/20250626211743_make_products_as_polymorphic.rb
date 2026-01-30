@@ -6,7 +6,7 @@ class MakeProductsAsPolymorphic < ActiveRecord::Migration[8.0]
       t.references :productable, polymorphic: true, type: :uuid, index: true
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE products
         SET productable_id = books.id, productable_type = 'Book'
       FROM books
@@ -33,7 +33,7 @@ class MakeProductsAsPolymorphic < ActiveRecord::Migration[8.0]
       t.string :internal_code
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       UPDATE products
         SET language = books.language,
             language_zone = books.language_zone,

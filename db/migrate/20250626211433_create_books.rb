@@ -12,7 +12,7 @@ class CreateBooks < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    execute <<-SQL.squish
+    execute <<~SQL.squish
       INSERT INTO books (id, language, language_zone, edition_number, pages_number,
                         internal_code, created_at, updated_at)
       SELECT gen_random_uuid(), language, language_zone, edition_number,
