@@ -70,7 +70,7 @@ echo ""
 
 CURRENT_STEP="All tests (rails test:all)"
 echo "🧪 9/9 Running all tests..."
-bundle exec rails test:all
+bin/rails test:all
 echo "✅ All tests passed"
 echo ""
 
