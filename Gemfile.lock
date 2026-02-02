@@ -580,7 +580,7 @@ GEM
     turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
-    typesense (4.1.0)
+    typesense (5.0.0)
       base64 (~> 0.2.0)
       faraday (~> 2.8)
       json (~> 2.9)
@@ -682,7 +682,7 @@ DEPENDENCIES
   thruster
   trace_location
   turbo-rails
-  typesense (~> 4.1)
+  typesense (~> 5.0)
   tzinfo-data
   web-console
   webmock
