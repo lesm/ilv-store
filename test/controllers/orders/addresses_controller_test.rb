@@ -23,7 +23,7 @@ module Orders
       test 'updates the default address' do
         put(order_address_url(id: address.id, format: :turbo_stream), params: {})
         assert_response :success
-        assert_equal address.reload.default, true
+        assert_equal address.reload.is_default, true
       end
 
       test 'renders the correct partial' do

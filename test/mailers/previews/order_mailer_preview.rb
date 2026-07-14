@@ -13,6 +13,6 @@ class OrderMailerPreview < ActionMailer::Preview
   private
 
   def order
-    @order ||= Order.includes(items: [product: [:translations, { cover_attachment: :blob }]]).last
+    @order ||= Order.includes(items: [{ product: [:translations, { cover_attachment: :blob }] }]).last
   end
 end

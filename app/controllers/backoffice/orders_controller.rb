@@ -9,7 +9,7 @@ module Backoffice
                 .includes(
                   :user,
                   address: %i[city state],
-                  items: [product: [:translations, { cover_attachment: :blob }]]
+                  items: [{ product: [:translations, { cover_attachment: :blob }] }]
                 )
                 .where.not(workflow_status: :draft)
                 .order(created_at: :desc)
@@ -44,7 +44,7 @@ module Backoffice
     private
 
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.find(params.expect(:id))
     end
 
     def order_params

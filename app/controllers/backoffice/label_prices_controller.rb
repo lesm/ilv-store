@@ -14,7 +14,7 @@ module Backoffice
 
     def edit
       request.variant = :drawer
-      @label_price = LabelPrice.find(params[:id])
+      @label_price = LabelPrice.find(params.expect(:id))
     end
 
     def create
@@ -25,7 +25,7 @@ module Backoffice
     end
 
     def update
-      @label_price = LabelPrice.find(params[:id])
+      @label_price = LabelPrice.find(params.expect(:id))
 
       result = @label_price.update(label_price_params)
       handle_result(result, @label_price)

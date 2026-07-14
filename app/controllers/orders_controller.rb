@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
     @orders = current_user.orders
                           .includes(
                             address: %i[city state],
-                            items: [product: [:translations, { cover_attachment: :blob }]]
+                            items: [{ product: [:translations, { cover_attachment: :blob }] }]
                           )
                           .where.not(workflow_status: :draft)
                           .order(created_at: :desc)
@@ -50,11 +50,11 @@ class OrdersController < ApplicationController
 
   def set_order
     @order = if params[:token].present?
-               current_user.orders.find(params[:id])
+               current_user.orders.find(params.expect(:id))
              else
                current_user.orders
-                           .includes(items: [product: [:translations, { cover_attachment: :blob }]])
-                           .find(params[:id])
+                           .includes(items: [{ product: [:translations, { cover_attachment: :blob }] }])
+                           .find(params.expect(:id))
              end
   end
 
@@ -109,7 +109,7 @@ class OrdersController < ApplicationController
 
   def find_cart
     Cart
-      .includes(items: [product: [:translations, { cover_attachment: :blob }]])
+      .includes(items: [{ product: [:translations, { cover_attachment: :blob }] }])
       .find_by(user: current_user)
   end
 

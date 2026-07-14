@@ -39,6 +39,37 @@ class AddressTest < ActiveSupport::TestCase
 
       assert mx_address.invalid?
     end
+
+    test 'allows only one default address per addressable' do
+      user = create(:user)
+      create(:address, :oxxo_bustamante, addressable: user, is_default: true)
+      other_default = build(:address, :oxxo_llano, addressable: user, is_default: true)
+
+      assert other_default.invalid?
+      assert_includes other_default.errors.attribute_names, :is_default
+    end
+
+    test 'allows multiple non-default addresses per addressable' do
+      user = create(:user)
+      create(:address, :oxxo_bustamante, addressable: user, is_default: false)
+      other_address = build(:address, :oxxo_llano, addressable: user, is_default: false)
+
+      assert other_address.valid?
+    end
+
+    test 'allows the same default address to be re-saved' do
+      address = create(:address, :oxxo_bustamante, is_default: true)
+
+      assert address.valid?
+    end
+
+    test 'enforces uniqueness of default address at the database level' do
+      user = create(:user)
+      create(:address, :oxxo_bustamante, addressable: user, is_default: true)
+      other_default = build(:address, :oxxo_llano, addressable: user, is_default: true)
+
+      assert_raises(ActiveRecord::RecordNotUnique) { other_default.save!(validate: false) }
+    end
   end
 
   describe '#short_summary' do

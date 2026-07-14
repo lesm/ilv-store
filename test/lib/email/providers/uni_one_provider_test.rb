@@ -23,9 +23,11 @@ module Email
             stub_request(:post, 'https://us1.unione.io/en/transactional/api/v1/email/send.json')
               .to_return(status: 500, body: 'Internal Server Error', headers: {})
 
-            assert_raises(RuntimeError, /Failed to send email/) do
+            error = assert_raises(RuntimeError) do
               provider.send_email(message_delivery:)
             end
+
+            assert_match(/Failed to send email/, error.message)
           end
         end
       end

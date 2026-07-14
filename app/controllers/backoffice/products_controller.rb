@@ -20,7 +20,7 @@ module Backoffice
     def edit
       request.variant = :drawer
       @product = product_klass.includes(product: [:translations, { cover_attachment: :blob }])
-                              .find(params[:id])
+                              .find(params.expect(:id))
     end
 
     def create # rubocop:disable Metrics/AbcSize
@@ -36,7 +36,7 @@ module Backoffice
     end
 
     def update # rubocop:disable Metrics/AbcSize
-      @product = product_klass.find(params[:id])
+      @product = product_klass.find(params.expect(:id))
 
       if @product.update(product_params)
         flash[:notice] = t('.success')

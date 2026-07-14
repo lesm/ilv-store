@@ -7,11 +7,11 @@ module AddressDefaultable
 
   def change_default_address(address)
     change_addresses_as_not_default
-    address.update!(default: true)
+    address.update!(is_default: true)
   end
 
   def change_addresses_as_not_default
-    current_user.addresses.where(default: true).update_all(default: false) # rubocop:disable Rails/SkipsModelValidations
+    current_user.addresses.where(is_default: true).update_all(is_default: false) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def update_address(address, attributes)
@@ -29,6 +29,6 @@ module AddressDefaultable
   end
 
   def address_as_default?(address_params)
-    ActiveRecord::Type::Boolean.new.cast(address_params[:default])
+    ActiveRecord::Type::Boolean.new.cast(address_params[:is_default])
   end
 end

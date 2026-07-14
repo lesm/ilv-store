@@ -14,7 +14,7 @@ class User < ApplicationRecord
   belongs_to :country
 
   has_one :cart, -> { order(created_at: :desc).limit(1) }, dependent: :destroy, inverse_of: :user
-  has_one :default_address, -> { where(default: true) },
+  has_one :default_address, -> { where(is_default: true) },
           class_name: 'Address', dependent: :destroy, inverse_of: :addressable
 
   has_many :sessions, dependent: :destroy

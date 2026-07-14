@@ -22,7 +22,7 @@ class OrderFormTest < ActiveSupport::TestCase
       'neighborhood' => address.neighborhood,
       'full_name' => address.full_name,
       'phone_number' => address.phone_number,
-      'default' => false,
+      'is_default' => false,
       'addressable_type' => address.addressable_type,
       'addressable_id' => address.addressable_id
     }

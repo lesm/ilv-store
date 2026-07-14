@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class ChangeOrderAddressTest < ApplicationSystemTestCase
   let(:password) { SecureRandom.hex }
   let(:user) { create(:user, :with_cart, email: 'mail@mail.com', password:, password_confirmation: password) }
-  let(:address1) { create(:address, :oxxo_bustamante, addressable: user, default: true) }
+  let(:address1) { create(:address, :oxxo_bustamante, addressable: user, is_default: true) }
   let(:address2) { create(:address, :oxxo_llano, addressable: user) }
   let(:address3) { create(:address, :oxxo_santo_domingo, addressable: user) }
 
