@@ -36,7 +36,7 @@ class OrderForm < ApplicationForm
     address = Address.find(address_id)
 
     address.dup.attributes.except('id', 'created_at', 'updated_at').tap do |hash|
-      hash['default'] = false
+      hash['is_default'] = false
     end
   end
 

@@ -9,7 +9,7 @@ module Orders
     end
 
     def update # rubocop:disable Metrics/MethodLength
-      @address = current_user.addresses.find(params[:id])
+      @address = current_user.addresses.find(params.expect(:id))
 
       change_default_address(@address)
 

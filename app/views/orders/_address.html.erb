@@ -1,14 +1,11 @@
-<% if address.present? %>
-  <div class="space-y-2 sm:text-xs">
+<div class="space-y-2 sm:text-xs">
+  <% if address.present? %>
     <h4 class="text-lg font-semibold text-black"><%= t('.address_to') %> <%= address.full_name %></h4>
-
     <p class="text-xs sm:text-base text-primary-900">
       <%= address.short_summary %>
       <%= hidden_field_tag 'order[address_id]', address.id %>
     </p>
-  </div>
-<% else %>
-  <div class="space-y-2 sm:text-xs">
+  <% else %>
     <h4 class="text-lg font-semibold text-primary-900"><%= t('.no_addresses') %></h4>
-  </div>
-<% end %>
+  <% end %>
+</div>

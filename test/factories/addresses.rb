@@ -11,7 +11,7 @@ FactoryBot.define do
     full_name { 'Luis Silva' }
     postal_code { '70760' }
     reference { 'Portón blanco' }
-    default { false }
+    is_default { false }
   end
 
   trait :oxxo_bustamante do

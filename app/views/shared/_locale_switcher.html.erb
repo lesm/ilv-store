@@ -8,13 +8,8 @@
     "
     aria-label="<%= t('.label') %>"
   >
-    <% if I18n.locale == :es %>
-      <span class="text-base">🇲🇽</span>
-      <span class="ml-1 hidden sm:inline">ES</span>
-    <% else %>
-      <span class="text-base">🇺🇸</span>
-      <span class="ml-1 hidden sm:inline">EN</span>
-    <% end %>
+    <span class="text-base"><% if I18n.locale == :es %>🇲🇽<% else %>🇺🇸<% end %></span>
+    <span class="ml-1 hidden sm:inline"><% if I18n.locale == :es %>ES<% else %>EN<% end %></span>
 
     <svg
       class="w-3.5 h-3.5 text-primary-900 ms-0.5"
@@ -44,7 +39,7 @@
   >
     <ul class="p-1.5 text-start text-xs font-medium text-primary-900">
       <li>
-        <%= link_to '#',
+        <%= link_to locale_switcher_path('es'),
                     class: "inline-flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs hover:bg-primary-100 #{'bg-primary-50' if I18n.locale == :es}",
                     data: {
                       action: 'click->navbar--locale-switcher#hide',
@@ -66,7 +61,7 @@
       </li>
 
       <li>
-        <%= link_to '#',
+        <%= link_to locale_switcher_path('en'),
                     class: "inline-flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs hover:bg-primary-100 #{'bg-primary-50' if I18n.locale == :en}",
                     data: {
                       action: 'click->navbar--locale-switcher#hide',

@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
   def show
     request.variant = :drawer
-    @product = Product.includes(:translations, :productable).find(params[:id])
+    @product = Product.includes(:translations, :productable).find(params.expect(:id))
   end
 
   private

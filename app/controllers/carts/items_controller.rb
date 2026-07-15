@@ -14,7 +14,7 @@ module Carts
     end
 
     def update
-      @item = current_cart.items.find(params[:id])
+      @item = current_cart.items.find(params.expect(:id))
       @item.update(quantity: quantity_param)
 
       respond_to do |format|
@@ -23,7 +23,7 @@ module Carts
     end
 
     def destroy
-      @item = current_cart.items.find(params[:id])
+      @item = current_cart.items.find(params.expect(:id))
       @item.destroy
 
       respond_to do |format|

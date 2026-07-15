@@ -13,7 +13,7 @@ class AddressesController < ApplicationController
   end
 
   def edit
-    @address = current_user.addresses.includes(%i[state city]).find(params[:id])
+    @address = current_user.addresses.includes(%i[state city]).find(params.expect(:id))
     request.variant = :drawer
   end
 
@@ -32,7 +32,7 @@ class AddressesController < ApplicationController
   end
 
   def update # rubocop:disable Metrics/AbcSize
-    @address = current_user.addresses.find(params[:id])
+    @address = current_user.addresses.find(params.expect(:id))
 
     if update_address(@address, address_params)
       flash.now[:notice] = t('.success')
@@ -52,7 +52,8 @@ class AddressesController < ApplicationController
   def address_params
     params.expect(
       address: %i[
-        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number default
+        country_id postal_code state_id city_id neighborhood street_and_number reference full_name phone_number
+        is_default
       ]
     )
   end

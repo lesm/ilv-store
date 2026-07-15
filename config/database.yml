@@ -28,6 +28,9 @@ default: &default
 development:
   primary: &primary_development
     <<: *default
+    # Disable GSS/Kerberos negotiation — libpq's GSS check uses XPC (Apple IPC)
+    # which is not fork-safe on macOS, causing SIGSEGV in Solid Queue worker processes.
+    gssencmode: disable
     database: ilv_store_development
   cache:
     <<: *primary_development
@@ -74,6 +77,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  # Disable GSS/Kerberos negotiation — libpq's GSS check uses XPC (Apple IPC)
+  # which is not fork-safe on macOS, causing SIGSEGV in Solid Queue worker processes.
+  gssencmode: disable
   database: ilv_store_test
 
 # As with config/credentials.yml, you never want to store sensitive information,

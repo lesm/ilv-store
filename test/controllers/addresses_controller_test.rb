@@ -19,7 +19,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
         neighborhood: 'Centro',
         reference: 'Portón blanco',
         phone_number: '9511121212',
-        default: true
+        is_default: true
       }
     }
   end
