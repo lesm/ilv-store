@@ -27,8 +27,8 @@ module Email
         headers = { 'To' => message_delivery.to.first }
 
         if message_delivery.cc.present?
-          recipients << { 'email' => message_delivery.cc.first }
-          headers['CC'] = message_delivery.cc.first
+          recipients.concat(message_delivery.cc.map { |email| { 'email' => email } })
+          headers['CC'] = message_delivery.cc.join(', ')
         end
 
         {

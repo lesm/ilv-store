@@ -44,6 +44,27 @@ module Email
           let(:message_delivery) { OrderMailer.with(order:).created }
 
           include EmailSendingBehavior
+
+          test 'sends every cc recipient from a comma-separated address list' do
+            previous_sales_email = ENV.fetch('SALES_EMAIL_ADDRESS', nil)
+            ENV['SALES_EMAIL_ADDRESS'] = 'ventas@ilvmx.org,admin_web@ilvmx.org'
+
+            captured_request = nil
+            request_stub = stub_request(:post, 'https://us1.unione.io/en/transactional/api/v1/email/send.json')
+                           .to_return(status: 200, body: '', headers: {})
+            request_stub.with { |request| captured_request = request }
+
+            provider.send_email(message_delivery:)
+
+            payload = JSON.parse(captured_request.body)
+            recipient_emails = payload['message']['recipients'].pluck('email')
+
+            assert_includes recipient_emails, 'ventas@ilvmx.org'
+            assert_includes recipient_emails, 'admin_web@ilvmx.org'
+            assert_equal 'ventas@ilvmx.org, admin_web@ilvmx.org', payload['message']['headers']['CC']
+          ensure
+            ENV['SALES_EMAIL_ADDRESS'] = previous_sales_email
+          end
         end
       end
     end
