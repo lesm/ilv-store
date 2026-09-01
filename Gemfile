@@ -37,7 +37,7 @@ gem 'bootsnap', require: false
 gem 'kamal', require: false
 gem 'thruster', require: false
 
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 2.0'
 gem 'ruby-vips'
 
 group :development, :test do
