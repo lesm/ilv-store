@@ -29,6 +29,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Install system dependencies
+        run: sudo apt install libvips
+
       - name: Checkout code
         uses: actions/checkout@v7
 
@@ -81,6 +84,9 @@ jobs:
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
+      - name: Install system dependencies
+        run: sudo apt install libvips
+
       - name: Checkout code
         uses: actions/checkout@v7
 
@@ -120,7 +126,7 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config google-chrome-stable
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config google-chrome-stable libvips
 
       - name: Checkout code
         uses: actions/checkout@v7
