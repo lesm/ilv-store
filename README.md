@@ -35,7 +35,7 @@ An e-commerce platform for selling books and managing orders with integrated pay
 ## Tech Stack
 
 - **Framework**: Ruby on Rails 8.1.1
-- **Ruby Version**: 3.4.8
+- **Ruby Version**: 4.0.6
 - **Database**: PostgreSQL with multiple databases:
   - Primary (application data)
   - Cache (Solid Cache)
@@ -54,7 +54,7 @@ An e-commerce platform for selling books and managing orders with integrated pay
 
 ## Requirements
 
-- Ruby 3.4.8
+- Ruby 4.0.6
 - PostgreSQL (version 9.3+)
 - Node.js (for asset compilation)
 - Redis (optional, for caching)
