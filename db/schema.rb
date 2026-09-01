@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_01_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -88,6 +88,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
+    t.check_constraint "quantity > 0", name: "cart_items_quantity_positive"
   end
 
   create_table "carts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -137,6 +138,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
     t.decimal "range_start", precision: 5, scale: 2, null: false
     t.string "unit", null: false
     t.datetime "updated_at", null: false
+    t.check_constraint "price_mxn > 0::numeric", name: "label_prices_price_mxn_positive"
+    t.check_constraint "price_usd > 0::numeric", name: "label_prices_price_usd_positive"
+    t.check_constraint "range_end >= 0::numeric", name: "label_prices_range_end_non_negative"
+    t.check_constraint "range_start >= 0::numeric", name: "label_prices_range_start_non_negative"
   end
 
   create_table "mx_postal_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -161,6 +166,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
+    t.check_constraint "price_mxn > 0::numeric", name: "order_items_price_mxn_positive"
+    t.check_constraint "price_usd > 0::numeric", name: "order_items_price_usd_positive"
+    t.check_constraint "quantity > 0", name: "order_items_quantity_positive"
   end
 
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -195,6 +203,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id", "locale"], name: "index_product_translations_on_product_id_and_locale", unique: true
+    t.check_constraint "price > 0::numeric", name: "product_translations_price_positive"
   end
 
   create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -205,6 +214,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
     t.integer "stock", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
+    t.check_constraint "reserved_stock >= 0", name: "products_reserved_stock_non_negative"
+    t.check_constraint "stock >= 0", name: "products_stock_non_negative"
   end
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -228,6 +239,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_033832) do
     t.index ["product_id", "status"], name: "index_stock_reservations_on_product_id_and_status"
     t.index ["reserved_until"], name: "index_stock_reservations_on_reserved_until"
     t.index ["status"], name: "index_stock_reservations_on_status"
+    t.check_constraint "quantity > 0", name: "stock_reservations_quantity_positive"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

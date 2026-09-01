@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class ReleaseExpiredStockReservationsJobTest < ActiveJob::TestCase
-  let(:product) { create(:product, stock: 10, reserved_stock: 5) }
+  let(:product) { create(:product, stock: 10, reserved_stock: 6) }
   let(:product2) { create(:product, stock: 20, reserved_stock: 3) }
 
   test 'releases all expired reservations' do
@@ -24,12 +24,13 @@ class ReleaseExpiredStockReservationsJobTest < ActiveJob::TestCase
     # Reserved stock should be released for expired reservations
     product.reload
     product2.reload
-    assert_equal 3, product.reserved_stock # 5 - 2 = 3
+    assert_equal 4, product.reserved_stock # 6 - 2 = 3
     assert_equal 0, product2.reserved_stock # 3 - 3 = 0
   end
 
   test 'returns count of released reservations' do
-    create(:stock_reservation, :active, product:, quantity: 2)
+    stock_reservation = create(:stock_reservation, :active, product:, quantity: 2)
+    product.update!(reserved_stock: (product.reserved_stock + stock_reservation.quantity))
     create_list(:stock_reservation, 3, :expired_time, product:, quantity: 2, status: 'active')
 
     count = ReleaseExpiredStockReservationsJob.perform_now
