@@ -9,6 +9,7 @@ require 'mocha/minitest'
 require 'webmock/minitest'
 
 SimpleCov.start 'rails' do
+  minimum_coverage 100
   # Exclude test infrastructure/mocks from coverage
   add_filter 'lib/typesense_mock_client.rb'
 end
