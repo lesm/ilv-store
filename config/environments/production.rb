@@ -59,14 +59,15 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.asset_host = ENV.fetch('HOST', 'https://tienda.ilvmx.org')
-  # config.action_mailer.delivery_method = :smtp
+  # Emails are delivered through UniOne's HTTP API (see EmailService), not ActionMailer's delivery methods.
+  config.action_mailer.asset_host = "https://#{ENV.fetch('APP_HOST', 'tienda.ilvmx.org')}"
   config.action_mailer.default_options = {
     from: 'noreply@ilvmx.org',
     reply_to: 'noreply@ilvmx.org'
   }
   config.action_mailer.default_url_options = {
-    host: ENV.fetch('HOST', 'tienda.ilvmx.org')
+    host: ENV.fetch('APP_HOST', 'tienda.ilvmx.org'),
+    protocol: 'https'
   }
   # config.action_mailer.smtp_settings = {
   # address: 'smtp.sendgrid.net',
@@ -89,11 +90,8 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [:id]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  #
+  config.hosts = %w[tienda.ilvmx.org tienda.mibotica.app]
+
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = { exclude: ->(request) { request.path == '/up' } }
 end

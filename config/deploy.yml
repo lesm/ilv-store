@@ -1,10 +1,11 @@
 # Name of your application. Used to uniquely configure containers.
 service: ilv_store
 
-# Name of the container image.
-image: silmardll/ilv_store
+# Name of the container image (use your-user/app-name on external registries).
+image: ilv_store
 
-# Deploy to these servers.
+# Deploy to these servers. Same physical server as medistock and easy-loans —
+# see docs/plans/01-kamal-mibotica-deployment.md for how the apps share it.
 servers:
   web:
     - <%= ENV.fetch("SERVER_IP", "192.168.0.1") %>
@@ -13,23 +14,25 @@ servers:
   #     - 192.168.0.1
   #   cmd: bin/jobs
 
-# Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
-# Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
-#
-# Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
+# kamal-proxy is a single container SHARED across every Kamal app on this
+# server (not one per app) — it was already booted by medistock on 8080/8443,
+# and stays there. Do NOT set proxy.run.http_port/https_port here: this is
+# global proxy config, not per-app, and changing it (or running
+# `kamal proxy reboot` from this repo) would rebind the shared proxy's ports
+# out from under medistock's Caddy config, which expects 8080/8443.
+# TLS is terminated by Caddy (owned by medistock's Kamal config, since it must
+# hold ports 80/443 for the whole server), which reverse-proxies both hosts
+# below to the shared proxy at localhost:8080.
 proxy:
-  ssl: true
-  host: tienda.ilvmx.org
+  ssl: false
+  hosts:
+    - tienda.ilvmx.org
+    - tienda.mibotica.app
 
-# Credentials for your image host.
+# Local registry — Kamal handles the tunnel automatically (same technique as
+# medistock and easy-loans; this is per local machine, not per server).
 registry:
-  # Specify the registry server, if you're not using Docker Hub
-  # server: registry.digitalocean.com / ghcr.io / ...
-  username: silmardll
-
-  # Always use an access token rather than real password when possible.
-  password:
-    - KAMAL_REGISTRY_PASSWORD
+  server: localhost:5555
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
@@ -54,6 +57,9 @@ env:
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
     SOLID_QUEUE_IN_PUMA: true
 
+    # Canonical host, used by ActionMailer's default_url_options/asset_host.
+    APP_HOST: tienda.ilvmx.org
+
     # Set number of processes dedicated to Solid Queue (default: 1)
     # JOB_CONCURRENCY: 3
 
@@ -69,8 +75,8 @@ env:
     TYPESENSE_PORT: 8108
     TYPESENSE_PROTOCOL: http
 
-    # Log everything from Rails
-    RAILS_LOG_LEVEL: debug
+    # Log everything from Rails (includes potentially personally-identifiable information!)
+    # RAILS_LOG_LEVEL: debug
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
@@ -78,7 +84,7 @@ aliases:
   console: app exec --interactive --reuse "bin/rails console"
   shell: app exec --interactive --reuse "bash"
   logs: app logs -f
-  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+  dbc: app exec --interactive --reuse "bin/rails dbconsole --include-password"
   typesense-reindex: app exec "bin/rails typesense:recreate"
 
 
@@ -107,16 +113,19 @@ builder:
   #   - GITHUB_TOKEN
   #   - RAILS_MASTER_KEY
 
-# Use a different ssh user than root
+# Same server as medistock and easy-loans, so the same non-default SSH
+# port/user they're already configured with.
 ssh:
   port: 20202
-#   user: app
+  user: deploy
 
+# Dedicated Postgres/Typesense instances (not shared with the other apps).
 accessories:
   db:
-    image: postgres:16
-    host:  <%= ENV.fetch("SERVER_IP", "192.168.0.1") %>
-    port: "127.0.0.1:5432:5432"
+    image: postgres:18.6
+    host: <%= ENV.fetch("SERVER_IP", "192.168.0.1") %>
+    # 5432 is medistock's db, 5433 easy-loans' db, 5434 medistock's self-hosted CI
+    port: "127.0.0.1:5435:5432"
     env:
       clear:
         POSTGRES_USER: rails
@@ -127,7 +136,8 @@ accessories:
      # - config/mysql/production.cnf:/etc/mysql/my.cnf
       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
     directories:
-      - data:/var/lib/postgresql/data
+      # Postgres 18+ keeps its data under /var/lib/postgresql/18/docker
+      - data:/var/lib/postgresql
 
   typesense:
     image: typesense/typesense:26.0
@@ -147,26 +157,3 @@ accessories:
       health-timeout: "5s"
       health-retries: "6"
       health-start-period: "60s"
-# Use accessory services (secrets come from .kamal/secrets).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: 192.168.0.2
-#     # Change to 3306 to expose port to the world instead of just local network.
-#     port: "127.0.0.1:3306:3306"
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
-#   redis:
-#     image: redis:7.0
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
