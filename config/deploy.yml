@@ -125,7 +125,7 @@ accessories:
     image: postgres:18.6
     host: <%= ENV.fetch("SERVER_IP", "192.168.0.1") %>
     # 5432 is medistock's db, 5433 easy-loans' db, 5434 medistock's self-hosted CI
-    port: "127.0.0.1:5435:5432"
+    port: "127.0.0.1:5436:5432"
     env:
       clear:
         POSTGRES_USER: rails
