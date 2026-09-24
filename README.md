@@ -173,16 +173,20 @@ bundle exec erblint --lint-all
 
 ## Deployment
 
-The application is configured for deployment with Kamal:
+The application is deployed with Kamal to a server shared with other Kamal apps
+(shared `kamal-proxy`, TLS terminated by a shared Caddy). Secrets are read from a
+local, gitignored `.env.production`. See
+[docs/plans/01-kamal-mibotica-deployment.md](docs/plans/01-kamal-mibotica-deployment.md)
+for the architecture and the migration runbook.
 
 ```bash
-# Setup
-kamal setup
-
 # Deploy
-kamal deploy
+dotenv -f .env.production kamal deploy
 
 # Other commands
-kamal app logs
-kamal app exec 'bin/rails console'
+dotenv -f .env.production kamal logs
+dotenv -f .env.production kamal console
+dotenv -f .env.production kamal typesense-reindex
 ```
+
+> Never run `kamal proxy reboot` from this repo: the proxy is shared with other apps.

@@ -126,7 +126,21 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config google-chrome-stable libvips
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config libvips
+
+      - name: Set up Chrome and ChromeDriver
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+          install-chromedriver: true
+
+      - name: Show resolved Chrome/ChromeDriver paths and versions (debugging aid)
+        run: |
+          echo "chrome-path output: ${{ steps.setup-chrome.outputs.chrome-path }}"
+          "${{ steps.setup-chrome.outputs.chrome-path }}" --version || echo "(could not run that binary)"
+          which chromedriver
+          chromedriver --version
 
       - name: Checkout code
         uses: actions/checkout@v7
@@ -142,6 +156,11 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # REDIS_URL: redis://localhost:6379/0
+          # Selenium's own browser discovery doesn't know where this action installs Chrome to
+          # (see test/application_system_test_case.rb) — without this, it launches whatever
+          # Chrome the runner image ships with instead, mismatched against the ChromeDriver
+          # this step just installed.
+          CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: bin/rails db:test:prepare test:all
 
       - name: Keep screenshots from failed system tests
