@@ -25,9 +25,16 @@ class Product < ApplicationRecord
   validates :translations, presence: true
   validate :cover_image_type
 
+  scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
+
   delegate :title, :subtitle, :price, to: :current_translation
 
   def current_translation = translations.for_locale
+
+  def publish! = update!(published: true)
+
+  def unpublish! = update!(published: false)
 
   private
 

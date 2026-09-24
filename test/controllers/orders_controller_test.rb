@@ -79,6 +79,15 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
+    test 'renders an order whose product was unpublished' do
+      order = create(:order, :order_created, user:)
+      order.items.first.product.unpublish!
+
+      get order_url(id: order.id)
+
+      assert_response :success
+    end
+
     test 'clears cart items when request can from stripe' do
       order = create(:order, :order_draft, user:)
       token = Rails.application.message_verifier(:from_stripe).generate({ order_id: order.id, user_id: user.id })

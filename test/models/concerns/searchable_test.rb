@@ -181,7 +181,20 @@ class SearchableTest < ActiveSupport::TestCase
         assert_includes document.keys, :subtitle_en
         assert_includes document.keys, :price
         assert_includes document.keys, :stock
+        assert_includes document.keys, :published
         assert_includes document.keys, :created_at
+      end
+
+      test 'includes the published flag' do
+        assert(@product.typesense_document[:published])
+
+        @product.published = false
+
+        assert_not(@product.typesense_document[:published])
+      end
+
+      test 'schema declares published as a bool field' do
+        assert_includes Product.typesense_schema[:fields], { name: 'published', type: 'bool' }
       end
 
       test 'converts id to string' do

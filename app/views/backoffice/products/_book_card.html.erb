@@ -1,8 +1,24 @@
-<div class="rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+<div
+  id="<%= dom_id(product) %>"
+  class="<%= class_names('rounded-lg border border-primary-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-200', 'opacity-60': !product.published?) %>"
+>
   <div class="border-b border-primary-200 p-4 flex flex-col sm:flex-row justify-between hover:bg-primary-100 gap-2">
     <div class="flex grow gap-2">
       <div>
-        <h3 class="text-sm sm:text-lg font-semibold text-primary-900"><%= book.internal_code %></h3>
+        <div class="flex flex-wrap items-center gap-2">
+          <h3 class="text-sm sm:text-lg font-semibold text-primary-900"><%= book.internal_code %></h3>
+
+          <% if product.published? %>
+            <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+              ● <%= t('.status.published') %>
+            </span>
+          <% else %>
+            <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+              ○ <%= t('.status.unpublished') %>
+            </span>
+          <% end %>
+        </div>
+
         <p class="text-xs sm:text-sm text-primary-500"><%= product.subtitle %></p>
       </div>
 
@@ -30,16 +46,16 @@
     </div>
 
     <div class="flex items-center gap-2">
+      <% if product.published? %>
+        <%= button_to t('.actions.unpublish'), backoffice_product_publication_path(product), method: :delete, class: 'cursor-pointer text-xs sm:text-sm inline-flex items-center justify-center rounded-lg border border-primary-300 bg-white px-3 py-1.5 font-medium text-primary-700 hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2', form: { data: { turbo_confirm: t('.confirm_unpublish') } } %>
+      <% else %>
+        <%= button_to t('.actions.publish'), backoffice_product_publication_path(product), class: 'cursor-pointer text-xs sm:text-sm inline-flex items-center justify-center rounded-lg border border-primary-300 bg-white px-3 py-1.5 font-medium text-primary-700 hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2' %>
+      <% end %>
+
       <%= link_to edit_backoffice_product_path(id: product.productable_id, type: product.productable_type.underscore), class: 'w-full text-xs sm:text-sm inline-flex items-center justify-center rounded-lg bg-primary-600 px-3 py-1.5 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2', data: { turbo_frame: :drawer } do %>
         <%= t('.actions.edit') %>
 
-        <svg
-          class="ml-1 h-4 w-4"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
+        <svg class="ml-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <path
             stroke="currentColor"
             stroke-linecap="round"

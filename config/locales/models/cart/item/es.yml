@@ -8,6 +8,7 @@ es:
         cart/item:
           attributes:
             product:
+              unpublished: El producto ya no está disponible.
               out_of_stock: El producto está agotado.
             quantity:
               not_enough_stock: Solo quedan %{count} disponibles.

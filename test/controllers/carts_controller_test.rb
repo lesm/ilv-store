@@ -29,6 +29,16 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
         assert_response :success
       end
+
+      test 'shows an unpublished item as no longer available' do
+        user = create(:user, :with_cart)
+        user.cart.items.first.product.unpublish!
+        authenticate_as(user)
+
+        get cart_url, headers: { 'Turbo-Frame' => 'drawer' }
+
+        assert_select 'p', text: 'Ya no disponible', count: 1
+      end
     end
   end
 end

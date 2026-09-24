@@ -47,6 +47,18 @@ module Backoffice
         get backoffice_products_url(type: 'book')
         assert_response :success
       end
+
+      test 'shows the publication status and action of each product' do
+        create(:book)
+        create(:book).product.unpublish!
+
+        get backoffice_products_url(type: 'book')
+
+        assert_select 'span', text: /Publicado/, count: 1
+        assert_select 'span', text: /Oculto/, count: 1
+        assert_select 'form button', text: 'Ocultar', count: 1
+        assert_select 'form button', text: 'Publicar', count: 1
+      end
     end
 
     describe '#GET new' do

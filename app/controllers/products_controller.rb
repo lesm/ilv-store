@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
   def show
     request.variant = :drawer
-    @product = Product.includes(:translations, :productable).find(params.expect(:id))
+    @product = Product.published.includes(:translations, :productable).find(params.expect(:id))
   end
 
   private
@@ -22,20 +22,33 @@ class ProductsController < ApplicationController
   end
 
   def search_products
-    result = Product.search(@query, per_page: products_per_page, page: current_page)
+    result = Product.search(@query, per_page: products_per_page, page: current_page, filter_by: 'published:true')
+    products = published_products_from(result['hits'])
+    # Hits dropped by the DB check (stale index) must not count as results
+    count = result['found'] - (result['hits'].size - products.size)
 
-    products = result['hits'].map do |hit|
-      product = Product.find(hit['document']['id'])
-      product.instance_variable_set(:@search_highlights, hit['highlights'])
-      product
-    end
-
-    pagy, = pagy(:offset, products, page: current_page, limit: products_per_page, count: result['found'])
+    pagy, = pagy(:offset, products, page: current_page, limit: products_per_page, count:)
     [pagy, products]
   end
 
+  # Loads hits from the DB keeping Typesense's order, and drops any product
+  # unpublished since it was indexed.
+  def published_products_from(hits)
+    products = Product.published
+                      .includes(:translations, cover_attachment: :blob)
+                      .where(id: hits.map { it['document']['id'] })
+                      .index_by(&:id)
+
+    hits.filter_map do |hit|
+      product = products[hit['document']['id']]
+      product&.instance_variable_set(:@search_highlights, hit['highlights'])
+      product
+    end
+  end
+
   def list_products
-    products_query = Product.joins(:translations)
+    products_query = Product.published
+                            .joins(:translations)
                             .where(translations: { locale: I18n.locale })
                             .includes(:translations, cover_attachment: :blob)
                             .order(created_at: :desc)

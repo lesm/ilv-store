@@ -1,4 +1,7 @@
-# .herb.yml
+version: 0.10.3
+
+framework: actionview
+
 linter:
   enabled: true
 
