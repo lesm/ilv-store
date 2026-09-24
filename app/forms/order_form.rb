@@ -8,8 +8,13 @@ class OrderForm < ApplicationForm
   attr_reader :order
 
   validates :address_id, presence: true
+  validate :cart_products_published
 
   private
+
+  def cart_products_published
+    errors.add(:base, :unpublished_products) if current_cart.products.unpublished.exists?
+  end
 
   def submit
     @order = Order.new(order_attributes)

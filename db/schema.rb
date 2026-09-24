@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_01_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_24_094914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -210,10 +210,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_01_000000) do
     t.datetime "created_at", null: false
     t.uuid "productable_id", null: false
     t.string "productable_type", null: false
+    t.boolean "published", default: true, null: false
     t.integer "reserved_stock", default: 0, null: false
     t.integer "stock", default: 0, null: false
     t.datetime "updated_at", null: false
     t.index ["productable_type", "productable_id"], name: "index_products_on_productable"
+    t.index ["published"], name: "index_products_on_published"
     t.check_constraint "reserved_stock >= 0", name: "products_reserved_stock_non_negative"
     t.check_constraint "stock >= 0", name: "products_stock_non_negative"
   end

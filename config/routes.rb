@@ -22,7 +22,9 @@ Rails.application.routes.draw do
         post :send_in_transit_email
       end
     end
-    resources :products, only: %i[index new edit create update]
+    resources :products, only: %i[index new edit create update] do
+      resource :publication, only: %i[create destroy], module: :products
+    end
     resources :label_prices, only: %i[index new edit create update]
   end
 

@@ -6,3 +6,11 @@ en:
         title: Título (USA)
         subtitle: Título original (USA)
         price: Precio (Dólares)
+      book_card:
+        status:
+          published: Published
+          unpublished: Hidden
+        actions:
+          publish: Publish
+          unpublish: Unpublish
+        confirm_unpublish: Customers will stop seeing this product. Hide it?

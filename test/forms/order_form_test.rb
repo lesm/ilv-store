@@ -35,6 +35,24 @@ class OrderFormTest < ActiveSupport::TestCase
       assert_not form.valid?
       assert form.errors.key?(:address_id)
     end
+
+    test 'is invalid when the cart has an unpublished product' do
+      current_cart.items.first.product.unpublish!
+
+      assert_not form.valid?
+      assert_includes form.errors[:base],
+                      'Algunos productos de tu carrito ya no están disponibles. Elimínalos para continuar.'
+    end
+
+    test 'does not create an order or reserve stock when a product is unpublished' do
+      product = current_cart.items.first.product
+      product.unpublish!
+
+      assert_no_difference 'Order.count' do
+        assert_not form.save
+      end
+      assert_equal 0, product.reload.reserved_stock
+    end
   end
 
   describe 'address attributes' do

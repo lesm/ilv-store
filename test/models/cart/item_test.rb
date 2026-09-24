@@ -21,6 +21,15 @@ class CartItemTest < ActiveSupport::TestCase
     end
   end
 
+  describe '#product_published' do
+    test 'invalid when the product is unpublished' do
+      item.product = create(:product, :unpublished)
+
+      assert item.invalid?
+      assert_equal ['El producto ya no está disponible.'], item.errors[:product]
+    end
+  end
+
   describe '#stock_availability' do
     let(:product) { create(:product, stock: 5) }
 

@@ -20,8 +20,14 @@ es:
         updated_at: Última actualización
       book_card:
         <<: *book
+        status:
+          published: Publicado
+          unpublished: Oculto
         actions:
           edit: Editar
+          publish: Publicar
+          unpublish: Ocultar
+        confirm_unpublish: Los clientes dejarán de ver este producto. ¿Ocultarlo?
       index:
         title: Libros
         actions:

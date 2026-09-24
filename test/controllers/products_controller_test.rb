@@ -39,6 +39,15 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       assert_select '#pagination a[rel="next"]'
     end
 
+    test 'does not list unpublished products' do
+      create(:product)
+      create(:product, :unpublished)
+
+      get products_url
+
+      assert_select '#products-list .flex.flex-col.h-full', count: 1
+    end
+
     test 'does not include pagination link on last page' do
       create_list(:product, 10)
 
@@ -103,6 +112,26 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select 'section[data-controller*="search"]'
     end
+
+    test 'searches only published products' do
+      Product.expects(:search).with('test', has_entry(filter_by: 'published:true')).returns('hits' => [], 'found' => 0)
+
+      get products_url(q: 'test')
+
+      assert_response :success
+    end
+
+    test 'drops search hits for products unpublished after indexing' do
+      published = create(:product)
+      unpublished = create(:product, :unpublished)
+      hits = [published, unpublished].map { { 'document' => { 'id' => it.id }, 'highlights' => [] } }
+      Product.stubs(:search).returns('hits' => hits, 'found' => 2)
+
+      get products_url(q: 'test')
+
+      assert_response :success
+      assert_select '#products-list .flex.flex-col.h-full', count: 1
+    end
   end
 
   describe '#show' do
@@ -110,6 +139,12 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       get product_url(id: create(:product).id, turbo_frame: 'drawer')
 
       assert_response :success
+    end
+
+    test 'returns not found for an unpublished product' do
+      get product_url(id: create(:product, :unpublished).id, turbo_frame: 'drawer')
+
+      assert_response :not_found
     end
   end
 end

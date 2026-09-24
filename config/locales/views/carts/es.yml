@@ -1,6 +1,7 @@
 es:
   carts:
     item:
+      unavailable: Ya no disponible
       delete_item: Eliminar
     subtotal_drawer:
       product:
