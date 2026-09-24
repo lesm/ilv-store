@@ -24,6 +24,7 @@ Metrics/BlockLength:
     - test/factories/*.rb
     - test/controllers/**/*.rb
     - test/models/**/*.rb
+    - test/forms/**/*.rb
     - test/helpers/search_helper_test.rb
 Metrics/MethodLength:
   Exclude:

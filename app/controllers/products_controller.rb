@@ -24,8 +24,10 @@ class ProductsController < ApplicationController
   def search_products
     result = Product.search(@query, per_page: products_per_page, page: current_page, filter_by: 'published:true')
     products = published_products_from(result['hits'])
+    # Hits dropped by the DB check (stale index) must not count as results
+    count = result['found'] - (result['hits'].size - products.size)
 
-    pagy, = pagy(:offset, products, page: current_page, limit: products_per_page, count: result['found'])
+    pagy, = pagy(:offset, products, page: current_page, limit: products_per_page, count:)
     [pagy, products]
   end
 

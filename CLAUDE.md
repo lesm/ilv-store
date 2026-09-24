@@ -138,10 +138,13 @@ Plans are public too — the [Public Repository](#public-repository) rules apply
 ## Conventions
 
 - **Frozen string literals** in all Ruby files; single quotes (RuboCop).
-- **All user-facing text goes through I18n** with both `es` and `en` keys:
-  `config/locales/views/<controller>/{es,en}.yml` (backoffice under
-  `views/backoffice/<controller>/`) and `config/locales/models/<model>/`.
-  Never hard-code UI strings.
+- **All user-facing text goes through I18n** — never hard-code UI strings.
+  Storefront text needs both `es` and `en` keys
+  (`config/locales/views/<controller>/{es,en}.yml`, `config/locales/models/<model>/`).
+- **The backoffice is Spanish-only**: `Backoffice::BaseController` doesn't use
+  `switch_locale`, so it always renders in `es`. Backoffice text goes in `es.yml`
+  only. The backoffice `en.yml` files are not an English UI — they hold labels for
+  the US-translation fields of the product form (`t(..., locale: tf.object.locale)`).
 - **Thin controllers**: orchestration goes to form objects (`app/forms/`),
   behavior to model concerns under the model's own folder
   (`app/models/product/inventory_manageable.rb` → `Product::InventoryManageable`).

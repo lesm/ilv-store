@@ -53,6 +53,21 @@ class OrderFormTest < ActiveSupport::TestCase
       end
       assert_equal 0, product.reload.reserved_stock
     end
+
+    test 'rechecks under a row lock when a product is unpublished after validation' do
+      product = current_cart.items.first.product
+      form.stubs(:cart_products_published) # simulate the admin hiding it after valid? ran
+      product.unpublish!
+
+      assert_no_difference 'Order.count' do
+        assert_queries_match(/FROM "products".* FOR UPDATE/) do
+          assert_not form.save
+        end
+      end
+      assert_includes form.errors[:base],
+                      'Algunos productos de tu carrito ya no están disponibles. Elimínalos para continuar.'
+      assert_equal 0, product.reload.reserved_stock
+    end
   end
 
   describe 'address attributes' do

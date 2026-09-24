@@ -68,10 +68,10 @@ callback keeps the search index in sync.
 | ----- | ---- | ------ |
 | Catalog list | `app/controllers/products_controller.rb#list_products` | Add `.published` |
 | Product detail | `ProductsController#show` | `Product.published.find` → 404 for hidden products |
-| Search (Typesense) | `app/models/product/typesense_config.rb`, `ProductsController#search_products` | Add a `published` field (`bool`) to the schema and document; search with `filter_by: 'published:true'`. Hits are loaded in one query with `Product.published.includes(...).where(id: ids)` (keeping Typesense's order), so a stale index can't leak a hidden product. This also replaced the previous one-`find`-per-hit loop |
+| Search (Typesense) | `app/models/product/typesense_config.rb`, `ProductsController#search_products` | Add a `published` field (`bool`) to the schema and document; search with `filter_by: 'published:true'`. Hits are loaded in one query with `Product.published.includes(...).where(id: ids)` (keeping Typesense's order), so a stale index can't leak a hidden product. This also replaced the previous one-`find`-per-hit loop. Dropped hits are subtracted from Typesense's `found`, so the results total and pagination only count what's shown |
 | Add to cart | `app/models/cart/item.rb` | New validation: product must be published (`errors.add(:product, :unpublished)`); the stock check is skipped for hidden products so only one error shows |
 | Cart already containing it | `app/views/carts/_item.html.erb` | Show "no longer available" and hide the quantity controls; the customer can remove it |
-| Checkout | `app/forms/order_form.rb` | `validate :cart_products_published` — one query (`current_cart.products.unpublished.exists?`), error on `:base` asking to remove the hidden items. The order is never created, so no stock is reserved (`Order#reserve_stock!`) |
+| Checkout | `app/forms/order_form.rb` | `validate :cart_products_published` — one query (`current_cart.products.unpublished.exists?`), error on `:base` asking to remove the hidden items. Because validation runs before the transaction, `submit` checks again with the cart's products locked (`SELECT … FOR UPDATE`, id order): a concurrent unpublish either commits first and aborts the order, or waits until the order and its reservation are committed. The order is never created with a hidden product, so no stock is reserved for it (`Order#reserve_stock!`) |
 
 Unaffected on purpose:
 
@@ -155,14 +155,17 @@ so an admin can't hide a product by accident while editing its price.
 
 ## i18n
 
-Both `es` and `en`:
+Storefront text in both `es` and `en`:
 
-- `config/locales/views/backoffice/products/` — `book_card.status.*`,
-  `book_card.actions.publish/unpublish`, `book_card.confirm_unpublish`
-- `config/locales/controllers/backoffice/products/publications/` — flash messages
 - `config/locales/views/carts/` — `carts.item.unavailable`
 - `config/locales/models/cart/item/` — `cart/item.product.unpublished`
 - `config/locales/forms/order_form/` (new) — `activemodel…order_form.base.unpublished_products`
+
+Backoffice text in `es` only (the backoffice always renders in Spanish):
+
+- `config/locales/views/backoffice/products/es.yml` — `book_card.status.*`,
+  `book_card.actions.publish/unpublish`, `book_card.confirm_unpublish`
+- `config/locales/controllers/backoffice/products/publications/es.yml` — flash messages
 
 ## Tests
 

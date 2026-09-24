@@ -132,6 +132,17 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
       assert_select '#products-list .flex.flex-col.h-full', count: 1
     end
+
+    test 'does not count dropped hits in the results total' do
+      published = create(:product)
+      unpublished = create(:product, :unpublished)
+      hits = [published, unpublished].map { { 'document' => { 'id' => it.id }, 'highlights' => [] } }
+      Product.stubs(:search).returns('hits' => hits, 'found' => 2)
+
+      get products_url(q: 'test')
+
+      assert_select 'p', text: I18n.t('products.index.results_found', count: 1)
+    end
   end
 
   describe '#show' do
