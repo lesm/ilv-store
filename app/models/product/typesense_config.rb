@@ -16,6 +16,7 @@ class Product
             { name: 'subtitle_en', type: 'string', optional: true },
             { name: 'price', type: 'float' },
             { name: 'stock', type: 'int32' },
+            { name: 'published', type: 'bool' },
             { name: 'created_at', type: 'int64' }
           ],
           default_sorting_field: 'created_at'
@@ -34,6 +35,7 @@ class Product
         **attributes_en,
         price: current_translation.price.to_f,
         stock: stock,
+        published: published,
         created_at: created_at.to_i
       }
     end

@@ -1,0 +1,8 @@
+en:
+  activemodel:
+    errors:
+      models:
+        order_form:
+          attributes:
+            base:
+              unpublished_products: Some products in your cart are no longer available. Remove them to continue.

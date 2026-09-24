@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OrderForm < ApplicationForm
+  class UnpublishedProductsError < StandardError; end
+
   attribute :address_id, :string
   attribute :requires_invoice, :string
 
@@ -8,10 +10,28 @@ class OrderForm < ApplicationForm
   attr_reader :order
 
   validates :address_id, presence: true
+  validate :cart_products_published
 
   private
 
+  def cart_products_published
+    errors.add(:base, :unpublished_products) if current_cart.products.unpublished.exists?
+  end
+
+  # The validation above runs before the transaction, so an admin could hide a
+  # product in between. Lock the cart's products and check again: a concurrent
+  # unpublish either commits first and is seen here, or waits until this order
+  # (and its stock reservation) is committed. Locking in id order up front also
+  # means two checkouts never lock the same products in different orders.
+  def ensure_cart_products_published!
+    products = Product.where(id: current_cart.items.select(:product_id)).order(:id).lock
+    return if products.all?(&:published?)
+
+    raise UnpublishedProductsError, errors.generate_message(:base, :unpublished_products)
+  end
+
   def submit
+    ensure_cart_products_published!
     @order = Order.new(order_attributes)
 
     @order.save!

@@ -24,67 +24,71 @@
         </div>
 
         <div class="flex flex-row justify-between">
-          <div id="<%= dom_id(item, :quantity_form) %>" class="flex flex-col gap-2">
-            <div class="flex items-center justify-end gap-6">
-              <%= form_with model: item, data: { controller: 'carts--form-quantity' } do |f| %>
-                <div class="flex items-center">
-                  <button
-                    type="button"
-                    class="
-                      shrink-0 bg-primary-100 hover:bg-primary-200 active:bg-primary-500 inline-flex items-center
-                      justify-center border border-primary-300 rounded-md h-5 w-5 focus:ring-primary-100
-                      focus:ring-2 focus:outline-none
-                    "
-                    data-action="click->carts--form-quantity#decrement"
-                  >
-                    <svg
-                      class="w-2.5 h-2.5 text-primary-900"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 18 2"
+          <% if item.product.published? %>
+            <div id="<%= dom_id(item, :quantity_form) %>" class="flex flex-col gap-2">
+              <div class="flex items-center justify-end gap-6">
+                <%= form_with model: item, data: { controller: 'carts--form-quantity' } do |f| %>
+                  <div class="flex items-center">
+                    <button
+                      type="button"
+                      class="
+                        shrink-0 bg-primary-100 hover:bg-primary-200 active:bg-primary-500 inline-flex items-center
+                        justify-center border border-primary-300 rounded-md h-5 w-5 focus:ring-primary-100
+                        focus:ring-2 focus:outline-none
+                      "
+                      data-action="click->carts--form-quantity#decrement"
                     >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M1 1h16"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        class="w-2.5 h-2.5 text-primary-900"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 18 2"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M1 1h16"
+                        />
+                      </svg>
+                    </button>
 
-                  <%= f.text_field :quantity, class: 'shrink-0 text-primary-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center', value: item.quantity, readonly: true, required: true, data: { carts__form_quantity_target: 'input' } %>
+                    <%= f.text_field :quantity, class: 'shrink-0 text-primary-900 border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center', value: item.quantity, readonly: true, required: true, data: { carts__form_quantity_target: 'input' } %>
 
-                  <button
-                    type="button"
-                    class="
-                      shrink-0 bg-primary-100 hover:bg-primary-200 active:bg-primary-500 inline-flex items-center
-                      justify-center border border-primary-300 rounded-md h-5 w-5 focus:ring-primary-100
-                      focus:ring-2 focus:outline-none
-                    "
-                    data-action="click->carts--form-quantity#increment"
-                  >
-                    <svg
-                      class="w-2.5 h-2.5 text-primary-900"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 18 18"
+                    <button
+                      type="button"
+                      class="
+                        shrink-0 bg-primary-100 hover:bg-primary-200 active:bg-primary-500 inline-flex items-center
+                        justify-center border border-primary-300 rounded-md h-5 w-5 focus:ring-primary-100
+                        focus:ring-2 focus:outline-none
+                      "
+                      data-action="click->carts--form-quantity#increment"
                     >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 1v16M1 9h16"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              <% end %>
+                      <svg
+                        class="w-2.5 h-2.5 text-primary-900"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 18 18"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 1v16M1 9h16"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                <% end %>
+              </div>
             </div>
-          </div>
+          <% else %>
+            <p class="text-xs font-medium text-red-500"><%= t('.unavailable') %></p>
+          <% end %>
 
           <div class="flex">
             <p class="mt-0.5 truncate text-sm font-normal text-magenta-500"><%= number_to_currency(item.price) %></p>

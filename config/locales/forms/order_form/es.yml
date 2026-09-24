@@ -1,0 +1,8 @@
+es:
+  activemodel:
+    errors:
+      models:
+        order_form:
+          attributes:
+            base:
+              unpublished_products: Algunos productos de tu carrito ya no están disponibles. Elimínalos para continuar.

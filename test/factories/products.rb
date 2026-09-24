@@ -8,5 +8,9 @@ FactoryBot.define do
       [build(:product_translation, :en, product: instance), build(:product_translation, :es, product: instance)]
     end
     productable { association :book, product: instance }
+
+    trait :unpublished do
+      published { false }
+    end
   end
 end

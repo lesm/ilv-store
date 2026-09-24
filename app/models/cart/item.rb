@@ -8,6 +8,7 @@ class Cart
     normalizes :quantity, with: ->(q) { q.to_i.abs }
 
     validates :quantity, numericality: { greater_than: 0 }
+    validate :product_published
     validate :stock_availability
 
     delegate :title, :subtitle, :cover, :price, to: :product
@@ -17,7 +18,12 @@ class Cart
 
     private
 
+    def product_published
+      errors.add(:product, :unpublished) unless product.published?
+    end
+
     def stock_availability
+      return unless product.published?
       return if product.available_stock >= quantity
 
       if product.out_of_stock?

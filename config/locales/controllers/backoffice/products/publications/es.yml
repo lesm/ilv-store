@@ -1,0 +1,8 @@
+es:
+  backoffice:
+    products:
+      publications:
+        create:
+          success: Producto publicado
+        destroy:
+          success: Producto oculto
