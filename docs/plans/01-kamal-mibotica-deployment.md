@@ -2,23 +2,14 @@
 
 ## Status
 
-Code ready ✅ — deploy pending (done manually, see [Runbook](#runbook)).
+Implemented ✅ — production runs on the new server since 2026-09-23.
+Cleanup items still open: see [Pending](#pending).
 
 ## Goal
 
-Move the ilv-store production app off its current dedicated server and onto
-the **shared mibotica server** (the one already running `medistock` and
-`easy-loans`):
-
-1. **Pre-stage** (no downtime) — deploy the app on the new server under
-   `tienda.mibotica.app` with an empty database, so build, secrets, Caddy,
-   TLS, Postgres and Typesense are proven before the migration window.
-2. **Migration window** (< 1 hour) — put `tienda.ilvmx.org` in maintenance,
-   move the database to the new server, test on `tienda.mibotica.app`, then
-   switch the `tienda.ilvmx.org` DNS record to the new server.
-
-`tienda.ilvmx.org` stays the canonical customer-facing domain (Stripe webhook,
-email links, SEO). `tienda.mibotica.app` stays as a secondary host.
+Move the ilv-store production app (`tienda.ilvmx.org`) off its dedicated
+server and onto the **shared mibotica server**, which already runs
+`medistock` and `easy-loans`, with a maintenance window of under an hour.
 
 > **Public repo notice.** This file is committed to a public GitHub repo. It
 > must never contain server IPs, local filesystem paths, API keys, passwords,
@@ -33,287 +24,139 @@ Internet
   → Caddy (:80/:443 — owned by medistock's Kamal config)
       mibotica.app               → kamal-proxy :8080 → medistock-web
       prestamos.mibotica.app     → kamal-proxy :8080 → easy_loans-web
-      tienda.mibotica.app        → kamal-proxy :8080 → ilv_store-web   (new)
-      tienda.ilvmx.org           → kamal-proxy :8080 → ilv_store-web   (new, after DNS switch)
+      tienda.ilvmx.org           → kamal-proxy :8080 → ilv_store-web
       *.mibotica.app (on-demand) → kamal-proxy :8080 → medistock-web
       storage.mibotica.app       → seaweedfs :8333
 
-ilv_store-web ──(kamal network)──▶ ilv_store-db         postgres:18.6, 127.0.0.1:5435
+ilv_store-web ──(kamal network)──▶ ilv_store-db         postgres:18.6, 127.0.0.1:5436
               ──(kamal network)──▶ ilv_store-typesense  typesense:26.0, 127.0.0.1:8108
               ──(HTTPS egress)───▶ UniOne API · Stripe API · Cloudflare R2 · Sentry
 ```
 
-- **Caddy** is shared and managed from the **medistock** repo. ilv-store has
-  no Caddy accessory of its own. A named block for `tienda.mibotica.app` is
-  **required**: without it, the host falls into medistock's on-demand `:443`
-  tenant catch-all and gets routed to medistock.
+- **Caddy** is shared and managed from the **medistock** repo
+  (`config/Caddyfile`, named `tienda.ilvmx.org { }` block, standard ACME
+  certificate). ilv-store has no Caddy accessory of its own — a second one
+  would collide on ports 80/443. Caddy only terminates TLS; it forwards every
+  request to kamal-proxy with the original `Host`.
 - **kamal-proxy** is a single container shared by every app on the server
-  (8080/8443, booted by medistock). ilv-store only registers its two hosts on
-  it — no `proxy.run` block, and **never run `kamal proxy reboot` from this
-  repo**.
+  (8080/8443, booted by medistock). It routes by `Host`: each app's
+  `kamal deploy` registers its own `proxy.host` on it. **No `proxy.run`
+  block, and never run `kamal proxy reboot` from this repo** — that would
+  rebind the proxy for every app.
+  Inspect the routing table with
+  `ssh -p 20202 deploy@$SERVER_IP "docker exec kamal-proxy kamal-proxy list"`.
 - **TLS** is terminated by Caddy → `proxy.ssl: false`. `assume_ssl`/`force_ssl`
   stay on (Caddy sends `X-Forwarded-Proto: https`).
 - **Postgres** — dedicated accessory, upgraded 16 → 18.6 (same as easy-loans)
-  via `pg_dump`/`pg_restore`. Host port **5435**: 5432 is medistock's db, 5433
-  easy-loans' db, 5434 medistock's self-hosted CI runner. Postgres 18 keeps
-  its data under `/var/lib/postgresql/18/docker`, so the volume mounts
-  `/var/lib/postgresql`.
-- **Typesense** — dedicated accessory. Its data is **not** migrated: the index
-  is rebuilt from Postgres (`bin/rails typesense:recreate`, also run by
+  via `pg_dump`/`pg_restore`. Host port **5436** (5432–5435 are already taken
+  on this server). Postgres 18 keeps its data under
+  `/var/lib/postgresql/18/docker`, so the volume mounts `/var/lib/postgresql`.
+- **Typesense** — dedicated accessory. Its data is not migrated: the index is
+  rebuilt from Postgres (`bin/rails typesense:recreate`, also run by
   `.kamal/hooks/post-deploy`).
 - **UniOne** — HTTP API (`lib/email/providers/uni_one_provider.rb`), sender
-  `noreply@ilvmx.org`. The sending domain doesn't change → no UniOne DNS/domain
-  changes.
+  `noreply@ilvmx.org`. The sending domain didn't change → no UniOne changes.
 - **Stripe** — live keys and the existing live webhook endpoint
-  (`https://tienda.ilvmx.org/webhooks/stripe`). The URL doesn't change; it just
-  reaches the new server after the DNS switch. Checkout `success_url`/`cancel_url`
-  are built from the request host, so both hosts work.
-- **Cloudflare R2** — same bucket. Backoffice cover uploads are *direct
-  uploads* from the browser, so the bucket's CORS must allow the new origin.
+  (`https://tienda.ilvmx.org/webhooks/stripe`); the URL didn't change, it just
+  reaches the new server. Events that failed with 503 during maintenance are
+  retried by Stripe.
+- **Cloudflare R2** — same bucket and origin, no changes.
 - **Registry** — Kamal's local registry tunnel (`localhost:5555`), like the
-  other apps; Docker Hub and `KAMAL_REGISTRY_PASSWORD` are no longer used.
+  other apps; Docker Hub is no longer used.
 - **SSH** — port 20202, user `deploy` (already set up for the other apps).
 
-## Changes made
+## What changed
 
 ### This repo
 
-- `config/deploy.yml` — `proxy` (`ssl: false`, `hosts: [tienda.ilvmx.org,
-  tienda.mibotica.app]`), local registry, `ssh.user: deploy`, `APP_HOST`,
-  `RAILS_LOG_LEVEL: debug` removed, `dbc --include-password`, Postgres 18.6 on
-  5435 with the new data mount.
+- `config/deploy.yml` — `proxy.ssl: false`, `proxy.host: tienda.ilvmx.org`,
+  local registry, `ssh.user: deploy`, `APP_HOST`, `RAILS_LOG_LEVEL: debug`
+  removed, `dbc --include-password`, Postgres 18.6 on 5436 with the new data
+  mount.
 - `.kamal/secrets` — `KAMAL_REGISTRY_PASSWORD` removed.
 - `config/environments/production.rb` — mailer `default_url_options`/`asset_host`
-  from `APP_HOST` (always `https`), `config.hosts` for both hosts with `/up`
-  excluded.
+  from `APP_HOST` (always `https`); `config.hosts = ['tienda.ilvmx.org']`
+  with `/up` excluded.
 - `README.md` — deployment section points here.
 
-### medistock repo (`config/Caddyfile`)
+### medistock repo
 
-- New `tienda.mibotica.app { }` block (active).
-- New `tienda.ilvmx.org { }` block, **commented out** — you uncomment it only
-  after the DNS switch. Enabling it earlier makes Caddy fail the ACME
-  challenge (the name still resolves to the old server) and back off,
-  delaying the certificate after the switch. Both variants pass
-  `caddy validate`.
+- `config/Caddyfile` — named `tienda.ilvmx.org { }` block, proxied to
+  `localhost:8080`, applied with `kamal accessory reboot caddy` (restarts TLS
+  for every app on the server for a few seconds).
 
-## Runbook
+## How the migration was done
 
-All `kamal` commands run from this repo on the branch with these changes,
-with Docker running locally (the registry tunnel needs it).
-
-### A. Days before the window
-
-1. **DNS TTL** — lower the TTL of the `tienda.ilvmx.org` A record to 300s. Do
-   it at least one *old* TTL period before the window, or caches keep the old
-   IP longer than an hour.
-2. **DNS for `tienda.mibotica.app`** — confirm it resolves to the new server
-   (the `*.mibotica.app` wildcard should already cover it):
+1. **Old server into maintenance** — through its kamal-proxy (what
+   `kamal app maintenance` runs under the hood):
    ```bash
-   dig +short tienda.mibotica.app
+   ssh -p 20202 root@$OLD_SERVER_IP \
+     "docker exec kamal-proxy kamal-proxy stop ilv_store-web --message='Estamos actualizando la tienda. Volvemos en unos minutos.'"
    ```
-3. **`.env.production`** — set `SERVER_IP` to the **new** server. Everything
-   else stays as it is (`POSTGRES_USER` must remain `rails`, the user the
-   accessory creates). `KAMAL_REGISTRY_PASSWORD` can be removed.
-4. **UniOne** — in the UniOne dashboard check whether the API key has an IP
-   allowlist; if it has one, add the new server's IP.
-5. **Cloudflare R2** — in the bucket's CORS policy, add
-   `https://tienda.mibotica.app` to `AllowedOrigins` (keep
-   `https://tienda.ilvmx.org`).
-6. **New server preflight** (read-only):
+2. **Dump the primary database** (cache, queue and cable are recreated empty):
    ```bash
-   export SERVER_IP=...        # new server, terminal only
-   ssh -p 20202 deploy@$SERVER_IP 'ss -ltn | grep -E ":(5435|8108)\b" || echo "ports free"; df -h /; free -m'
+   ssh -p 20202 root@$OLD_SERVER_IP \
+     "docker exec ilv_store-db pg_dump -U rails -Fc ilv_store_production" > tmp/ilv_store_production.dump
    ```
-
-### B. Pre-stage (no downtime, before the window)
-
-1. **Caddy route** — from the medistock repo (branch
-   `chore/caddy-ilv-store-route`):
+3. **Boot the accessories and deploy** on the new server:
    ```bash
-   dotenv -f .env.production kamal accessory reboot caddy
+   dotenv -f .env.production kamal accessory boot all
+   dotenv -f .env.production kamal deploy
    ```
-   This restarts TLS for every app on the server for a few seconds — do it
-   off-peak. Then:
+   (`kamal setup` does both in one go.)
+4. **Restore** into a clean primary DB, then reindex:
    ```bash
-   curl -sI https://tienda.mibotica.app | head -1   # valid cert; 404 from kamal-proxy is expected (no app yet)
+   dotenv -f .env.production kamal app stop
+   ssh -p 20202 deploy@$SERVER_IP \
+     "docker exec ilv_store-db dropdb -U rails ilv_store_production && docker exec ilv_store-db createdb -U rails ilv_store_production"
+   ssh -p 20202 deploy@$SERVER_IP \
+     "docker exec -i ilv_store-db pg_restore -U rails -d ilv_store_production --no-owner --no-privileges" < tmp/ilv_store_production.dump
+   dotenv -f .env.production kamal app boot
+   dotenv -f .env.production kamal typesense-reindex
    ```
-2. **First deploy** — from this repo:
-   ```bash
-   dotenv -f .env.production kamal setup
-   ```
-   Boots `ilv_store-db` (creates the 4 databases via `db/production.sql`) and
-   `ilv_store-typesense`, builds and deploys the app (`db:prepare` loads an
-   empty schema), and the post-deploy hook creates the empty search index.
-3. **Check it's healthy**:
-   ```bash
-   dotenv -f .env.production kamal details
-   curl -fsS https://tienda.mibotica.app/up
-   dotenv -f .env.production kamal logs     # Ctrl-C to exit
-   ```
-   Opening `https://tienda.mibotica.app` should show an empty store.
+5. **Caddy** — `tienda.ilvmx.org` block enabled in medistock and
+   `kamal accessory reboot caddy`.
+6. **DNS** — `tienda.ilvmx.org` A record pointed at the new server (TTL 300).
 
-If anything here fails, production is untouched — fix and retry.
+## Lessons learned
 
-### C. Migration window (< 1 hour)
-
-```bash
-export SERVER_IP=...        # new server
-export OLD_SERVER_IP=...    # current production server
-```
-
-**1. Maintenance on the old server** (≈1 min)
-
-The old server is no longer described by `deploy.yml`, so talk to its
-kamal-proxy directly (this is exactly what `kamal app maintenance` runs):
-
-```bash
-ssh -p 20202 root@$OLD_SERVER_IP \
-  "docker exec kamal-proxy kamal-proxy stop ilv_store-web --message='Estamos actualizando la tienda. Volvemos en unos minutos.'"
-curl -sI https://tienda.ilvmx.org | head -1    # expect 503
-```
-
-**2. Check the old job queue is empty** (≈1 min)
-
-```bash
-ssh -p 20202 root@$OLD_SERVER_IP \
-  "docker exec ilv_store-db psql -U rails -d ilv_store_production_queue -c 'select (select count(*) from solid_queue_ready_executions) ready, (select count(*) from solid_queue_claimed_executions) claimed;'"
-```
-
-Both should be `0` (wait a minute and retry if not). Only the primary DB is
-migrated; cache, queue and cable are recreated empty on the new server.
-
-**3. Dump production** (≈2–5 min)
-
-```bash
-ssh -p 20202 root@$OLD_SERVER_IP \
-  "docker exec ilv_store-db pg_dump -U rails -Fc ilv_store_production" > tmp/ilv_store_production.dump
-ls -lh tmp/ilv_store_production.dump             # sanity check: not 0 bytes
-```
-
-`tmp/` is gitignored. The dump contains customer data — delete it once the
-migration is confirmed.
-
-**4. Restore on the new server** (≈5 min)
-
-Stop the app so nothing holds connections, recreate the empty primary DB,
-restore, and boot again (`db:prepare` in the entrypoint runs any pending
-migrations):
-
-```bash
-dotenv -f .env.production kamal app stop
-
-ssh -p 20202 deploy@$SERVER_IP \
-  "docker exec ilv_store-db dropdb -U rails ilv_store_production && docker exec ilv_store-db createdb -U rails ilv_store_production"
-
-ssh -p 20202 deploy@$SERVER_IP \
-  "docker exec -i ilv_store-db pg_restore -U rails -d ilv_store_production --no-owner --no-privileges" < tmp/ilv_store_production.dump
-
-dotenv -f .env.production kamal app boot
-dotenv -f .env.production kamal typesense-reindex
-```
-
-Compare a few counts between old and new:
-
-```bash
-Q="select (select count(*) from users) users, (select count(*) from orders) orders, (select count(*) from products) products;"
-ssh -p 20202 root@$OLD_SERVER_IP   "docker exec ilv_store-db psql -U rails -d ilv_store_production -c \"$Q\""
-ssh -p 20202 deploy@$SERVER_IP     "docker exec ilv_store-db psql -U rails -d ilv_store_production -c \"$Q\""
-```
-
-**5. Test on `https://tienda.mibotica.app`** (≈10–15 min)
-
-Emails link to `tienda.ilvmx.org` (the canonical host), which still shows the
-maintenance page until the DNS switch — that's expected.
-
-- [ ] Home and catalog render; product cover images load (R2)
-- [ ] Search returns results (Typesense)
-- [ ] Log in with an existing account (proves the data and `RAILS_MASTER_KEY`)
-- [ ] Sign up a test account → verification email arrives (UniOne)
-- [ ] Password reset email arrives (UniOne)
-- [ ] Cart → address with postal-code lookup → order summary (stop before paying)
-- [ ] Backoffice: dashboard, orders list, an order detail
-- [ ] Backoffice: upload a **new** cover image on a test/draft product (R2 direct upload + CORS). Don't delete or replace images of real products — the bucket is shared with production.
-- [ ] `/jobs` (Mission Control) loads; `release_expired_reservations` is listed as recurring
-- [ ] `dotenv -f .env.production kamal logs` shows no errors; nothing new in Sentry
-
-If something is broken and can't be fixed quickly → [Rollback](#rollback).
-
-**6. Switch DNS** (≈1 min + propagation)
-
-Point the `tienda.ilvmx.org` A record at the new server IP. Then watch it
-propagate:
-
-```bash
-dig +short tienda.ilvmx.org @1.1.1.1
-dig +short tienda.ilvmx.org @8.8.8.8
-```
-
-**7. Enable `tienda.ilvmx.org` in Caddy** (≈2 min) — once `dig` returns the new IP
-
-In the medistock repo, uncomment the `tienda.ilvmx.org { … }` block in
-`config/Caddyfile`, then:
-
-```bash
-dotenv -f .env.production kamal accessory reboot caddy
-```
-
-Watch the certificate get issued:
-
-```bash
-ssh -p 20202 deploy@$SERVER_IP "docker logs --since 5m \$(docker ps -qf name=caddy) 2>&1 | grep -i tienda.ilvmx.org"
-curl -fsS https://tienda.ilvmx.org/up
-```
-
-**8. Verify live on `https://tienda.ilvmx.org`** (≈10 min)
-
-- [ ] Site loads with a valid certificate, no maintenance page
-- [ ] Log in, search, browse
-- [ ] **Real purchase** with a low-value product (or a card you'll refund):
-      Stripe Checkout → redirected back to the order → order marked paid
-- [ ] Stripe dashboard → Developers → Webhooks → live endpoint: latest
-      deliveries return `2xx`. Any events that failed during the window
-      (503 from maintenance) are retried by Stripe automatically — check they
-      end up delivered.
-- [ ] Order email arrives (customer + `SALES_EMAIL_ADDRESS` cc), links point to `tienda.ilvmx.org`
-- [ ] Backoffice: mark an order in transit → in-transit email (optional)
-- [ ] `/jobs` shows jobs being processed; no errors in Sentry/logs
-
-Done. Leave the old server in maintenance (don't resume it).
-
-### Rollback
-
-- **Before step 6 (DNS)** — customers never reached the new server. Resume
-  the old one:
+- **`kamal deploy` does not boot accessories.** The first deploy failed its
+  health check with `could not translate host name "ilv_store-db"` because the
+  db and Typesense containers had never been created. On a fresh server, use
+  `kamal setup` (or `kamal accessory boot all` before `kamal deploy`).
+- **Lower the DNS TTL *before* the switch.** The record's old TTL was ~3
+  hours, so resolvers that had cached it (e.g. an ISP/router resolver) kept
+  returning the old IP for up to that long after the change, even though the
+  authoritative servers and public resolvers (`1.1.1.1`, `8.8.8.8`) already
+  had the new one. Keeping the old server in maintenance covers that gap: late
+  visitors see the maintenance page instead of writing to the old database.
+  To check propagation, compare the authoritative answer with your local one:
   ```bash
-  ssh -p 20202 root@$OLD_SERVER_IP "docker exec kamal-proxy kamal-proxy resume ilv_store-web"
+  dig +short tienda.ilvmx.org @$(dig +short NS ilvmx.org | head -1)
+  dig +short tienda.ilvmx.org
   ```
-- **After step 6** — point the DNS record back to the old IP, then resume the
-  old server as above. Orders placed on the new server in between must be
-  reconciled by hand (check Stripe payments since the switch time).
+- **Check host ports on the shared server first** — the port originally
+  planned for Postgres was already in use, hence 5436.
 
-### D. After the migration
+## Day-to-day operations
 
-- [ ] Delete `tmp/ilv_store_production.dump`
-- [ ] Commit the uncommented `tienda.ilvmx.org` block in medistock and merge
-      both branches
-- [ ] Restore the `tienda.ilvmx.org` DNS TTL to its normal value (after a day or two)
-- [ ] Set up a scheduled `pg_dump` backup of `ilv_store-db`, stored off the server
+```bash
+dotenv -f .env.production kamal deploy
+dotenv -f .env.production kamal logs
+dotenv -f .env.production kamal console
+dotenv -f .env.production kamal dbc
+dotenv -f .env.production kamal typesense-reindex
+dotenv -f .env.production kamal accessory details all
+```
+
+## Pending
+
+- [ ] Delete `tmp/ilv_store_production.dump` locally (it contains customer data)
+- [ ] Keep the old server in maintenance ≥ 48h, confirm it gets no real traffic:
+      `ssh -p 20202 root@$OLD_SERVER_IP "docker logs --since 1h kamal-proxy 2>&1 | grep -c tienda.ilvmx.org"`
+- [ ] Final dump of the old server, then decommission it
+- [ ] Scheduled `pg_dump` backup of `ilv_store-db`, stored off the server
 - [ ] Delete the `ilv_store` repository on Docker Hub and its access token
-- [ ] After ~7 days without issues: final dump of the old server, then decommission it
-- [ ] Update this plan's status and note anything that deviated
-
-## Risks
-
-| Risk | Mitigation |
-| ---- | ---------- |
-| `tienda.mibotica.app` caught by medistock's on-demand `:443` block | Named Caddy block, validated before the window (B.1) |
-| Rebinding the shared kamal-proxy | No `proxy.run`; never `kamal proxy reboot` from this repo |
-| Port clash with medistock CI runner (5434) | ilv_store-db on 5435; preflight check (A.6) |
-| Orders written after the dump | Old server in maintenance before the dump (C.1) |
-| Jobs lost or run twice | Queue drained before the dump; queue DB not migrated (C.2) |
-| Staging tests delete production R2 files | Only upload new images during testing, no deletes |
-| Stripe webhooks missed during the window | Stripe retries failed deliveries; verified in C.8 |
-| Slow DNS propagation | TTL lowered days before (A.1); old server keeps showing maintenance |
-| Postgres 16 → 18 restore issue | Restore errors are visible immediately in C.4 → rollback before DNS |
-| Let's Encrypt failures for `tienda.ilvmx.org` | Caddy block enabled only after DNS points to the new server (C.7) |
+- [ ] Remove `KAMAL_REGISTRY_PASSWORD` from `.env.production`
+- [ ] medistock `config/Caddyfile`: the comment above the `tienda.ilvmx.org`
+      block still says "To enable: uncomment" — update it
